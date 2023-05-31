@@ -1,0 +1,138 @@
+<form version="1.1">
+  <label>Entity Management Reporting and Analysis</label>
+  <search id="itsi_entities">
+    <query>| inputlookup itsi_entities 
+| lookup itsi_entity_types _key AS entity_type_ids OUTPUT title AS entity_type
+| rename _key AS entity_key
+| rename _status.combined AS entity_status
+| rename title AS entity_title
+| fields - _status.breakdown*
+| rename _* AS hidden_*
+| stats values(*) AS * by entity_key</query>
+    <earliest>-24h@h</earliest>
+    <latest>now</latest>
+  </search>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="text" token="entity_title" searchWhenChanged="true">
+      <label>Entity Title</label>
+      <default>*</default>
+      <initialValue>*</initialValue>
+    </input>
+    <input type="dropdown" token="entity_status" searchWhenChanged="true">
+      <label>Entity Status</label>
+      <choice value="*">All</choice>
+      <choice value="active">Active</choice>
+      <choice value="unstable">Unstable</choice>
+      <choice value="inactive">Inactive</choice>
+      <choice value="N/A">N/A</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+    </input>
+    <input type="dropdown" token="entity_type" searchWhenChanged="true">
+      <label>Entity Type</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <fieldForLabel>title</fieldForLabel>
+      <fieldForValue>title</fieldForValue>
+      <search>
+        <query>| inputlookup itsi_entity_types
+| sort title</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Total Entities</title>
+      <single>
+        <search base="itsi_entities">
+          <query>| search entity_status=* entity_type=$entity_type|s$ entity_title=$entity_title|s$
+| stats count</query>
+        </search>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <set token="form.entity_status">*</set>
+        </drilldown>
+      </single>
+    </panel>
+    <panel>
+      <title>Active Entities</title>
+      <single>
+        <search base="itsi_entities">
+          <query>| search entity_status=active entity_type=$entity_type|s$ entity_title=$entity_title|s$
+| stats count</query>
+        </search>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0x53a051","0x53a051"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="useColors">1</option>
+        <drilldown>
+          <set token="form.entity_status">Active</set>
+        </drilldown>
+      </single>
+    </panel>
+    <panel>
+      <title>Unstable Entities</title>
+      <single>
+        <search base="itsi_entities">
+          <query>| search entity_status=unstable entity_type=$entity_type|s$ entity_title=$entity_title|s$
+| stats count</query>
+        </search>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0xf8be34","0xf8be34"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="useColors">1</option>
+        <drilldown>
+          <set token="form.entity_status">Unstable</set>
+        </drilldown>
+      </single>
+    </panel>
+    <panel>
+      <title>Inactive Entities</title>
+      <single>
+        <search base="itsi_entities">
+          <query>| search entity_status=inactive entity_type=$entity_type|s$ entity_title=$entity_title|s$
+| stats count</query>
+        </search>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0xdc4e41","0xdc4e41"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="useColors">1</option>
+        <drilldown>
+          <set token="form.entity_status">Inactive</set>
+        </drilldown>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Entities Matching Filter Criteria</title>
+      <table>
+        <search base="itsi_entities">
+          <query>| search entity_status=$entity_status|s$ entity_type=$entity_type|s$ entity_title=$entity_title|s$
+| eval discovery_search_count=mvcount(hidden_itsi_entity_status_lookups)+1
+| eval hidden_itsi_entity_status_lookups=mvindex(hidden_itsi_entity_status_lookups,1,discovery_search_count)
+| eval stale_discovery_searches=mvfilter(NOT match(hidden_itsi_entity_status_lookups,"=just_now"))
+| fields entity_title, entity_key, entity_type stale_discovery_searches, entity_status
+| mvexpand stale_discovery_searches
+| rex field=stale_discovery_searches "^(?&lt;discovery_search_name&gt;[^=]+)=(?&lt;last_discovered_time&gt;.*)$"
+| sort last_discovered_time
+| convert timeformat="%m/%d/%Y %H:%M:%S %Z" ctime(last_discovered_time)
+| stats list(discovery_search_name) AS discovery_search_name, list(last_discovered_time) AS last_discovered_time by entity_title, entity_key, entity_type, entity_status</query>
+        </search>
+        <option name="count">100</option>
+        <option name="drilldown">none</option>
+        <format type="color" field="entity_status">
+          <colorPalette type="map">{"active":#53A051,"unstable":#F8BE34,"inactive":#DC4E41}</colorPalette>
+        </format>
+      </table>
+    </panel>
+  </row>
+</form>

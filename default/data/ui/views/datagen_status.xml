@@ -1,0 +1,69 @@
+<form version="1.1" theme="dark">
+  <label>Datagen Status</label>
+  <fieldset submitButton="true" autoRun="true">
+    <input type="time" token="timefield">
+      <label>Time</label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="dropdown" token="m_index">
+      <label>Index</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <fieldForLabel>index</fieldForLabel>
+      <fieldForValue>index</fieldForValue>
+      <search>
+        <query>| mstats count(_value) where index=* AND metric_name=* by index</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+    <input type="text" token="host">
+      <label>Host</label>
+      <choice value="*">ALL</choice>
+      <default>*</default>
+      <fieldForLabel>host</fieldForLabel>
+      <fieldForValue>host</fieldForValue>
+      <search>
+        <query>| mcatalog values(host) where metric_name=* index=$m_index$ by host | table host</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Index Dims</title>
+      <table>
+        <search>
+          <query>| mcatalog values(_dims) where metric_name=* AND index=$m_index$ AND host=$host$ by "host"</query>
+          <earliest>$timefield.earliest$</earliest>
+          <latest>$timefield.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Metrics</title>
+      <table>
+        <search>
+          <query>| mstats latest(_value) WHERE index=$m_index$ AND metric_name="*" AND host=$host$ BY host metric_name</query>
+          <earliest>$timefield.earliest$</earliest>
+          <latest>$timefield.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">100</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+</form>
