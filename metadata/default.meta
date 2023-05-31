@@ -1,0 +1,145 @@
+
+# Application-level permissions
+
+[]
+access = read : [ * ], write : [ admin, power ]
+
+### EVENT TYPES
+
+[eventtypes]
+export = system
+
+
+### PROPS
+
+[props]
+export = system
+
+
+### TRANSFORMS
+
+[transforms]
+export = system
+
+
+### LOOKUPS
+
+[lookups]
+export = system
+
+
+### VIEWSTATES: even normal users should be able to create shared viewstates
+
+[viewstates]
+access = read : [ * ], write : [ * ]
+export = system
+
+[macros/linux_metrics_gen_cpu_stable]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+modtime = 1673377010.263480000
+
+[macros/linux_metrics_gen_df_stable]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+modtime = 1673469036.605597000
+
+[macros/linux_metrics_gen_disk_stable]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+
+[macros/linux_metrics_gen_memory_stable]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+
+[macros/linux_metrics_gen_network_stable]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+
+[macros/TestSearch%283%29]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+modtime = 1673381683.379819000
+
+[macros/generate_linux_entities%283%29]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+modtime = 1673462192.752304000
+
+[app/package/check_for_updates]
+version = 9.0.0
+modtime = 1673450439.181941000
+
+[views/datagen_status]
+version = 9.0.0
+modtime = 1673535377.703666000
+
+[savedsearches/Test%20Entity%20Generator%20Linux%2FUnix]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+modtime = 1673469156.168020000
+
+[macros/linux_metrics_gen_memory_unstable]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+modtime = 1673468688.979812000
+
+[macros/generate_linux_entities_unstable%283%29]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+modtime = 1673469152.494534000
+
+[savedsearches/Test%20Entity%20Generator%20Windows]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+modtime = 1673473984.638347000
+
+[macros/windows_metrics_stable]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+modtime = 1673473587.302345000
+
+[macros/generate_windows_entities%283%29]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+modtime = 1673535554.733705000
+
+[macros/linux_metrics_gen_df_unstable]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+modtime = 1673630030.279948000
+
+[savedsearches/mysql_error_generator]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+version = 9.0.0
+modtime = 1673637366.847827000
+
+[lookups/eventstorm_hosts.csv]
+access = read : [ * ], write : [ admin, power ]
+export = none
+version = 9.0.0
+
+[savedsearches/Nagios%20Event%20Storm%202]
+access = read : [ * ], write : [ admin, power ]
+export = none
+version = 9.0.0
+
+[savedsearches/Nagios%20Event%20Storm]
+access = read : [ * ], write : [ admin, power ]
+export = none
+version = 9.0.0
