@@ -1,2 +1,2 @@
 # mr_data_gen
-This app generated data using makeresults searches
+This app generates data using makeresults searches
