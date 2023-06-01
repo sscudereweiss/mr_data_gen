@@ -1,5 +1,7 @@
 <nav search_view="search">
-  <view name="search" default='true' />
+  <view name="datagen_status" default='true' />
+  <view name="entity_management_reporting_and_analytics" />
+  <view name="search" />
   <view name="analytics_workspace" />
   <view name="datasets" />
   <view name="reports" />
