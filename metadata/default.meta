@@ -123,7 +123,7 @@ export = system
 version = 9.0.0
 modtime = 1673630030.279948000
 
-[macros/rum_metrics_stable%281%29]
+[macros/rum_metrics%281%29]
 access = read : [ * ], write : [ admin, itoa_admin ]
 export = system
 owner = admin
