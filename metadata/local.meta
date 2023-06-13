@@ -167,6 +167,20 @@ owner = admin
 version = 9.0.4.1
 modtime = 1685648939.039279000
 
+[macros/itsi_event_management_get_mean_time%281%29]
+access = read : [ * ], write : [ * ]
+export = system
+owner = admin
+version = 9.0.4.1
+modtime = 1686667413.039279000
+
+[macros/itsi_event_management_get_episode_count%281%29]
+access = read : [ * ], write : [ * ]
+export = system
+owner = admin
+version = 9.0.4.1
+modtime = 1686667413.039279000
+
 [savedsearches/SLG%20APM%20Generator]
 access = read : [ * ], write : [ admin ]
 export = system
