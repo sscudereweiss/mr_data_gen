@@ -130,12 +130,6 @@ owner = admin
 version = 9.0.5
 modtime = 1686162445.967424000
 
-[savedsearches/mysql_error_generator]
-access = read : [ * ], write : [ admin, itoa_admin ]
-export = system
-version = 9.0.0
-modtime = 1673637366.847827000
-
 [lookups/eventstorm_hosts.csv]
 access = read : [ * ], write : [ admin, power ]
 export = none

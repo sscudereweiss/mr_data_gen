@@ -42,10 +42,6 @@ modtime = 1682703083.244286000
 version = 9.0.4
 modtime = 1682703088.079561000
 
-[savedsearches/mysql_error_generator]
-version = 9.0.4
-modtime = 1682703144.592497000
-
 [savedsearches/Test%20Entity%20Generator%20Windows]
 version = 9.0.4
 modtime = 1682704617.667523000
@@ -70,20 +66,6 @@ export = system
 owner = admin
 version = 9.0.4.1
 modtime = 1685547819.777542000
-
-[savedsearches/hi_ed_mysql_error_generator]
-access = read : [ * ], write : [ admin, itoa_admin ]
-export = system
-owner = admin
-version = 9.0.4.1
-modtime = 1685456938.358747000
-
-[savedsearches/slg_mysql_error_generator]
-access = read : [ * ], write : [ admin, itoa_admin ]
-export = system
-owner = admin
-version = 9.0.4.1
-modtime = 1685456938.358747000
 
 [savedsearches/Hi-ED%20DC%202%20Generator]
 access = read : [ * ], write : [ admin, itoa_admin ]
