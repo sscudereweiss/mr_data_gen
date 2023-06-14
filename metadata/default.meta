@@ -129,8 +129,3 @@ export = system
 owner = admin
 version = 9.0.5
 modtime = 1686162445.967424000
-
-[lookups/eventstorm_hosts.csv]
-access = read : [ * ], write : [ admin, power ]
-export = none
-version = 9.0.0

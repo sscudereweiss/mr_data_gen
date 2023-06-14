@@ -2,49 +2,12 @@
 version = 9.0.0
 modtime = 1674053151.104310000
 
-[app/ui]
-version = 9.0.0
-modtime = 1674053677.799232000
-
-[app/launcher]
-version = 9.0.0
-modtime = 1674053677.802617000
-
-[app/package/check_for_updates]
-version = 9.0.0
-modtime = 1674053677.803390000
-
 [props/host%3A%3Ajvm-prd%2A/EVAL-alert_group]
 access = read : [ * ], write : [ admin, itoa_admin ]
 export = system
 owner = admin
 version = 9.0.0
 modtime = 1674762730.681459000
-
-[lookups/simple_replaytest.csv]
-owner = admin
-version = 9.0.0
-modtime = 1674836877.627736000
-
-[savedsearches/Test%20Entity%20Generator%20Linux%2FUnix]
-version = 9.0.4
-modtime = 1682704611.493544000
-
-[savedsearches/Nagios%20JVM%20Issues]
-version = 9.0.4
-modtime = 1682703077.425478000
-
-[savedsearches/Nagios%20Stable%20Alerts]
-version = 9.0.4
-modtime = 1682703083.244286000
-
-[savedsearches/Nagios%20Unstable%20Alerts]
-version = 9.0.4
-modtime = 1682703088.079561000
-
-[savedsearches/Test%20Entity%20Generator%20Windows]
-version = 9.0.4
-modtime = 1682704617.667523000
 
 [savedsearches/SLG%20DC%202%20Generator]
 access = read : [ * ], write : [ admin, itoa_admin ]
