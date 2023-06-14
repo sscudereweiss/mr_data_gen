@@ -78,6 +78,13 @@ owner = admin
 version = 9.0.4.1
 modtime = 1685456938.358747000
 
+[savedsearches/slg_mysql_error_generator]
+access = read : [ * ], write : [ admin, itoa_admin ]
+export = system
+owner = admin
+version = 9.0.4.1
+modtime = 1685456938.358747000
+
 [savedsearches/Hi-ED%20DC%202%20Generator]
 access = read : [ * ], write : [ admin, itoa_admin ]
 export = system
