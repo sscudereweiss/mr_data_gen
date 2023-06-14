@@ -134,13 +134,3 @@ modtime = 1686162445.967424000
 access = read : [ * ], write : [ admin, power ]
 export = none
 version = 9.0.0
-
-[savedsearches/Nagios%20Event%20Storm%202]
-access = read : [ * ], write : [ admin, power ]
-export = none
-version = 9.0.0
-
-[savedsearches/Nagios%20Event%20Storm]
-access = read : [ * ], write : [ admin, power ]
-export = none
-version = 9.0.0
