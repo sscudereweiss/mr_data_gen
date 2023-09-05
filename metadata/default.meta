@@ -129,3 +129,10 @@ export = system
 owner = admin
 version = 9.0.5
 modtime = 1686162445.967424000
+
+[macros/set_snow_url]
+access = read : [ * ], write : [ * ]
+export = system
+owner = admin
+version = 8.2.11.2
+modtime = 1693942348.988788000
