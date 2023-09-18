@@ -1,10 +1,10 @@
 <nav search_view="search">
-  <view name="datagen_status" default='true' />
+  <view name="datagen_status"/>
   <view name="entity_management_reporting_and_analytics" />
   <view name="search" />
   <view name="analytics_workspace" />
   <view name="datasets" />
-  <view name="reports" />
+  <view name="reports"  default='true'/>
   <view name="alerts" />
   <view name="dashboards" />
 </nav>
