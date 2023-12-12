@@ -1,5 +1,5 @@
 #! /bin/bash
-minutes_backfill=1440
+minutes_backfill=10080
 file="windows_entity_list.txt"
 backfill_start=$(date -u)
 if [ -r "$file" ]; then
