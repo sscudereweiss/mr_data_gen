@@ -1,6 +1,6 @@
 #! /bin/bash
 minutes_backfill=10080
-file="nix_entity_list.txt"
+file="/opt/splunk/etc/apps/mr_data_gen/bin/nix_entity_list.txt"
 backfill_start=$(date -u)
 if [ -r "$file" ]; then
      while IFS= read -r line; do
