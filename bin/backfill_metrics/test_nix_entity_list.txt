@@ -1,6 +1,0 @@
-Test_EDU_DC_1_Authorization_01
-Test_EDU_DC_1_Course_Picker_01
-Test_EDU_DC_1_MySQL_01
-Test_EDU_DC_2_Authorization_01
-Test_EDU_DC_2_Course_Picker_01
-Test_EDU_DC_2_MySQL_01
