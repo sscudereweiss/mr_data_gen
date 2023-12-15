@@ -1,11 +1,12 @@
 #! /bin/bash
+start_time=`date +%s.%N`
 minutes_backfill=10080
 file="/opt/splunk/etc/apps/mr_data_gen/bin/nix_entity_list.txt"
 backfill_start=$(date -u)
 if [ -r "$file" ]; then
      while IFS= read -r line; do
           echo $line
-          for ((i=1; i<=$minutes_backfill; i++)); do
+          for ((i=5; i<=$minutes_backfill; i+=5)); do
                back_time=$(date -d "$backfill_start -"$i" minutes" +%s)
                CPU_Idle=$(shuf -i 30-80 -n 1) # Random CPU usage between 10% and 80%
                Memory_Usage=$(shuf -i 60-80 -n 1) # Random Memory usage between 30% and 80%
@@ -20,3 +21,7 @@ if [ -r "$file" ]; then
 else
     echo "File $file does not exist or is not readable."
 fi
+
+end_time=`date +%s.%N`
+runtime=$( echo "$end_time - $start_time" | bc -l )
+echo "nix backfill finished in $runtime seconds"
