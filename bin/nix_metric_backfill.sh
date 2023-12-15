@@ -12,7 +12,7 @@ if [ -r "$file" ]; then
                Disk_Free=$(shuf -i 40-60 -n 1) # Random Disk free between 40% and 80%
                Disk_Read=$(shuf -i 100-2100 -n 1) # Random Disk read between 100 and 2100 bytes
                Disk_Write=$(shuf -i 100-2100 -n 1) # Random Disk write between 100 and 2100 bytes
-               Network_Bytes_Received=$(shuf -i 10000-1000000 -n 1 # Random Bytes received/sec between 1MB and 11MB
+               Network_Bytes_Received=$(shuf -i 10000-1000000) -n 1 # Random Bytes received/sec between 1MB and 11MB
                Network_Bytes_Sent=$(shuf -i 10000-600000 -n 1) # Random Bytes sent/sec between 1MB and 6MB
                curl -k -s -o /dev/null https://localhost:8088/services/collector \
                -H "Authorization: Splunk e675db8b-7149-48ed-9483-4f3d0b070f7e" \
