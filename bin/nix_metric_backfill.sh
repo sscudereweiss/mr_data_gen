@@ -1,6 +1,7 @@
 #! /bin/bash
 start_time=`date +%s.%N`
-minutes_backfill=10080
+#minutes_backfill=10080
+minutes_backfill=1440
 file="/opt/splunk/etc/apps/mr_data_gen/bin/nix_entity_list.txt"
 backfill_start=$(date -u)
 if [ -r "$file" ]; then
