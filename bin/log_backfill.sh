@@ -10,10 +10,9 @@ backfill_start=$(date -u)
 if [ -r "$file" ]; then
      while IFS= read -r line; do
           echo $line
-          (for ((i=5; i<=$minutes_backfill; i+=5)); do
+          (for ((i=1; i<=$minutes_backfill; i++)); do
                minute=$(date -d "$backfill_start -"$i" minutes" +"%M")
                if [[ $minute > 40 ]]; then 
-                    echo $minute
                     back_time=$(date -d "$backfill_start -"$i" minutes" +%s)
                     curl -k -s -o /dev/null https://localhost:8088/services/collector -H "Authorization: Splunk ${hec_token}" -d '{"time": "'${back_time}'", "index": "mysql", "host": "'${line}'", "event": "[CRITICAL] /opt/mysql/bin/mysqld: Disk is full writing '/mysqllog/binlog/localhost-3306-bin.000020' (Errcode: 28). Waiting for someone to free space... Retry in 60 secs"}'
                fi
