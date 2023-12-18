@@ -14,7 +14,7 @@ if [ -r "$file" ]; then
                minute=$(date -d "$backfill_start -"$i" minutes" +"%M")
                if [[ $minute > 40 ]]; then 
                     back_time=$(date -d "$backfill_start -"$i" minutes" +%s)
-                    curl -k -s -o /dev/null https://localhost:8088/services/collector -H "Authorization: Splunk ${hec_token}" -d '{"time": "'${back_time}'", "index": "mysql", "host": "'${line}'", "event": "[CRITICAL] /opt/mysql/bin/mysqld: Disk is full writing '/mysqllog/binlog/localhost-3306-bin.000020' (Errcode: 28). Waiting for someone to free space... Retry in 60 secs"}'
+                    curl -k  https://localhost:8088/services/collector -H "Authorization: Splunk ${hec_token}" -d '{"time": "'${back_time}'", "index": "mysql", "host": "'${line}'", "event": "[CRITICAL] /opt/mysql/bin/mysqld: Disk is full writing '/mysqllog/binlog/localhost-3306-bin.000020' (Errcode: 28). Waiting for someone to free space... Retry in 60 secs"}'
                fi
                
                done) &
