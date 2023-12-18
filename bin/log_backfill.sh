@@ -11,9 +11,10 @@ if [ -r "$file" ]; then
      while IFS= read -r line; do
           echo $line
           (for ((i=5; i<=$minutes_backfill; i+=5)); do
-               back_time=$(date -d "$backfill_start -"$i" minutes" +"%Y/%m/%d %H:%M:%S")
-               log_line="$back_time [CRITICAL] /opt/mysql/bin/mysqld: Disk is full writing '/mysqllog/binlog/localhost-3306-bin.000020' (Errcode: 28). Waiting for someone to free space... Retry in 60 secs"
-               curl -k https://localhost:8088/services/collector -H "Authorization: Splunk ${hec_token}" -d '{ "event": "'${log_line}'", "host": "'${line}'"}}'
+               #back_time=$(date -d "$backfill_start -"$i" minutes" +"%Y/%m/%d %H:%M:%S")
+               back_time=$(date -d "$backfill_start -"$i" minutes" +%s)
+               log_line="[CRITICAL] /opt/mysql/bin/mysqld: Disk is full writing '/mysqllog/binlog/localhost-3306-bin.000020' (Errcode: 28). Waiting for someone to free space... Retry in 60 secs"
+               curl -k https://localhost:8088/services/collector -H "Authorization: Splunk ${hec_token}" -d '{"time": "'${back_time}'", "event": "[CRITICAL] /opt/mysql/bin/mysqld: Disk is full writing '/mysqllog/binlog/localhost-3306-bin.000020' (Errcode: 28). Waiting for someone to free space... Retry in 60 secs"}'
                done) &
      done < "$file"
      wait
