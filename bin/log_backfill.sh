@@ -4,8 +4,8 @@ start_time=`date +%s.%N`
 #minutes_backfill=1440
 minutes_backfill=10
 hec_token="60469025-55a6-4718-81af-4c047f13401b"
-#file="/opt/splunk/etc/apps/mr_data_gen/bin/db_entity_list.txt"
-file="db_entity_list.txt"
+file="/opt/splunk/etc/apps/mr_data_gen/bin/db_entity_list.txt"
+#file="db_entity_list.txt"
 backfill_start=$(date -u)
 if [ -r "$file" ]; then
      while IFS= read -r line; do
