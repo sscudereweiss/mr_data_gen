@@ -1,0 +1,319 @@
+{
+  "title": "License Renewal DC 2",
+  "description": "",
+  "sec_grp": "default_itsi_security_group",
+  "tags": [],
+  "kpis": [
+    {
+      "title": "ServiceHealthScore",
+      "threshold_eval": "",
+      "alert_on": "both",
+      "datamodel": {
+        "datamodel": "",
+        "object": "",
+        "owner_field": "",
+        "field": ""
+      },
+      "unit": "",
+      "gap_severity_value": "-1",
+      "search_aggregate": "`get_full_itsi_summary_service_health_events(8ff042ce-65c2-4773-8321-23fe2bebd60b)` | stats latest(health_score) AS aggregate",
+      "fill_gaps": "null_value",
+      "search_alert_earliest": "15",
+      "kpi_template_kpi_id": "",
+      "type": "service_health",
+      "_owner": "nobody",
+      "adaptive_thresholds_is_enabled": false,
+      "source": "",
+      "urgency": "11",
+      "anomaly_detection_is_enabled": false,
+      "cohesive_anomaly_detection_is_enabled": false,
+      "target": "",
+      "time_variate_thresholds_specification": {
+        "policies": {
+          "default_policy": {
+            "policy_type": "static",
+            "title": "Default",
+            "time_blocks": [],
+            "aggregate_thresholds": {
+              "thresholdLevels": [],
+              "gaugeMax": 100,
+              "gaugeMin": 0,
+              "baseSeverityLabel": "info",
+              "metricField": "count",
+              "search": "",
+              "renderBoundaryMin": 0,
+              "baseSeverityValue": 1,
+              "baseSeverityColor": "#AED3E5",
+              "isMaxStatic": false,
+              "isMinStatic": true,
+              "baseSeverityColorLight": "#E3F0F6",
+              "renderBoundaryMax": 100
+            },
+            "entity_thresholds": {
+              "thresholdLevels": [],
+              "gaugeMax": 100,
+              "gaugeMin": 0,
+              "baseSeverityLabel": "info",
+              "metricField": "count",
+              "search": "",
+              "renderBoundaryMin": 0,
+              "baseSeverityValue": 1,
+              "baseSeverityColor": "#AED3E5",
+              "isMaxStatic": false,
+              "isMinStatic": true,
+              "baseSeverityColorLight": "#E3F0F6",
+              "renderBoundaryMax": 100
+            }
+          }
+        }
+      },
+      "threshold_field": "aggregate",
+      "aggregate_eval": "",
+      "description": "",
+      "search_buckets": "",
+      "is_service_entity_filter": false,
+      "aggregate_statop": "avg",
+      "alert_eval": "",
+      "entity_statop": "avg",
+      "aggregate_thresholds": {
+        "thresholdLevels": [
+          {
+            "thresholdValue": 0,
+            "severityLabel": "critical",
+            "severityValue": 6,
+            "severityColor": "#B50101",
+            "severityColorLight": "#E5A6A6"
+          },
+          {
+            "thresholdValue": 20,
+            "severityLabel": "high",
+            "severityValue": 5,
+            "severityColor": "#F26A35",
+            "severityColorLight": "#FBCBB9"
+          },
+          {
+            "thresholdValue": 40,
+            "severityLabel": "medium",
+            "severityValue": 4,
+            "severityColor": "#FCB64E",
+            "severityColorLight": "#FEE6C1"
+          },
+          {
+            "thresholdValue": 60,
+            "severityLabel": "low",
+            "severityValue": 3,
+            "severityColor": "#FFE98C",
+            "severityColorLight": "#FFF4C5"
+          },
+          {
+            "thresholdValue": 80,
+            "severityLabel": "normal",
+            "severityValue": 2,
+            "severityColor": "#99D18B",
+            "severityColorLight": "#DCEFD7"
+          }
+        ],
+        "gaugeMax": 100,
+        "isMaxStatic": false,
+        "baseSeverityLabel": "normal",
+        "metricField": "count",
+        "search": "",
+        "renderBoundaryMin": 0,
+        "baseSeverityValue": 2,
+        "baseSeverityColor": "#99D18B",
+        "gaugeMin": 0,
+        "isMinStatic": true,
+        "baseSeverityColorLight": "#DCEFD7",
+        "renderBoundaryMax": 100
+      },
+      "anomaly_detection_training_window": "-7d",
+      "entity_thresholds": {
+        "thresholdLevels": [
+          {
+            "thresholdValue": 0,
+            "severityLabel": "critical",
+            "severityValue": 6,
+            "severityColor": "#B50101",
+            "severityColorLight": "#E5A6A6"
+          },
+          {
+            "thresholdValue": 20,
+            "severityLabel": "high",
+            "severityValue": 5,
+            "severityColor": "#F26A35",
+            "severityColorLight": "#FBCBB9"
+          },
+          {
+            "thresholdValue": 40,
+            "severityLabel": "medium",
+            "severityValue": 4,
+            "severityColor": "#FCB64E",
+            "severityColorLight": "#FEE6C1"
+          },
+          {
+            "thresholdValue": 60,
+            "severityLabel": "low",
+            "severityValue": 3,
+            "severityColor": "#FFE98C",
+            "severityColorLight": "#FFF4C5"
+          },
+          {
+            "thresholdValue": 80,
+            "severityLabel": "normal",
+            "severityValue": 2,
+            "severityColor": "#99D18B",
+            "severityColorLight": "#DCEFD7"
+          }
+        ],
+        "gaugeMax": 100,
+        "isMaxStatic": false,
+        "baseSeverityLabel": "normal",
+        "metricField": "count",
+        "search": "",
+        "renderBoundaryMin": 0,
+        "baseSeverityValue": 2,
+        "baseSeverityColor": "#99D18B",
+        "gaugeMin": 0,
+        "isMinStatic": true,
+        "baseSeverityColorLight": "#DCEFD7",
+        "renderBoundaryMax": 100
+      },
+      "datamodel_filter": [],
+      "alert_lag": "30",
+      "kpi_base_search": "",
+      "base_search": "`get_full_itsi_summary_service_health_events(8ff042ce-65c2-4773-8321-23fe2bebd60b)`",
+      "anomaly_detection_sensitivity": 0.999,
+      "search_time_series_aggregate": "`get_full_itsi_summary_service_health_events(8ff042ce-65c2-4773-8321-23fe2bebd60b)` | timechart avg(health_score) AS aggregate",
+      "tz_offset": null,
+      "is_entity_breakdown": false,
+      "search_time_series": "`get_full_itsi_summary_service_health_events(8ff042ce-65c2-4773-8321-23fe2bebd60b)` | timechart avg(health_score) AS aggregate",
+      "search_alert": "",
+      "search": "`get_full_itsi_summary_service_health_events(8ff042ce-65c2-4773-8321-23fe2bebd60b)` | stats latest(health_score) AS aggregate",
+      "time_variate_thresholds": false,
+      "search_alert_entities": "",
+      "anomaly_detection_alerting_enabled": false,
+      "adaptive_thresholding_training_window": "-7d",
+      "gap_severity_color": "#CCCCCC",
+      "entity_id_fields": "",
+      "entity_breakdown_id_fields": "",
+      "alert_period": "1",
+      "gap_severity": "unknown",
+      "gap_severity_color_light": "#EEEEEE",
+      "search_time_series_entities": "",
+      "search_time_compare": "`get_full_itsi_summary_service_health_events(8ff042ce-65c2-4773-8321-23fe2bebd60b)` [| stats count | addinfo | eval search= \"earliest=\" + tostring(info_min_time-(info_max_time-info_min_time))+ \" latest=\" + tostring(info_max_time) |fields search] | addinfo | eval bucket=if(_time<info_max_time-((info_max_time-info_min_time)/2), \"last_window\", \"current_window\") | stats avg(health_score) AS aggregate BY bucket | reverse | delta aggregate AS window_delta | search bucket=current_window | eval window_direction=if(window_delta >0, \"increase\", if(window_delta < 0, \"decrease\", \"none\"))",
+      "_key": "SHKPI-8ff042ce-65c2-4773-8321-23fe2bebd60b",
+      "search_occurrences": 1,
+      "backfill_earliest_time": "-7d",
+      "search_type": "adhoc",
+      "service_id": "8ff042ce-65c2-4773-8321-23fe2bebd60b",
+      "service_title": "License Renewal DC 2",
+      "trending_ad": {
+        "sensitivity": 8
+      },
+      "cohesive_ad": {
+        "sensitivity": 8
+      },
+      "aggregate_thresholds_alert_enabled": false,
+      "aggregate_thresholds_custom_alert_enabled": false,
+      "aggregate_thresholds_custom_alert_rules": [],
+      "gap_custom_alert_value": 0,
+      "metric": {
+        "metric_index": "",
+        "metric_name": ""
+      },
+      "kpi_threshold_template_id": "",
+      "active_custom_threshold_window": "",
+      "linked_custom_threshold_windows": [],
+      "recalculate_custom_thresholds": false,
+      "backfill_enabled": false
+    }
+  ],
+  "serviceTemplateId": "",
+  "_owner": "nobody",
+  "service_template_id": "",
+  "services_depends_on": [
+    {
+      "serviceid": "20d74c10-47b3-4abb-a07e-abc917b4fdbc",
+      "kpis_depending_on": [
+        "SHKPI-20d74c10-47b3-4abb-a07e-abc917b4fdbc"
+      ]
+    },
+    {
+      "serviceid": "e1570c08-fbe9-41dd-a0a9-a92908bf53db",
+      "kpis_depending_on": [
+        "SHKPI-e1570c08-fbe9-41dd-a0a9-a92908bf53db"
+      ]
+    },
+    {
+      "serviceid": "22199eaa-d72f-480a-91e1-f8cf042d332e",
+      "kpis_depending_on": [
+        "SHKPI-22199eaa-d72f-480a-91e1-f8cf042d332e"
+      ]
+    }
+  ],
+  "services_depending_on_me": [
+    {
+      "serviceid": "f9bc21f2-6d76-4db4-8f8d-affba5da3910",
+      "kpis_depending_on": [
+        "SHKPI-8ff042ce-65c2-4773-8321-23fe2bebd60b"
+      ]
+    }
+  ],
+  "enabled": 1,
+  "service_tags": {
+    "tags": [
+      "slg"
+    ],
+    "template_tags": []
+  },
+  "is_healthscore_calculate_by_entity_enabled": 1,
+  "algorithms": {
+    "LinearRegression": {
+      "modelId": "",
+      "recommended": false,
+      "rSquared": 0,
+      "RMSE": 0
+    },
+    "RandomForestRegressor": {
+      "modelId": "",
+      "recommended": false,
+      "rSquared": 0,
+      "RMSE": 0
+    },
+    "GradientBoostingRegressor": {
+      "modelId": "",
+      "recommended": false,
+      "rSquared": 0,
+      "RMSE": 0
+    },
+    "LogisticRegression": {
+      "modelId": "",
+      "recommended": false,
+      "precision": 0,
+      "recall": 0,
+      "accuracy": 0,
+      "f1_score": 0
+    }
+  },
+  "mod_source": "unknown",
+  "object_type": "service",
+  "mod_timestamp": "2023-12-13T01:06:34.602420+00:00",
+  "_version": "4.17.0",
+  "identifying_name": "license renewal dc 2",
+  "isFirstTimeSaveDone": true,
+  "mod_time": "2023-04-28 18:01:33",
+  "entity_rules": [],
+  "permissions": {
+    "user": "admin",
+    "group": {
+      "read": true,
+      "write": true,
+      "delete": true
+    },
+    "read": true,
+    "write": true,
+    "delete": true
+  },
+  "_user": "nobody",
+  "_key": "8ff042ce-65c2-4773-8321-23fe2bebd60b"
+}

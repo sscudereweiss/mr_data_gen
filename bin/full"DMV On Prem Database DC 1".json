@@ -1,0 +1,1830 @@
+{
+    "base_service_template_id": "",
+    "mod_source": "unknown",
+    "object_type": "service",
+    "title": "DMV On Prem Database DC 1",
+    "description": "",
+    "sec_grp": "default_itsi_security_group",
+    "tags":
+    [],
+    "kpis":
+    [
+        {
+            "title": "ServiceHealthScore",
+            "threshold_eval": "",
+            "alert_on": "both",
+            "datamodel":
+            {
+                "datamodel": "",
+                "object": "",
+                "owner_field": "",
+                "field": ""
+            },
+            "unit": "",
+            "gap_severity_value": "-1",
+            "search_aggregate": "`get_full_itsi_summary_service_health_events(7ec3483d-1d11-4638-a2a9-0f8d6add2442)` | stats latest(health_score) AS aggregate",
+            "fill_gaps": "null_value",
+            "search_alert_earliest": "15",
+            "kpi_template_kpi_id": "",
+            "type": "service_health",
+            "_owner": "nobody",
+            "adaptive_thresholds_is_enabled": false,
+            "source": "",
+            "urgency": "11",
+            "anomaly_detection_is_enabled": false,
+            "cohesive_anomaly_detection_is_enabled": false,
+            "target": "",
+            "time_variate_thresholds_specification":
+            {
+                "policies":
+                {
+                    "default_policy":
+                    {
+                        "policy_type": "static",
+                        "title": "Default",
+                        "time_blocks":
+                        [],
+                        "aggregate_thresholds":
+                        {
+                            "thresholdLevels":
+                            [],
+                            "gaugeMax": 100,
+                            "gaugeMin": 0,
+                            "baseSeverityLabel": "info",
+                            "metricField": "count",
+                            "search": "",
+                            "renderBoundaryMin": 0,
+                            "baseSeverityValue": 1,
+                            "baseSeverityColor": "#AED3E5",
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "baseSeverityColorLight": "#E3F0F6",
+                            "renderBoundaryMax": 100
+                        },
+                        "entity_thresholds":
+                        {
+                            "thresholdLevels":
+                            [],
+                            "gaugeMax": 100,
+                            "gaugeMin": 0,
+                            "baseSeverityLabel": "info",
+                            "metricField": "count",
+                            "search": "",
+                            "renderBoundaryMin": 0,
+                            "baseSeverityValue": 1,
+                            "baseSeverityColor": "#AED3E5",
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "baseSeverityColorLight": "#E3F0F6",
+                            "renderBoundaryMax": 100
+                        }
+                    }
+                }
+            },
+            "threshold_field": "aggregate",
+            "aggregate_eval": "",
+            "description": "",
+            "search_buckets": "",
+            "is_service_entity_filter": false,
+            "aggregate_statop": "avg",
+            "backfill_enabled": false,
+            "alert_eval": "",
+            "entity_statop": "avg",
+            "aggregate_thresholds":
+            {
+                "thresholdLevels":
+                [
+                    {
+                        "thresholdValue": 0,
+                        "severityLabel": "critical",
+                        "severityValue": 6,
+                        "severityColor": "#B50101",
+                        "severityColorLight": "#E5A6A6"
+                    },
+                    {
+                        "thresholdValue": 20,
+                        "severityLabel": "high",
+                        "severityValue": 5,
+                        "severityColor": "#F26A35",
+                        "severityColorLight": "#FBCBB9"
+                    },
+                    {
+                        "thresholdValue": 40,
+                        "severityLabel": "medium",
+                        "severityValue": 4,
+                        "severityColor": "#FCB64E",
+                        "severityColorLight": "#FEE6C1"
+                    },
+                    {
+                        "thresholdValue": 60,
+                        "severityLabel": "low",
+                        "severityValue": 3,
+                        "severityColor": "#FFE98C",
+                        "severityColorLight": "#FFF4C5"
+                    },
+                    {
+                        "thresholdValue": 80,
+                        "severityLabel": "normal",
+                        "severityValue": 2,
+                        "severityColor": "#99D18B",
+                        "severityColorLight": "#DCEFD7"
+                    }
+                ],
+                "gaugeMax": 100,
+                "isMaxStatic": false,
+                "baseSeverityLabel": "normal",
+                "metricField": "count",
+                "search": "",
+                "renderBoundaryMin": 0,
+                "baseSeverityValue": 2,
+                "baseSeverityColor": "#99D18B",
+                "gaugeMin": 0,
+                "isMinStatic": true,
+                "baseSeverityColorLight": "#DCEFD7",
+                "renderBoundaryMax": 100
+            },
+            "anomaly_detection_training_window": "-7d",
+            "entity_thresholds":
+            {
+                "thresholdLevels":
+                [
+                    {
+                        "thresholdValue": 0,
+                        "severityLabel": "critical",
+                        "severityValue": 6,
+                        "severityColor": "#B50101",
+                        "severityColorLight": "#E5A6A6"
+                    },
+                    {
+                        "thresholdValue": 20,
+                        "severityLabel": "high",
+                        "severityValue": 5,
+                        "severityColor": "#F26A35",
+                        "severityColorLight": "#FBCBB9"
+                    },
+                    {
+                        "thresholdValue": 40,
+                        "severityLabel": "medium",
+                        "severityValue": 4,
+                        "severityColor": "#FCB64E",
+                        "severityColorLight": "#FEE6C1"
+                    },
+                    {
+                        "thresholdValue": 60,
+                        "severityLabel": "low",
+                        "severityValue": 3,
+                        "severityColor": "#FFE98C",
+                        "severityColorLight": "#FFF4C5"
+                    },
+                    {
+                        "thresholdValue": 80,
+                        "severityLabel": "normal",
+                        "severityValue": 2,
+                        "severityColor": "#99D18B",
+                        "severityColorLight": "#DCEFD7"
+                    }
+                ],
+                "gaugeMax": 100,
+                "isMaxStatic": false,
+                "baseSeverityLabel": "normal",
+                "metricField": "count",
+                "search": "",
+                "renderBoundaryMin": 0,
+                "baseSeverityValue": 2,
+                "baseSeverityColor": "#99D18B",
+                "gaugeMin": 0,
+                "isMinStatic": true,
+                "baseSeverityColorLight": "#DCEFD7",
+                "renderBoundaryMax": 100
+            },
+            "datamodel_filter":
+            [],
+            "alert_lag": "30",
+            "kpi_base_search": "",
+            "base_search": "`get_full_itsi_summary_service_health_events(7ec3483d-1d11-4638-a2a9-0f8d6add2442)`",
+            "anomaly_detection_sensitivity": 0.999,
+            "search_time_series_aggregate": "`get_full_itsi_summary_service_health_events(7ec3483d-1d11-4638-a2a9-0f8d6add2442)` | timechart avg(health_score) AS aggregate",
+            "tz_offset": null,
+            "is_entity_breakdown": false,
+            "search_time_series": "`get_full_itsi_summary_service_health_events(7ec3483d-1d11-4638-a2a9-0f8d6add2442)` | timechart avg(health_score) AS aggregate",
+            "search_alert": "",
+            "search": "`get_full_itsi_summary_service_health_events(7ec3483d-1d11-4638-a2a9-0f8d6add2442)` | stats latest(health_score) AS aggregate",
+            "time_variate_thresholds": false,
+            "search_alert_entities": "",
+            "anomaly_detection_alerting_enabled": false,
+            "adaptive_thresholding_training_window": "-7d",
+            "gap_severity_color": "#CCCCCC",
+            "entity_id_fields": "",
+            "entity_breakdown_id_fields": "",
+            "alert_period": "1",
+            "gap_severity": "unknown",
+            "gap_severity_color_light": "#EEEEEE",
+            "search_time_series_entities": "",
+            "search_time_compare": "`get_full_itsi_summary_service_health_events(7ec3483d-1d11-4638-a2a9-0f8d6add2442)` [| stats count | addinfo | eval search= \"earliest=\" + tostring(info_min_time-(info_max_time-info_min_time))+ \" latest=\" + tostring(info_max_time) |fields search] | addinfo | eval bucket=if(_time<info_max_time-((info_max_time-info_min_time)/2), \"last_window\", \"current_window\") | stats avg(health_score) AS aggregate BY bucket | reverse | delta aggregate AS window_delta | search bucket=current_window | eval window_direction=if(window_delta >0, \"increase\", if(window_delta < 0, \"decrease\", \"none\"))",
+            "_key": "SHKPI-7ec3483d-1d11-4638-a2a9-0f8d6add2442",
+            "search_occurrences": 1,
+            "backfill_earliest_time": "-7d",
+            "search_type": "adhoc",
+            "service_id": "7ec3483d-1d11-4638-a2a9-0f8d6add2442",
+            "service_title": "DMV On Prem Database DC 1",
+            "trending_ad":
+            {
+                "sensitivity": 8
+            },
+            "cohesive_ad":
+            {
+                "sensitivity": 8
+            },
+            "aggregate_thresholds_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_rules":
+            [],
+            "gap_custom_alert_value": 0,
+            "metric":
+            {
+                "metric_index": "",
+                "metric_name": ""
+            },
+            "kpi_threshold_template_id": "",
+            "active_custom_threshold_window": "",
+            "linked_custom_threshold_windows":
+            [],
+            "recalculate_custom_thresholds": false
+        },
+        {
+            "title": "CPU Utilization %",
+            "aggregate_thresholds":
+            {
+                "thresholdLevels":
+                [
+                    {
+                        "severityLabel": "low",
+                        "severityLabelLocalized": "Low",
+                        "severityColor": "#FFE98C",
+                        "severityColorLight": "#FFF4C5",
+                        "severityValue": 3,
+                        "thresholdValue": 80,
+                        "dynamicParam": 0
+                    },
+                    {
+                        "severityLabel": "medium",
+                        "severityLabelLocalized": "Medium",
+                        "severityColor": "#FCB64E",
+                        "severityColorLight": "#FEE6C1",
+                        "severityValue": 4,
+                        "thresholdValue": 85,
+                        "dynamicParam": 0
+                    },
+                    {
+                        "severityLabel": "high",
+                        "severityLabelLocalized": "High",
+                        "severityColor": "#F26A35",
+                        "severityColorLight": "#FBCBB9",
+                        "severityValue": 5,
+                        "thresholdValue": 90,
+                        "dynamicParam": 0
+                    },
+                    {
+                        "severityLabel": "critical",
+                        "severityLabelLocalized": "Critical",
+                        "severityColor": "#B50101",
+                        "severityColorLight": "#E5A6A6",
+                        "severityValue": 6,
+                        "thresholdValue": 95,
+                        "dynamicParam": 0
+                    }
+                ],
+                "baseSeverityLabel": "normal",
+                "baseSeverityValue": 2,
+                "baseSeverityColor": "#99D18B",
+                "baseSeverityColorLight": "#DCEFD7",
+                "metricField": "avgcpu",
+                "renderBoundaryMin": 0,
+                "renderBoundaryMax": 104.5,
+                "isMaxStatic": false,
+                "isMinStatic": true,
+                "gaugeMin": 0,
+                "gaugeMax": 104.5
+            },
+            "entity_thresholds":
+            {
+                "thresholdLevels":
+                [],
+                "baseSeverityLabel": "normal",
+                "baseSeverityValue": 2,
+                "baseSeverityColor": "#99D18B",
+                "baseSeverityColorLight": "#DCEFD7",
+                "metricField": "shared_base",
+                "renderBoundaryMin": 0,
+                "renderBoundaryMax": 100,
+                "isMaxStatic": false,
+                "isMinStatic": true,
+                "gaugeMin": 0,
+                "gaugeMax": 100
+            },
+            "time_variate_thresholds_specification":
+            {
+                "policies":
+                {
+                    "default_policy":
+                    {
+                        "title": "Default",
+                        "aggregate_thresholds":
+                        {
+                            "baseSeverityLabel": "normal",
+                            "baseSeverityValue": 2,
+                            "baseSeverityColor": "#99D18B",
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "renderBoundaryMax": 100,
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "gaugeMin": 0,
+                            "gaugeMax": 100,
+                            "thresholdLevels":
+                            []
+                        },
+                        "entity_thresholds":
+                        {
+                            "baseSeverityLabel": "normal",
+                            "baseSeverityValue": 2,
+                            "baseSeverityColor": "#99D18B",
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "renderBoundaryMax": 100,
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "gaugeMin": 0,
+                            "gaugeMax": 100,
+                            "thresholdLevels":
+                            []
+                        },
+                        "policy_type": "static",
+                        "time_blocks":
+                        []
+                    }
+                }
+            },
+            "description": "",
+            "entity_id_fields": "host",
+            "entity_breakdown_id_fields": "host",
+            "search_type": "shared_base",
+            "is_entity_breakdown": true,
+            "is_service_entity_filter": true,
+            "aggregate_thresholds_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_rules":
+            [],
+            "threshold_field": "avgcpu",
+            "gap_severity": "unknown",
+            "gap_severity_color": "#CCCCCC",
+            "gap_severity_color_light": "#EEEEEE",
+            "gap_severity_value": "-1",
+            "fill_gaps": "null_value",
+            "gap_custom_alert_value": 0,
+            "metric":
+            {
+                "metric_index": "",
+                "metric_name": ""
+            },
+            "alert_on": "both",
+            "alert_period": "1",
+            "alert_lag": "30",
+            "aggregate_statop": "avg",
+            "entity_statop": "avg",
+            "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
+            "urgency": "5",
+            "search_buckets": "",
+            "search_occurrences": 1,
+            "search_alert_earliest": "1",
+            "source": "",
+            "target": "",
+            "_owner": "nobody",
+            "unit": "%",
+            "kpi_threshold_template_id": "",
+            "tz_offset": null,
+            "time_variate_thresholds": false,
+            "adaptive_thresholds_is_enabled": false,
+            "adaptive_thresholding_training_window": "-7d",
+            "service_title": "DMV On Prem Database DC 1",
+            "metric_qualifier": "",
+            "base_search_id": "63bc474ac3f59b47c44aef83",
+            "base_search_metric": "b7f11053da740e004ca1fec7",
+            "threshold_eval": "",
+            "aggregate_eval": "",
+            "alert_eval": "",
+            "_key": "4461d668-286b-437c-b35c-807ab164da1a",
+            "type": "kpis_primary",
+            "backfill_enabled": false,
+            "backfill_earliest_time": "-7d",
+            "anomaly_detection_is_enabled": false,
+            "cohesive_anomaly_detection_is_enabled": false,
+            "anomaly_detection_alerting_enabled": false,
+            "service_id": "7ec3483d-1d11-4638-a2a9-0f8d6add2442",
+            "enabled": 1,
+            "sec_grp": "default_itsi_security_group",
+            "kpi_base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=4461d668-286b-437c-b35c-807ab164da1a entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ]",
+            "search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=4461d668-286b-437c-b35c-807ab164da1a entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(avg, avgcpu, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 4461d668-286b-437c-b35c-807ab164da1a, true, true, true)` | eval kpi=\"CPU Utilization %\", urgency=\"5\", alert_period=\"1\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "search_aggregate": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=4461d668-286b-437c-b35c-807ab164da1a entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(avg, avg, avgcpu, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 4461d668-286b-437c-b35c-807ab164da1a)`",
+            "search_entities": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=4461d668-286b-437c-b35c-807ab164da1a entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(avg, avg, avgcpu, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 4461d668-286b-437c-b35c-807ab164da1a)`",
+            "search_time_series": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=4461d668-286b-437c-b35c-807ab164da1a entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(avg, avgcpu, \"host\", 1)` | `aggregate_entity_into_service_time_series(avg, 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 4461d668-286b-437c-b35c-807ab164da1a)`",
+            "search_time_series_aggregate": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=4461d668-286b-437c-b35c-807ab164da1a entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(avg, avgcpu, \"host\", 1)` | `aggregate_entity_into_service_time_series(avg, 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 4461d668-286b-437c-b35c-807ab164da1a)`",
+            "search_time_series_entities": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=4461d668-286b-437c-b35c-807ab164da1a entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_limited_entity_time_series(avg, avgcpu, \"host\", 1)`",
+            "search_time_compare": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=4461d668-286b-437c-b35c-807ab164da1a entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_and_compare(avg, avg, avgcpu, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 4461d668-286b-437c-b35c-807ab164da1a)`",
+            "search_alert": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=4461d668-286b-437c-b35c-807ab164da1a entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(avg, avgcpu, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 4461d668-286b-437c-b35c-807ab164da1a, true, true, true)` | eval kpi=\"CPU Utilization %\", urgency=\"5\", alert_period=\"1\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "datamodel":
+            {
+                "datamodel": "",
+                "object": "",
+                "field": "",
+                "owner_field": ""
+            },
+            "trending_ad":
+            {
+                "sensitivity": 8
+            },
+            "cohesive_ad":
+            {
+                "sensitivity": 8
+            },
+            "datamodel_filter":
+            [],
+            "search_alert_entities": "",
+            "kpi_template_kpi_id": "",
+            "active_custom_threshold_window": "",
+            "linked_custom_threshold_windows":
+            [],
+            "recalculate_custom_thresholds": false
+        },
+        {
+            "gap_severity_color": "#CCCCCC",
+            "search_occurrences": 1,
+            "kpi_base_search": "index=mysql sourcetype=mysqld  CRITICAL [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=f242fc6f66269c8c02c2f64c entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ]",
+            "aggregate_thresholds":
+            {
+                "baseSeverityColorLight": "#DCEFD7",
+                "gaugeMin": 0,
+                "baseSeverityLabel": "normal",
+                "isMinStatic": true,
+                "baseSeverityColor": "#99D18B",
+                "isMaxStatic": false,
+                "gaugeMax": 8.8,
+                "metricField": "host",
+                "renderBoundaryMin": 0,
+                "thresholdLevels":
+                [
+                    {
+                        "dynamicParam": 0,
+                        "severityColorLight": "#FFF4C5",
+                        "thresholdValue": 2,
+                        "severityColor": "#FFE98C",
+                        "severityLabel": "low",
+                        "severityValue": 3,
+                        "severityLabelLocalized": "Low"
+                    },
+                    {
+                        "dynamicParam": 0,
+                        "severityColorLight": "#FEE6C1",
+                        "thresholdValue": 4,
+                        "severityColor": "#FCB64E",
+                        "severityLabel": "medium",
+                        "severityValue": 4,
+                        "severityLabelLocalized": "Medium"
+                    },
+                    {
+                        "dynamicParam": 0,
+                        "severityColorLight": "#FBCBB9",
+                        "thresholdValue": 6,
+                        "severityColor": "#F26A35",
+                        "severityLabel": "high",
+                        "severityValue": 5,
+                        "severityLabelLocalized": "High"
+                    },
+                    {
+                        "severityLabel": "critical",
+                        "severityLabelLocalized": "Critical",
+                        "severityColor": "#B50101",
+                        "severityColorLight": "#E5A6A6",
+                        "severityValue": 6,
+                        "thresholdValue": 8,
+                        "dynamicParam": 0
+                    }
+                ],
+                "baseSeverityValue": 2,
+                "renderBoundaryMax": 137.5
+            },
+            "search": "index=mysql sourcetype=mysqld  CRITICAL [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=f242fc6f66269c8c02c2f64c entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(count, host, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, f242fc6f66269c8c02c2f64c, true, true, true)` | eval kpi=\"Database Errors\", urgency=\"10\", alert_period=\"5\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "time_variate_thresholds": false,
+            "fill_gaps": "custom_value",
+            "search_entities": "index=mysql sourcetype=mysqld  CRITICAL [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=f242fc6f66269c8c02c2f64c entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(count, avg, host, \"host\", 5)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, f242fc6f66269c8c02c2f64c)`",
+            "is_entity_breakdown": true,
+            "gap_custom_alert_value": 0,
+            "search_time_series_entities": "index=mysql sourcetype=mysqld  CRITICAL [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=f242fc6f66269c8c02c2f64c entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_limited_entity_time_series(count, host, \"host\", 5)`",
+            "adaptive_thresholding_training_window": "-7d",
+            "gap_severity_value": "-1",
+            "gap_severity_color_light": "#EEEEEE",
+            "entity_statop": "count",
+            "description": "",
+            "threshold_field": "host",
+            "backfill_earliest_time": "-1d",
+            "source": "",
+            "time_variate_thresholds_specification":
+            {
+                "policies":
+                {
+                    "default_policy":
+                    {
+                        "title": "Default",
+                        "aggregate_thresholds":
+                        {
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "gaugeMin": 0,
+                            "baseSeverityLabel": "normal",
+                            "isMinStatic": true,
+                            "baseSeverityColor": "#99D18B",
+                            "isMaxStatic": false,
+                            "gaugeMax": 100,
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "thresholdLevels":
+                            [],
+                            "baseSeverityValue": 2,
+                            "renderBoundaryMax": 100
+                        },
+                        "entity_thresholds":
+                        {
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "gaugeMin": 0,
+                            "baseSeverityLabel": "normal",
+                            "isMinStatic": true,
+                            "baseSeverityColor": "#99D18B",
+                            "isMaxStatic": false,
+                            "gaugeMax": 100,
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "thresholdLevels":
+                            [],
+                            "baseSeverityValue": 2,
+                            "renderBoundaryMax": 100
+                        },
+                        "policy_type": "static",
+                        "time_blocks":
+                        []
+                    }
+                }
+            },
+            "entity_thresholds":
+            {
+                "baseSeverityColorLight": "#DCEFD7",
+                "gaugeMin": 0,
+                "baseSeverityLabel": "normal",
+                "isMinStatic": true,
+                "baseSeverityColor": "#99D18B",
+                "isMaxStatic": false,
+                "gaugeMax": 4.4,
+                "metricField": "adhoc",
+                "renderBoundaryMin": 0,
+                "thresholdLevels":
+                [
+                    {
+                        "dynamicParam": 0,
+                        "severityColorLight": "#FFF4C5",
+                        "thresholdValue": 1,
+                        "severityColor": "#FFE98C",
+                        "severityLabel": "low",
+                        "severityValue": 3,
+                        "severityLabelLocalized": "Low"
+                    },
+                    {
+                        "dynamicParam": 0,
+                        "severityColorLight": "#FEE6C1",
+                        "thresholdValue": 2,
+                        "severityColor": "#FCB64E",
+                        "severityLabel": "medium",
+                        "severityValue": 4,
+                        "severityLabelLocalized": "Medium"
+                    },
+                    {
+                        "dynamicParam": 0,
+                        "severityColorLight": "#FBCBB9",
+                        "thresholdValue": 3,
+                        "severityColor": "#F26A35",
+                        "severityLabel": "high",
+                        "severityValue": 5,
+                        "severityLabelLocalized": "High"
+                    },
+                    {
+                        "severityLabel": "critical",
+                        "severityLabelLocalized": "Critical",
+                        "severityColor": "#B50101",
+                        "severityColorLight": "#E5A6A6",
+                        "severityValue": 6,
+                        "thresholdValue": 4,
+                        "dynamicParam": 0
+                    }
+                ],
+                "baseSeverityValue": 2,
+                "renderBoundaryMax": 137.4
+            },
+            "is_service_entity_filter": true,
+            "datamodel_filter":
+            [],
+            "search_alert_entities": "",
+            "aggregate_thresholds_custom_alert_enabled": false,
+            "title": "Database Errors",
+            "entity_breakdown_id_fields": "host",
+            "type": "kpis_primary",
+            "urgency": 10,
+            "cohesive_anomaly_detection_is_enabled": false,
+            "service_title": "DMV On Prem Database DC 1",
+            "target": "",
+            "aggregate_thresholds_custom_alert_rules":
+            [],
+            "cohesive_ad":
+            {
+                "sensitivity": 8
+            },
+            "search_type": "shared_base",
+            "alert_period": "5",
+            "search_alert": "index=mysql sourcetype=mysqld  CRITICAL [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=f242fc6f66269c8c02c2f64c entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(count, host, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, f242fc6f66269c8c02c2f64c, true, true, true)` | eval kpi=\"Database Errors\", urgency=\"10\", alert_period=\"5\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "unit": "",
+            "anomaly_detection_is_enabled": false,
+            "service_id": "7ec3483d-1d11-4638-a2a9-0f8d6add2442",
+            "alert_lag": "30",
+            "aggregate_statop": "avg",
+            "search_time_series_aggregate": "index=mysql sourcetype=mysqld  CRITICAL [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=f242fc6f66269c8c02c2f64c entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(count, host, \"host\", 5)` | `aggregate_entity_into_service_time_series(avg, 5)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, f242fc6f66269c8c02c2f64c)`",
+            "search_aggregate": "index=mysql sourcetype=mysqld  CRITICAL [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=f242fc6f66269c8c02c2f64c entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(count, avg, host, \"host\", 5)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, f242fc6f66269c8c02c2f64c)`",
+            "gap_severity": "unknown",
+            "search_time_series": "index=mysql sourcetype=mysqld  CRITICAL [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=f242fc6f66269c8c02c2f64c entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(count, host, \"host\", 5)` | `aggregate_entity_into_service_time_series(avg, 5)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, f242fc6f66269c8c02c2f64c)`",
+            "alert_on": "both",
+            "search_time_compare": "index=mysql sourcetype=mysqld  CRITICAL [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=f242fc6f66269c8c02c2f64c entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_and_compare(count, avg, host, \"host\", 5)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, f242fc6f66269c8c02c2f64c)`",
+            "kpi_threshold_template_id": "",
+            "aggregate_thresholds_alert_enabled": false,
+            "search_buckets": "",
+            "tz_offset": null,
+            "trending_ad":
+            {
+                "sensitivity": 8
+            },
+            "_owner": "nobody",
+            "adaptive_thresholds_is_enabled": false,
+            "search_alert_earliest": "5",
+            "base_search": "index=mysql sourcetype=mysqld  CRITICAL",
+            "entity_id_fields": "host",
+            "enabled": 1,
+            "kpi_template_kpi_id": "",
+            "metric_qualifier": "",
+            "sec_grp": "default_itsi_security_group",
+            "backfill_enabled": false,
+            "anomaly_detection_alerting_enabled": false,
+            "_key": "f242fc6f66269c8c02c2f64c",
+            "recalculate_custom_thresholds": false,
+            "active_custom_threshold_window": "",
+            "datamodel":
+            {
+                "datamodel": "",
+                "object": "",
+                "field": "",
+                "owner_field": ""
+            },
+            "threshold_eval": "",
+            "aggregate_eval": "",
+            "metric":
+            {
+                "metric_index": "",
+                "metric_name": ""
+            },
+            "alert_eval": "",
+            "linked_custom_threshold_windows":
+            [],
+            "base_search_id": "f64fe348-b20a-444b-a2eb-8ac281e7ea49",
+            "base_search_metric": "9ffd1d50-8e9d-400f-ba73-16d23ad58238"
+        },
+        {
+            "title": "Disk I/O - Read Ops",
+            "aggregate_thresholds":
+            {
+                "thresholdLevels":
+                [],
+                "baseSeverityLabel": "info",
+                "baseSeverityValue": 1,
+                "baseSeverityColor": "#AED3E5",
+                "baseSeverityColorLight": "#E3F0F6",
+                "metricField": "count",
+                "renderBoundaryMin": 0,
+                "renderBoundaryMax": 100,
+                "isMaxStatic": false,
+                "isMinStatic": true,
+                "gaugeMin": 0,
+                "gaugeMax": 100
+            },
+            "entity_thresholds":
+            {
+                "thresholdLevels":
+                [],
+                "baseSeverityLabel": "normal",
+                "baseSeverityValue": 2,
+                "baseSeverityColor": "#99D18B",
+                "baseSeverityColorLight": "#DCEFD7",
+                "metricField": "count",
+                "renderBoundaryMin": 0,
+                "renderBoundaryMax": 100,
+                "isMaxStatic": false,
+                "isMinStatic": true,
+                "gaugeMin": 0,
+                "gaugeMax": 100
+            },
+            "time_variate_thresholds_specification":
+            {
+                "policies":
+                {
+                    "default_policy":
+                    {
+                        "title": "Default",
+                        "aggregate_thresholds":
+                        {
+                            "baseSeverityLabel": "normal",
+                            "baseSeverityValue": 2,
+                            "baseSeverityColor": "#99D18B",
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "renderBoundaryMax": 100,
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "gaugeMin": 0,
+                            "gaugeMax": 100,
+                            "thresholdLevels":
+                            []
+                        },
+                        "entity_thresholds":
+                        {
+                            "baseSeverityLabel": "normal",
+                            "baseSeverityValue": 2,
+                            "baseSeverityColor": "#99D18B",
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "renderBoundaryMax": 100,
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "gaugeMin": 0,
+                            "gaugeMax": 100,
+                            "thresholdLevels":
+                            []
+                        },
+                        "policy_type": "static",
+                        "time_blocks":
+                        []
+                    }
+                }
+            },
+            "description": "",
+            "entity_id_fields": "host",
+            "entity_breakdown_id_fields": "host",
+            "search_type": "shared_base",
+            "is_entity_breakdown": true,
+            "is_service_entity_filter": true,
+            "aggregate_thresholds_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_rules":
+            [],
+            "threshold_field": "avgdiskread",
+            "gap_severity": "unknown",
+            "gap_severity_color": "#CCCCCC",
+            "gap_severity_color_light": "#EEEEEE",
+            "gap_severity_value": "-1",
+            "fill_gaps": "null_value",
+            "gap_custom_alert_value": 0,
+            "metric":
+            {
+                "metric_index": "",
+                "metric_name": ""
+            },
+            "alert_on": "both",
+            "alert_period": "1",
+            "alert_lag": "30",
+            "aggregate_statop": "avg",
+            "entity_statop": "avg",
+            "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
+            "urgency": "5",
+            "search_buckets": "",
+            "search_occurrences": 1,
+            "search_alert_earliest": "1",
+            "source": "",
+            "target": "",
+            "_owner": "nobody",
+            "unit": "",
+            "kpi_threshold_template_id": "",
+            "base_search_id": "63bc474ac3f59b47c44aef83",
+            "base_search_metric": "404d807a18eb0a8c4a12b625",
+            "tz_offset": null,
+            "time_variate_thresholds": false,
+            "adaptive_thresholds_is_enabled": false,
+            "adaptive_thresholding_training_window": "-7d",
+            "service_title": "DMV On Prem Database DC 1",
+            "metric_qualifier": "",
+            "threshold_eval": "",
+            "aggregate_eval": "",
+            "alert_eval": "",
+            "_key": "c57ae8d7-32ae-49a4-b454-35b51191fd1d",
+            "type": "kpis_primary",
+            "backfill_enabled": false,
+            "backfill_earliest_time": "-7d",
+            "anomaly_detection_is_enabled": false,
+            "cohesive_anomaly_detection_is_enabled": false,
+            "anomaly_detection_alerting_enabled": false,
+            "service_id": "7ec3483d-1d11-4638-a2a9-0f8d6add2442",
+            "enabled": 1,
+            "sec_grp": "default_itsi_security_group",
+            "kpi_base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=c57ae8d7-32ae-49a4-b454-35b51191fd1d entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ]",
+            "search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=c57ae8d7-32ae-49a4-b454-35b51191fd1d entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(avg, avgdiskread, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, c57ae8d7-32ae-49a4-b454-35b51191fd1d, true, true, true)` | eval kpi=\"Disk I/O - Read Ops\", urgency=\"5\", alert_period=\"1\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "search_aggregate": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=c57ae8d7-32ae-49a4-b454-35b51191fd1d entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(avg, avg, avgdiskread, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, c57ae8d7-32ae-49a4-b454-35b51191fd1d)`",
+            "search_entities": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=c57ae8d7-32ae-49a4-b454-35b51191fd1d entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(avg, avg, avgdiskread, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, c57ae8d7-32ae-49a4-b454-35b51191fd1d)`",
+            "search_time_series": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=c57ae8d7-32ae-49a4-b454-35b51191fd1d entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(avg, avgdiskread, \"host\", 1)` | `aggregate_entity_into_service_time_series(avg, 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, c57ae8d7-32ae-49a4-b454-35b51191fd1d)`",
+            "search_time_series_aggregate": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=c57ae8d7-32ae-49a4-b454-35b51191fd1d entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(avg, avgdiskread, \"host\", 1)` | `aggregate_entity_into_service_time_series(avg, 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, c57ae8d7-32ae-49a4-b454-35b51191fd1d)`",
+            "search_time_series_entities": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=c57ae8d7-32ae-49a4-b454-35b51191fd1d entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_limited_entity_time_series(avg, avgdiskread, \"host\", 1)`",
+            "search_time_compare": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=c57ae8d7-32ae-49a4-b454-35b51191fd1d entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_and_compare(avg, avg, avgdiskread, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, c57ae8d7-32ae-49a4-b454-35b51191fd1d)`",
+            "search_alert": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=c57ae8d7-32ae-49a4-b454-35b51191fd1d entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(avg, avgdiskread, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, c57ae8d7-32ae-49a4-b454-35b51191fd1d, true, true, true)` | eval kpi=\"Disk I/O - Read Ops\", urgency=\"5\", alert_period=\"1\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "datamodel":
+            {
+                "datamodel": "",
+                "object": "",
+                "field": "",
+                "owner_field": ""
+            },
+            "trending_ad":
+            {
+                "sensitivity": 8
+            },
+            "cohesive_ad":
+            {
+                "sensitivity": 8
+            },
+            "datamodel_filter":
+            [],
+            "search_alert_entities": "",
+            "kpi_template_kpi_id": "",
+            "active_custom_threshold_window": "",
+            "linked_custom_threshold_windows":
+            [],
+            "recalculate_custom_thresholds": false
+        },
+        {
+            "title": "Disk I/O - Write Ops",
+            "aggregate_thresholds":
+            {
+                "thresholdLevels":
+                [],
+                "baseSeverityLabel": "info",
+                "baseSeverityValue": 1,
+                "baseSeverityColor": "#AED3E5",
+                "baseSeverityColorLight": "#E3F0F6",
+                "metricField": "count",
+                "renderBoundaryMin": 0,
+                "renderBoundaryMax": 100,
+                "isMaxStatic": false,
+                "isMinStatic": true,
+                "gaugeMin": 0,
+                "gaugeMax": 100
+            },
+            "entity_thresholds":
+            {
+                "thresholdLevels":
+                [],
+                "baseSeverityLabel": "normal",
+                "baseSeverityValue": 2,
+                "baseSeverityColor": "#99D18B",
+                "baseSeverityColorLight": "#DCEFD7",
+                "metricField": "count",
+                "renderBoundaryMin": 0,
+                "renderBoundaryMax": 100,
+                "isMaxStatic": false,
+                "isMinStatic": true,
+                "gaugeMin": 0,
+                "gaugeMax": 100
+            },
+            "time_variate_thresholds_specification":
+            {
+                "policies":
+                {
+                    "default_policy":
+                    {
+                        "title": "Default",
+                        "aggregate_thresholds":
+                        {
+                            "baseSeverityLabel": "normal",
+                            "baseSeverityValue": 2,
+                            "baseSeverityColor": "#99D18B",
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "renderBoundaryMax": 100,
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "gaugeMin": 0,
+                            "gaugeMax": 100,
+                            "thresholdLevels":
+                            []
+                        },
+                        "entity_thresholds":
+                        {
+                            "baseSeverityLabel": "normal",
+                            "baseSeverityValue": 2,
+                            "baseSeverityColor": "#99D18B",
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "renderBoundaryMax": 100,
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "gaugeMin": 0,
+                            "gaugeMax": 100,
+                            "thresholdLevels":
+                            []
+                        },
+                        "policy_type": "static",
+                        "time_blocks":
+                        []
+                    }
+                }
+            },
+            "description": "",
+            "entity_id_fields": "host",
+            "entity_breakdown_id_fields": "host",
+            "search_type": "shared_base",
+            "is_entity_breakdown": true,
+            "is_service_entity_filter": true,
+            "aggregate_thresholds_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_rules":
+            [],
+            "threshold_field": "avgdiskwrite",
+            "gap_severity": "unknown",
+            "gap_severity_color": "#CCCCCC",
+            "gap_severity_color_light": "#EEEEEE",
+            "gap_severity_value": "-1",
+            "fill_gaps": "null_value",
+            "gap_custom_alert_value": 0,
+            "metric":
+            {
+                "metric_index": "",
+                "metric_name": ""
+            },
+            "alert_on": "both",
+            "alert_period": "1",
+            "alert_lag": "30",
+            "aggregate_statop": "avg",
+            "entity_statop": "avg",
+            "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
+            "urgency": "5",
+            "search_buckets": "",
+            "search_occurrences": 1,
+            "search_alert_earliest": "1",
+            "source": "",
+            "target": "",
+            "_owner": "nobody",
+            "unit": "",
+            "kpi_threshold_template_id": "",
+            "base_search_id": "63bc474ac3f59b47c44aef83",
+            "base_search_metric": "7b2d84840ff2927e0cfb2890",
+            "tz_offset": null,
+            "time_variate_thresholds": false,
+            "adaptive_thresholds_is_enabled": false,
+            "adaptive_thresholding_training_window": "-7d",
+            "service_title": "DMV On Prem Database DC 1",
+            "metric_qualifier": "",
+            "threshold_eval": "",
+            "aggregate_eval": "",
+            "alert_eval": "",
+            "_key": "1d9296d9-89be-48ac-85d3-3ef5050ed337",
+            "type": "kpis_primary",
+            "backfill_enabled": false,
+            "backfill_earliest_time": "-7d",
+            "anomaly_detection_is_enabled": false,
+            "cohesive_anomaly_detection_is_enabled": false,
+            "anomaly_detection_alerting_enabled": false,
+            "service_id": "7ec3483d-1d11-4638-a2a9-0f8d6add2442",
+            "enabled": 1,
+            "sec_grp": "default_itsi_security_group",
+            "kpi_base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1d9296d9-89be-48ac-85d3-3ef5050ed337 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ]",
+            "search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1d9296d9-89be-48ac-85d3-3ef5050ed337 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(avg, avgdiskwrite, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 1d9296d9-89be-48ac-85d3-3ef5050ed337, true, true, true)` | eval kpi=\"Disk I/O - Write Ops\", urgency=\"5\", alert_period=\"1\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "search_aggregate": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1d9296d9-89be-48ac-85d3-3ef5050ed337 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(avg, avg, avgdiskwrite, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 1d9296d9-89be-48ac-85d3-3ef5050ed337)`",
+            "search_entities": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1d9296d9-89be-48ac-85d3-3ef5050ed337 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(avg, avg, avgdiskwrite, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 1d9296d9-89be-48ac-85d3-3ef5050ed337)`",
+            "search_time_series": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1d9296d9-89be-48ac-85d3-3ef5050ed337 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(avg, avgdiskwrite, \"host\", 1)` | `aggregate_entity_into_service_time_series(avg, 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 1d9296d9-89be-48ac-85d3-3ef5050ed337)`",
+            "search_time_series_aggregate": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1d9296d9-89be-48ac-85d3-3ef5050ed337 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(avg, avgdiskwrite, \"host\", 1)` | `aggregate_entity_into_service_time_series(avg, 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 1d9296d9-89be-48ac-85d3-3ef5050ed337)`",
+            "search_time_series_entities": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1d9296d9-89be-48ac-85d3-3ef5050ed337 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_limited_entity_time_series(avg, avgdiskwrite, \"host\", 1)`",
+            "search_time_compare": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1d9296d9-89be-48ac-85d3-3ef5050ed337 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_and_compare(avg, avg, avgdiskwrite, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 1d9296d9-89be-48ac-85d3-3ef5050ed337)`",
+            "search_alert": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1d9296d9-89be-48ac-85d3-3ef5050ed337 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(avg, avgdiskwrite, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 1d9296d9-89be-48ac-85d3-3ef5050ed337, true, true, true)` | eval kpi=\"Disk I/O - Write Ops\", urgency=\"5\", alert_period=\"1\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "datamodel":
+            {
+                "datamodel": "",
+                "object": "",
+                "field": "",
+                "owner_field": ""
+            },
+            "trending_ad":
+            {
+                "sensitivity": 8
+            },
+            "cohesive_ad":
+            {
+                "sensitivity": 8
+            },
+            "datamodel_filter":
+            [],
+            "search_alert_entities": "",
+            "kpi_template_kpi_id": "",
+            "active_custom_threshold_window": "",
+            "linked_custom_threshold_windows":
+            [],
+            "recalculate_custom_thresholds": false
+        },
+        {
+            "title": "Disk Utilization %",
+            "aggregate_thresholds":
+            {
+                "thresholdLevels":
+                [],
+                "baseSeverityLabel": "normal",
+                "baseSeverityValue": 2,
+                "baseSeverityColor": "#99D18B",
+                "baseSeverityColorLight": "#DCEFD7",
+                "metricField": "count",
+                "renderBoundaryMin": 0,
+                "renderBoundaryMax": 100,
+                "isMaxStatic": false,
+                "isMinStatic": true,
+                "gaugeMin": 0,
+                "gaugeMax": 100
+            },
+            "entity_thresholds":
+            {
+                "thresholdLevels":
+                [],
+                "baseSeverityLabel": "normal",
+                "baseSeverityValue": 2,
+                "baseSeverityColor": "#99D18B",
+                "baseSeverityColorLight": "#DCEFD7",
+                "metricField": "count",
+                "renderBoundaryMin": 0,
+                "renderBoundaryMax": 100,
+                "isMaxStatic": false,
+                "isMinStatic": true,
+                "gaugeMin": 0,
+                "gaugeMax": 100
+            },
+            "time_variate_thresholds_specification":
+            {
+                "policies":
+                {
+                    "default_policy":
+                    {
+                        "title": "Default",
+                        "aggregate_thresholds":
+                        {
+                            "baseSeverityLabel": "normal",
+                            "baseSeverityValue": 2,
+                            "baseSeverityColor": "#99D18B",
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "renderBoundaryMax": 100,
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "gaugeMin": 0,
+                            "gaugeMax": 100,
+                            "thresholdLevels":
+                            []
+                        },
+                        "entity_thresholds":
+                        {
+                            "baseSeverityLabel": "normal",
+                            "baseSeverityValue": 2,
+                            "baseSeverityColor": "#99D18B",
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "renderBoundaryMax": 100,
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "gaugeMin": 0,
+                            "gaugeMax": 100,
+                            "thresholdLevels":
+                            []
+                        },
+                        "policy_type": "static",
+                        "time_blocks":
+                        []
+                    }
+                }
+            },
+            "description": "",
+            "entity_id_fields": "host",
+            "entity_breakdown_id_fields": "host",
+            "search_type": "shared_base",
+            "is_entity_breakdown": true,
+            "is_service_entity_filter": true,
+            "aggregate_thresholds_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_rules":
+            [],
+            "threshold_field": "maxdiskused",
+            "gap_severity": "unknown",
+            "gap_severity_color": "#CCCCCC",
+            "gap_severity_color_light": "#EEEEEE",
+            "gap_severity_value": "-1",
+            "fill_gaps": "null_value",
+            "gap_custom_alert_value": 0,
+            "metric":
+            {
+                "metric_index": "",
+                "metric_name": ""
+            },
+            "alert_on": "both",
+            "alert_period": "1",
+            "alert_lag": "30",
+            "aggregate_statop": "avg",
+            "entity_statop": "max",
+            "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
+            "urgency": "5",
+            "search_buckets": "",
+            "search_occurrences": 1,
+            "search_alert_earliest": "1",
+            "source": "",
+            "target": "",
+            "_owner": "nobody",
+            "unit": "%",
+            "kpi_threshold_template_id": "",
+            "base_search_id": "63bc474ac3f59b47c44aef83",
+            "base_search_metric": "6d3f9b7362c5aafa4968b396",
+            "tz_offset": null,
+            "time_variate_thresholds": false,
+            "adaptive_thresholds_is_enabled": false,
+            "adaptive_thresholding_training_window": "-7d",
+            "service_title": "DMV On Prem Database DC 1",
+            "metric_qualifier": "",
+            "threshold_eval": "",
+            "aggregate_eval": "",
+            "alert_eval": "",
+            "_key": "97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc",
+            "type": "kpis_primary",
+            "backfill_enabled": false,
+            "backfill_earliest_time": "-7d",
+            "anomaly_detection_is_enabled": false,
+            "cohesive_anomaly_detection_is_enabled": false,
+            "anomaly_detection_alerting_enabled": false,
+            "service_id": "7ec3483d-1d11-4638-a2a9-0f8d6add2442",
+            "enabled": 1,
+            "sec_grp": "default_itsi_security_group",
+            "kpi_base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ]",
+            "search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(max, maxdiskused, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc, true, true, true)` | eval kpi=\"Disk Utilization %\", urgency=\"5\", alert_period=\"1\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "search_aggregate": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(max, avg, maxdiskused, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc)`",
+            "search_entities": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(max, avg, maxdiskused, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc)`",
+            "search_time_series": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(max, maxdiskused, \"host\", 1)` | `aggregate_entity_into_service_time_series(avg, 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc)`",
+            "search_time_series_aggregate": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(max, maxdiskused, \"host\", 1)` | `aggregate_entity_into_service_time_series(avg, 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc)`",
+            "search_time_series_entities": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_limited_entity_time_series(max, maxdiskused, \"host\", 1)`",
+            "search_time_compare": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_and_compare(max, avg, maxdiskused, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc)`",
+            "search_alert": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(max, maxdiskused, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc, true, true, true)` | eval kpi=\"Disk Utilization %\", urgency=\"5\", alert_period=\"1\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "datamodel":
+            {
+                "datamodel": "",
+                "object": "",
+                "field": "",
+                "owner_field": ""
+            },
+            "trending_ad":
+            {
+                "sensitivity": 8
+            },
+            "cohesive_ad":
+            {
+                "sensitivity": 8
+            },
+            "datamodel_filter":
+            [],
+            "search_alert_entities": "",
+            "kpi_template_kpi_id": "",
+            "active_custom_threshold_window": "",
+            "linked_custom_threshold_windows":
+            [],
+            "recalculate_custom_thresholds": false
+        },
+        {
+            "title": "Memory Utilization %",
+            "aggregate_thresholds":
+            {
+                "thresholdLevels":
+                [],
+                "baseSeverityLabel": "normal",
+                "baseSeverityValue": 2,
+                "baseSeverityColor": "#99D18B",
+                "baseSeverityColorLight": "#DCEFD7",
+                "metricField": "count",
+                "renderBoundaryMin": 0,
+                "renderBoundaryMax": 100,
+                "isMaxStatic": false,
+                "isMinStatic": true,
+                "gaugeMin": 0,
+                "gaugeMax": 100
+            },
+            "entity_thresholds":
+            {
+                "thresholdLevels":
+                [],
+                "baseSeverityLabel": "normal",
+                "baseSeverityValue": 2,
+                "baseSeverityColor": "#99D18B",
+                "baseSeverityColorLight": "#DCEFD7",
+                "metricField": "count",
+                "renderBoundaryMin": 0,
+                "renderBoundaryMax": 100,
+                "isMaxStatic": false,
+                "isMinStatic": true,
+                "gaugeMin": 0,
+                "gaugeMax": 100
+            },
+            "time_variate_thresholds_specification":
+            {
+                "policies":
+                {
+                    "default_policy":
+                    {
+                        "title": "Default",
+                        "aggregate_thresholds":
+                        {
+                            "baseSeverityLabel": "normal",
+                            "baseSeverityValue": 2,
+                            "baseSeverityColor": "#99D18B",
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "renderBoundaryMax": 100,
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "gaugeMin": 0,
+                            "gaugeMax": 100,
+                            "thresholdLevels":
+                            []
+                        },
+                        "entity_thresholds":
+                        {
+                            "baseSeverityLabel": "normal",
+                            "baseSeverityValue": 2,
+                            "baseSeverityColor": "#99D18B",
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "renderBoundaryMax": 100,
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "gaugeMin": 0,
+                            "gaugeMax": 100,
+                            "thresholdLevels":
+                            []
+                        },
+                        "policy_type": "static",
+                        "time_blocks":
+                        []
+                    }
+                }
+            },
+            "description": "",
+            "entity_id_fields": "host",
+            "entity_breakdown_id_fields": "host",
+            "search_type": "shared_base",
+            "is_entity_breakdown": true,
+            "is_service_entity_filter": true,
+            "aggregate_thresholds_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_rules":
+            [],
+            "threshold_field": "maxmemused",
+            "gap_severity": "unknown",
+            "gap_severity_color": "#CCCCCC",
+            "gap_severity_color_light": "#EEEEEE",
+            "gap_severity_value": "-1",
+            "fill_gaps": "null_value",
+            "gap_custom_alert_value": 0,
+            "metric":
+            {
+                "metric_index": "",
+                "metric_name": ""
+            },
+            "alert_on": "both",
+            "alert_period": "1",
+            "alert_lag": "30",
+            "aggregate_statop": "avg",
+            "entity_statop": "max",
+            "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
+            "urgency": "5",
+            "search_buckets": "",
+            "search_occurrences": 1,
+            "search_alert_earliest": "1",
+            "source": "",
+            "target": "",
+            "_owner": "nobody",
+            "unit": "",
+            "kpi_threshold_template_id": "",
+            "base_search_id": "63bc474ac3f59b47c44aef83",
+            "base_search_metric": "05d65cbcc62a0128190d83c9",
+            "tz_offset": null,
+            "time_variate_thresholds": false,
+            "adaptive_thresholds_is_enabled": false,
+            "adaptive_thresholding_training_window": "-7d",
+            "service_title": "DMV On Prem Database DC 1",
+            "metric_qualifier": "",
+            "threshold_eval": "",
+            "aggregate_eval": "",
+            "alert_eval": "",
+            "_key": "5fdd9566-e8a5-4070-8c43-745a400bf982",
+            "type": "kpis_primary",
+            "backfill_enabled": false,
+            "backfill_earliest_time": "-7d",
+            "anomaly_detection_is_enabled": false,
+            "cohesive_anomaly_detection_is_enabled": false,
+            "anomaly_detection_alerting_enabled": false,
+            "service_id": "7ec3483d-1d11-4638-a2a9-0f8d6add2442",
+            "enabled": 1,
+            "sec_grp": "default_itsi_security_group",
+            "kpi_base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=5fdd9566-e8a5-4070-8c43-745a400bf982 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ]",
+            "search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=5fdd9566-e8a5-4070-8c43-745a400bf982 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(max, maxmemused, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 5fdd9566-e8a5-4070-8c43-745a400bf982, true, true, true)` | eval kpi=\"Memory Utilization %\", urgency=\"5\", alert_period=\"1\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "search_aggregate": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=5fdd9566-e8a5-4070-8c43-745a400bf982 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(max, avg, maxmemused, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 5fdd9566-e8a5-4070-8c43-745a400bf982)`",
+            "search_entities": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=5fdd9566-e8a5-4070-8c43-745a400bf982 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(max, avg, maxmemused, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 5fdd9566-e8a5-4070-8c43-745a400bf982)`",
+            "search_time_series": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=5fdd9566-e8a5-4070-8c43-745a400bf982 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(max, maxmemused, \"host\", 1)` | `aggregate_entity_into_service_time_series(avg, 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 5fdd9566-e8a5-4070-8c43-745a400bf982)`",
+            "search_time_series_aggregate": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=5fdd9566-e8a5-4070-8c43-745a400bf982 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(max, maxmemused, \"host\", 1)` | `aggregate_entity_into_service_time_series(avg, 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 5fdd9566-e8a5-4070-8c43-745a400bf982)`",
+            "search_time_series_entities": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=5fdd9566-e8a5-4070-8c43-745a400bf982 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_limited_entity_time_series(max, maxmemused, \"host\", 1)`",
+            "search_time_compare": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=5fdd9566-e8a5-4070-8c43-745a400bf982 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_and_compare(max, avg, maxmemused, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 5fdd9566-e8a5-4070-8c43-745a400bf982)`",
+            "search_alert": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=5fdd9566-e8a5-4070-8c43-745a400bf982 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(max, maxmemused, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 5fdd9566-e8a5-4070-8c43-745a400bf982, true, true, true)` | eval kpi=\"Memory Utilization %\", urgency=\"5\", alert_period=\"1\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "datamodel":
+            {
+                "datamodel": "",
+                "object": "",
+                "field": "",
+                "owner_field": ""
+            },
+            "trending_ad":
+            {
+                "sensitivity": 8
+            },
+            "cohesive_ad":
+            {
+                "sensitivity": 8
+            },
+            "datamodel_filter":
+            [],
+            "search_alert_entities": "",
+            "kpi_template_kpi_id": "",
+            "active_custom_threshold_window": "",
+            "linked_custom_threshold_windows":
+            [],
+            "recalculate_custom_thresholds": false
+        },
+        {
+            "title": "Network Throughput - Bytes In",
+            "aggregate_thresholds":
+            {
+                "thresholdLevels":
+                [],
+                "baseSeverityLabel": "info",
+                "baseSeverityValue": 1,
+                "baseSeverityColor": "#AED3E5",
+                "baseSeverityColorLight": "#E3F0F6",
+                "metricField": "count",
+                "renderBoundaryMin": 0,
+                "renderBoundaryMax": 100,
+                "isMaxStatic": false,
+                "isMinStatic": true,
+                "gaugeMin": 0,
+                "gaugeMax": 100
+            },
+            "entity_thresholds":
+            {
+                "thresholdLevels":
+                [],
+                "baseSeverityLabel": "normal",
+                "baseSeverityValue": 2,
+                "baseSeverityColor": "#99D18B",
+                "baseSeverityColorLight": "#DCEFD7",
+                "metricField": "count",
+                "renderBoundaryMin": 0,
+                "renderBoundaryMax": 100,
+                "isMaxStatic": false,
+                "isMinStatic": true,
+                "gaugeMin": 0,
+                "gaugeMax": 100
+            },
+            "time_variate_thresholds_specification":
+            {
+                "policies":
+                {
+                    "default_policy":
+                    {
+                        "title": "Default",
+                        "aggregate_thresholds":
+                        {
+                            "baseSeverityLabel": "normal",
+                            "baseSeverityValue": 2,
+                            "baseSeverityColor": "#99D18B",
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "renderBoundaryMax": 100,
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "gaugeMin": 0,
+                            "gaugeMax": 100,
+                            "thresholdLevels":
+                            []
+                        },
+                        "entity_thresholds":
+                        {
+                            "baseSeverityLabel": "normal",
+                            "baseSeverityValue": 2,
+                            "baseSeverityColor": "#99D18B",
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "renderBoundaryMax": 100,
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "gaugeMin": 0,
+                            "gaugeMax": 100,
+                            "thresholdLevels":
+                            []
+                        },
+                        "policy_type": "static",
+                        "time_blocks":
+                        []
+                    }
+                }
+            },
+            "description": "",
+            "entity_id_fields": "host",
+            "entity_breakdown_id_fields": "host",
+            "search_type": "shared_base",
+            "is_entity_breakdown": true,
+            "is_service_entity_filter": true,
+            "aggregate_thresholds_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_rules":
+            [],
+            "threshold_field": "avgnetworkbytesin",
+            "gap_severity": "unknown",
+            "gap_severity_color": "#CCCCCC",
+            "gap_severity_color_light": "#EEEEEE",
+            "gap_severity_value": "-1",
+            "fill_gaps": "null_value",
+            "gap_custom_alert_value": 0,
+            "metric":
+            {
+                "metric_index": "",
+                "metric_name": ""
+            },
+            "alert_on": "both",
+            "alert_period": "1",
+            "alert_lag": "30",
+            "aggregate_statop": "avg",
+            "entity_statop": "avg",
+            "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
+            "urgency": "5",
+            "search_buckets": "",
+            "search_occurrences": 1,
+            "search_alert_earliest": "1",
+            "source": "",
+            "target": "",
+            "_owner": "nobody",
+            "unit": "",
+            "kpi_threshold_template_id": "",
+            "base_search_id": "63bc474ac3f59b47c44aef83",
+            "base_search_metric": "36f85994a365f6acc22b3bb6",
+            "tz_offset": null,
+            "time_variate_thresholds": false,
+            "adaptive_thresholds_is_enabled": false,
+            "adaptive_thresholding_training_window": "-7d",
+            "service_title": "DMV On Prem Database DC 1",
+            "metric_qualifier": "",
+            "threshold_eval": "",
+            "aggregate_eval": "",
+            "alert_eval": "",
+            "_key": "07371899-f184-4c2c-aecc-9dfd29ce6828",
+            "type": "kpis_primary",
+            "backfill_enabled": false,
+            "backfill_earliest_time": "-7d",
+            "anomaly_detection_is_enabled": false,
+            "cohesive_anomaly_detection_is_enabled": false,
+            "anomaly_detection_alerting_enabled": false,
+            "service_id": "7ec3483d-1d11-4638-a2a9-0f8d6add2442",
+            "enabled": 1,
+            "sec_grp": "default_itsi_security_group",
+            "kpi_base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=07371899-f184-4c2c-aecc-9dfd29ce6828 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ]",
+            "search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=07371899-f184-4c2c-aecc-9dfd29ce6828 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(avg, avgnetworkbytesin, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 07371899-f184-4c2c-aecc-9dfd29ce6828, true, true, true)` | eval kpi=\"Network Throughput - Bytes In\", urgency=\"5\", alert_period=\"1\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "search_aggregate": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=07371899-f184-4c2c-aecc-9dfd29ce6828 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(avg, avg, avgnetworkbytesin, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 07371899-f184-4c2c-aecc-9dfd29ce6828)`",
+            "search_entities": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=07371899-f184-4c2c-aecc-9dfd29ce6828 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(avg, avg, avgnetworkbytesin, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 07371899-f184-4c2c-aecc-9dfd29ce6828)`",
+            "search_time_series": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=07371899-f184-4c2c-aecc-9dfd29ce6828 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(avg, avgnetworkbytesin, \"host\", 1)` | `aggregate_entity_into_service_time_series(avg, 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 07371899-f184-4c2c-aecc-9dfd29ce6828)`",
+            "search_time_series_aggregate": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=07371899-f184-4c2c-aecc-9dfd29ce6828 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(avg, avgnetworkbytesin, \"host\", 1)` | `aggregate_entity_into_service_time_series(avg, 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 07371899-f184-4c2c-aecc-9dfd29ce6828)`",
+            "search_time_series_entities": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=07371899-f184-4c2c-aecc-9dfd29ce6828 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_limited_entity_time_series(avg, avgnetworkbytesin, \"host\", 1)`",
+            "search_time_compare": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=07371899-f184-4c2c-aecc-9dfd29ce6828 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_and_compare(avg, avg, avgnetworkbytesin, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 07371899-f184-4c2c-aecc-9dfd29ce6828)`",
+            "search_alert": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=07371899-f184-4c2c-aecc-9dfd29ce6828 entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(avg, avgnetworkbytesin, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 07371899-f184-4c2c-aecc-9dfd29ce6828, true, true, true)` | eval kpi=\"Network Throughput - Bytes In\", urgency=\"5\", alert_period=\"1\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "datamodel":
+            {
+                "datamodel": "",
+                "object": "",
+                "field": "",
+                "owner_field": ""
+            },
+            "trending_ad":
+            {
+                "sensitivity": 8
+            },
+            "cohesive_ad":
+            {
+                "sensitivity": 8
+            },
+            "datamodel_filter":
+            [],
+            "search_alert_entities": "",
+            "kpi_template_kpi_id": "",
+            "active_custom_threshold_window": "",
+            "linked_custom_threshold_windows":
+            [],
+            "recalculate_custom_thresholds": false
+        },
+        {
+            "title": "Network Throughput - Bytes Out",
+            "aggregate_thresholds":
+            {
+                "thresholdLevels":
+                [],
+                "baseSeverityLabel": "info",
+                "baseSeverityValue": 1,
+                "baseSeverityColor": "#AED3E5",
+                "baseSeverityColorLight": "#E3F0F6",
+                "metricField": "count",
+                "renderBoundaryMin": 0,
+                "renderBoundaryMax": 100,
+                "isMaxStatic": false,
+                "isMinStatic": true,
+                "gaugeMin": 0,
+                "gaugeMax": 100
+            },
+            "entity_thresholds":
+            {
+                "thresholdLevels":
+                [],
+                "baseSeverityLabel": "normal",
+                "baseSeverityValue": 2,
+                "baseSeverityColor": "#99D18B",
+                "baseSeverityColorLight": "#DCEFD7",
+                "metricField": "count",
+                "renderBoundaryMin": 0,
+                "renderBoundaryMax": 100,
+                "isMaxStatic": false,
+                "isMinStatic": true,
+                "gaugeMin": 0,
+                "gaugeMax": 100
+            },
+            "time_variate_thresholds_specification":
+            {
+                "policies":
+                {
+                    "default_policy":
+                    {
+                        "title": "Default",
+                        "aggregate_thresholds":
+                        {
+                            "baseSeverityLabel": "normal",
+                            "baseSeverityValue": 2,
+                            "baseSeverityColor": "#99D18B",
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "renderBoundaryMax": 100,
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "gaugeMin": 0,
+                            "gaugeMax": 100,
+                            "thresholdLevels":
+                            []
+                        },
+                        "entity_thresholds":
+                        {
+                            "baseSeverityLabel": "normal",
+                            "baseSeverityValue": 2,
+                            "baseSeverityColor": "#99D18B",
+                            "baseSeverityColorLight": "#DCEFD7",
+                            "metricField": "count",
+                            "renderBoundaryMin": 0,
+                            "renderBoundaryMax": 100,
+                            "isMaxStatic": false,
+                            "isMinStatic": true,
+                            "gaugeMin": 0,
+                            "gaugeMax": 100,
+                            "thresholdLevels":
+                            []
+                        },
+                        "policy_type": "static",
+                        "time_blocks":
+                        []
+                    }
+                }
+            },
+            "description": "",
+            "entity_id_fields": "host",
+            "entity_breakdown_id_fields": "host",
+            "search_type": "shared_base",
+            "is_entity_breakdown": true,
+            "is_service_entity_filter": true,
+            "aggregate_thresholds_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_enabled": false,
+            "aggregate_thresholds_custom_alert_rules":
+            [],
+            "threshold_field": "avgnetworkbytesout",
+            "gap_severity": "unknown",
+            "gap_severity_color": "#CCCCCC",
+            "gap_severity_color_light": "#EEEEEE",
+            "gap_severity_value": "-1",
+            "fill_gaps": "null_value",
+            "gap_custom_alert_value": 0,
+            "metric":
+            {
+                "metric_index": "",
+                "metric_name": ""
+            },
+            "alert_on": "both",
+            "alert_period": "1",
+            "alert_lag": "30",
+            "aggregate_statop": "avg",
+            "entity_statop": "avg",
+            "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
+            "urgency": "5",
+            "search_buckets": "",
+            "search_occurrences": 1,
+            "search_alert_earliest": "1",
+            "source": "",
+            "target": "",
+            "_owner": "nobody",
+            "unit": "",
+            "kpi_threshold_template_id": "",
+            "base_search_id": "63bc474ac3f59b47c44aef83",
+            "base_search_metric": "11ffc4402c8b9b64b28bead3",
+            "tz_offset": null,
+            "time_variate_thresholds": false,
+            "adaptive_thresholds_is_enabled": false,
+            "adaptive_thresholding_training_window": "-7d",
+            "service_title": "DMV On Prem Database DC 1",
+            "metric_qualifier": "",
+            "threshold_eval": "",
+            "aggregate_eval": "",
+            "alert_eval": "",
+            "_key": "1948e7f0-f6a4-4b2e-be73-8e9ac469109b",
+            "type": "kpis_primary",
+            "backfill_enabled": false,
+            "backfill_earliest_time": "-7d",
+            "anomaly_detection_is_enabled": false,
+            "cohesive_anomaly_detection_is_enabled": false,
+            "anomaly_detection_alerting_enabled": false,
+            "service_id": "7ec3483d-1d11-4638-a2a9-0f8d6add2442",
+            "enabled": 1,
+            "sec_grp": "default_itsi_security_group",
+            "kpi_base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1948e7f0-f6a4-4b2e-be73-8e9ac469109b entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ]",
+            "search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1948e7f0-f6a4-4b2e-be73-8e9ac469109b entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(avg, avgnetworkbytesout, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 1948e7f0-f6a4-4b2e-be73-8e9ac469109b, true, true, true)` | eval kpi=\"Network Throughput - Bytes Out\", urgency=\"5\", alert_period=\"1\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "search_aggregate": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1948e7f0-f6a4-4b2e-be73-8e9ac469109b entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(avg, avg, avgnetworkbytesout, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 1948e7f0-f6a4-4b2e-be73-8e9ac469109b)`",
+            "search_entities": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1948e7f0-f6a4-4b2e-be73-8e9ac469109b entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_single_value(avg, avg, avgnetworkbytesout, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 1948e7f0-f6a4-4b2e-be73-8e9ac469109b)`",
+            "search_time_series": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1948e7f0-f6a4-4b2e-be73-8e9ac469109b entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(avg, avgnetworkbytesout, \"host\", 1)` | `aggregate_entity_into_service_time_series(avg, 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 1948e7f0-f6a4-4b2e-be73-8e9ac469109b)`",
+            "search_time_series_aggregate": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1948e7f0-f6a4-4b2e-be73-8e9ac469109b entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity_time_series(avg, avgnetworkbytesout, \"host\", 1)` | `aggregate_entity_into_service_time_series(avg, 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 1948e7f0-f6a4-4b2e-be73-8e9ac469109b)`",
+            "search_time_series_entities": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1948e7f0-f6a4-4b2e-be73-8e9ac469109b entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_limited_entity_time_series(avg, avgnetworkbytesout, \"host\", 1)`",
+            "search_time_compare": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1948e7f0-f6a4-4b2e-be73-8e9ac469109b entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_and_compare(avg, avg, avgnetworkbytesout, \"host\", 1)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 1948e7f0-f6a4-4b2e-be73-8e9ac469109b)`",
+            "search_alert": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle | search [ | rest splunk_server=local report_as=text service_id=7ec3483d-1d11-4638-a2a9-0f8d6add2442 kpi_id=1948e7f0-f6a4-4b2e-be73-8e9ac469109b entity_id_fields=host entity_alias_filtering_fields=host search_type=adhoc \"/servicesNS/nobody/SA-ITOA/itoa_interface/generate_entity_filter\" | return $value ] | `aggregate_raw_into_entity(avg, avgnetworkbytesout, \"host\")` | eval sec_grp = \"default_itsi_security_group\" | `match_entities(host, sec_grp)` | eval serviceid = \"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `aggregate_entity_into_service(avg)` | `assess_severity(7ec3483d-1d11-4638-a2a9-0f8d6add2442, 1948e7f0-f6a4-4b2e-be73-8e9ac469109b, true, true, true)` | eval kpi=\"Network Throughput - Bytes Out\", urgency=\"5\", alert_period=\"1\", serviceid=\"7ec3483d-1d11-4638-a2a9-0f8d6add2442\" | `assess_urgency` | `gettime`",
+            "datamodel":
+            {
+                "datamodel": "",
+                "object": "",
+                "field": "",
+                "owner_field": ""
+            },
+            "trending_ad":
+            {
+                "sensitivity": 8
+            },
+            "cohesive_ad":
+            {
+                "sensitivity": 8
+            },
+            "datamodel_filter":
+            [],
+            "search_alert_entities": "",
+            "kpi_template_kpi_id": "",
+            "active_custom_threshold_window": "",
+            "linked_custom_threshold_windows":
+            [],
+            "recalculate_custom_thresholds": false
+        }
+    ],
+    "serviceTemplateId": "",
+    "_owner": "nobody",
+    "service_template_id": "",
+    "services_depends_on":
+    [],
+    "services_depending_on_me":
+    [
+        {
+            "serviceid": "e046b76c-9ae0-407c-a82c-fb4989969fd6",
+            "kpis_depending_on":
+            [
+                "SHKPI-7ec3483d-1d11-4638-a2a9-0f8d6add2442"
+            ]
+        },
+        {
+            "serviceid": "d2b26324-1631-4673-b82f-7da2f4a57ae0",
+            "kpis_depending_on":
+            [
+                "SHKPI-7ec3483d-1d11-4638-a2a9-0f8d6add2442"
+            ]
+        }
+    ],
+    "enabled": 1,
+    "service_tags":
+    {
+        "tags":
+        [],
+        "template_tags":
+        []
+    },
+    "is_healthscore_calculate_by_entity_enabled": 1,
+    "algorithms":
+    {
+        "LinearRegression":
+        {
+            "modelId": "",
+            "recommended": false,
+            "rSquared": 0,
+            "RMSE": 0
+        },
+        "RandomForestRegressor":
+        {
+            "modelId": "",
+            "recommended": false,
+            "rSquared": 0,
+            "RMSE": 0
+        },
+        "GradientBoostingRegressor":
+        {
+            "modelId": "",
+            "recommended": false,
+            "rSquared": 0,
+            "RMSE": 0
+        },
+        "LogisticRegression":
+        {
+            "modelId": "",
+            "recommended": false,
+            "precision": 0,
+            "recall": 0,
+            "accuracy": 0,
+            "f1_score": 0
+        }
+    },
+    "mod_timestamp": "2023-12-18T19:10:05.112403+00:00",
+    "_version": "4.17.0",
+    "identifying_name": "dmv on prem database dc 1",
+    "isFirstTimeSaveDone": true,
+    "entity_rules":
+    [
+        {
+            "rule_condition": "AND",
+            "rule_items":
+            [
+                {
+                    "field": "entity_type",
+                    "field_type": "entity_type",
+                    "value": "*nix",
+                    "rule_type": "matches"
+                },
+                {
+                    "field": "title",
+                    "field_type": "title",
+                    "value": "SLG_DC_1_MySQL*",
+                    "rule_type": "matches"
+                }
+            ]
+        }
+    ],
+    "_user": "nobody",
+    "_key": "7ec3483d-1d11-4638-a2a9-0f8d6add2442",
+    "permissions":
+    {
+        "user": "admin",
+        "group":
+        {
+            "read": true,
+            "write": true,
+            "delete": true
+        },
+        "read": true,
+        "write": true,
+        "delete": true
+    }
+}
