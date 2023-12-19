@@ -30,8 +30,6 @@ SLG_DC_1_License_Class_Selector_01
 SLG_DC_1_License_Class_Selector_02
 SLG_DC_1_License_Class_Selector_03
 SLG_DC_1_License_Class_Selector_04
-SLG_DC_1_Load_Balancer_01
-SLG_DC_1_Load_Balancer_02
 SLG_DC_1_MySQL_01
 SLG_DC_1_MySQL_02
 SLG_DC_1_MySQL_03
@@ -44,8 +42,6 @@ SLG_DC_2_License_Class_Selector_01
 SLG_DC_2_License_Class_Selector_02
 SLG_DC_2_License_Class_Selector_03
 SLG_DC_2_License_Class_Selector_04
-SLG_DC_2_Load_Balancer_01
-SLG_DC_2_Load_Balancer_02
 SLG_DC_2_MySQL_01
 SLG_DC_2_MySQL_02
 SLG_DC_2_MySQL_03
