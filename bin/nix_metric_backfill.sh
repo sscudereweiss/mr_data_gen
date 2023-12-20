@@ -7,7 +7,7 @@ backfill_start=$(date -u)
 if [ -r "$file" ]; then
      while IFS= read -r line; do
           echo $line
-          (for ((i=5; i<=$minutes_backfill; i+=5)); do
+          (for ((i=1; i<=$minutes_backfill; i++)); do
                back_time=$(date -d "$backfill_start -"$i" minutes" +%s)
                CPU_Idle=$(shuf -i 30-80 -n 1) # Random CPU usage between 10% and 80%
                Memory_Usage=$(shuf -i 60-80 -n 1) # Random Memory usage between 30% and 80%
