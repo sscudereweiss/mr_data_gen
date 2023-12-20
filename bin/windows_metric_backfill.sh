@@ -7,7 +7,7 @@ backfill_start=$(date -u)
 if [ -r "$file" ]; then
      while IFS= read -r line; do
           echo $line
-          (for ((i=5; i<=$minutes_backfill; i+=5)); do
+          (for ((i=1; i<=$minutes_backfill; i++)); do
                back_time=$(date -d "$backfill_start -"$i" minutes" +%s)
                Processor_Idle_Time=$(shuf -i 30-80 -n 1)
                Memory_Committed_Bytes_In_Use=$(shuf -i 60-80 -n 1)
