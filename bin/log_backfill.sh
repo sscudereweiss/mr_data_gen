@@ -28,7 +28,7 @@ if [ -r "$file" ]; then
      COUNTER=1
      length=$(wc -l < $file )
      while IFS= read -r line; do
-          printf "\rBackfill in Progress for : ${line}"
+          echo "Logs Backfill in Progress for : ${line}"
           (for ((i=1; i<=$minutes_backfill; i++)); do
                minute=$(date -d "$backfill_start -"$i" minutes" +"%M")
                if [[ $minute > 40 ]]; then 
