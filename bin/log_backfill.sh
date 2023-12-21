@@ -1,5 +1,4 @@
 #! /bin/bash
-start_time=`date +%s.%N`
 minutes_backfill=10080
 #minutes_backfill=1440
 #minutes_backfill=10
@@ -29,6 +28,7 @@ if [ -r "$file" ]; then
      COUNTER=1
      length=$(wc -l < $file )
      while IFS= read -r line; do
+          printf "\rBackfill in Progress for : ${line}"
           (for ((i=1; i<=$minutes_backfill; i++)); do
                minute=$(date -d "$backfill_start -"$i" minutes" +"%M")
                if [[ $minute > 40 ]]; then 
@@ -36,15 +36,11 @@ if [ -r "$file" ]; then
                     curl -k -s -o /dev/null https://localhost:8088/services/collector -H "Authorization: Splunk ${hec_token}" -d '{"time": "'${back_time}'", "index": "mysql", "sourcetype": "mysqld", "host": "'${line}'", "event": "[CRITICAL] /opt/mysql/bin/mysqld: Disk is full writing '/mysqllog/binlog/localhost-3306-bin.000020' (Errcode: 28). Waiting for someone to free space... Retry in 60 secs"}'
                fi
           done) &
-          ProgressBar ${COUNTER} ${length} ${line}
-          COUNTER=$[$COUNTER +1]
-          wait
+          printf "\rBackfill Complete for : ${line}"
      done < "$file"
-
+     wait
 else
     echo "File $file does not exist or is not readable."
 fi
 
-end_time=`date +%s.%N`
-runtime=$( echo "$end_time - $start_time" | bc -l )
-echo "mysql backfill finished in $runtime seconds"
+echo "mysql backfill finished in $SECONDS seconds"
