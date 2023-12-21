@@ -17,13 +17,12 @@ function ProgressBar {
 # 1.2 Build progressbar strings and print the ProgressBar line
 # 1.2.1 Output example:                           
 # 1.2.1.1 Progress : [########################################] 100%
-printf "\rProgress : [${_fill// /#}${_empty// /-}] ${_progress}%%"
+printf "\rnix Backfill Progress : [${_fill// /#}${_empty// /-}] ${_progress}%%"
 
 }
 
 if [ -r "$file" ]; then
      while IFS= read -r line; do
-          echo $line
           (for ((i=1; i<=$minutes_backfill; i++)); do
                back_time=$(date -d "$backfill_start -"$i" minutes" +%s)
                CPU_Idle=$(shuf -i 30-80 -n 1) # Random CPU usage between 10% and 80%
