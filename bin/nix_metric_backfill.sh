@@ -1,5 +1,4 @@
 #! /bin/bash
-start_time=`date +%s.%N`
 minutes_backfill=10080
 #minutes_backfill=1440
 file="/opt/splunk/etc/apps/mr_data_gen/bin/nix_entity_list.txt"
@@ -25,6 +24,7 @@ if [ -r "$file" ]; then
      COUNTER=1
      length=$(wc -l < $file )
      while IFS= read -r line; do
+          printf "\rBackfill in Progress for : ${line}"
           (for ((i=1; i<=$minutes_backfill; i++)); do
                back_time=$(date -d "$backfill_start -"$i" minutes" +%s)
                CPU_Idle=$(shuf -i 30-80 -n 1) # Random CPU usage between 10% and 80%
@@ -37,15 +37,10 @@ if [ -r "$file" ]; then
                (curl -k -s -o /dev/null https://localhost:8088/services/collector -H "Authorization: Splunk e675db8b-7149-48ed-9483-4f3d0b070f7e" -d '{ "time": "'${back_time}'", "event": "metric", "source": "mcollect", "sourcetype": "mcollect_stash", "host": "'${line}'", "fields": { "metric_name:cpu.idle": "'${CPU_Idle}'", "metric_name:memory.used": "'${Memory_Usage}'", "metric_name:df.used": "'${Disk_Free}'", "metric_name:disk.ops.read": "'${Disk_Read}'", "metric_name:disk.ops.write": "'${Disk_Write}'", "metric_name:interface.octets.rx": "'${Network_Bytes_Received}'", "metric_name:interface.octets.tx": "'${Network_Bytes_Sent}'"}}') &
                #ProgressBar ${i} ${minutes_backfill}
           done ) &
-          ProgressBar ${COUNTER} ${length} ${line}
-          COUNTER=$[$COUNTER +1]
-          wait
      done < "$file"
-
+     wait
 else
     echo "File $file does not exist or is not readable."
 fi
 
-end_time=`date +%s.%N`
-runtime=$( echo "$end_time - $start_time" | bc -l )
-echo "nix backfill finished in $runtime seconds"
+echo "nix backfill finished in $SECONDS seconds"
