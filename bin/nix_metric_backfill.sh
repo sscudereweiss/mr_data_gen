@@ -24,7 +24,7 @@ if [ -r "$file" ]; then
      COUNTER=1
      length=$(wc -l < $file )
      while IFS= read -r line; do
-          printf "\rBackfill in Progress for : ${line}"
+          echo "Backfill in Progress for : ${line}"
           (for ((i=1; i<=$minutes_backfill; i++)); do
                back_time=$(date -d "$backfill_start -"$i" minutes" +%s)
                CPU_Idle=$(shuf -i 30-80 -n 1) # Random CPU usage between 10% and 80%
