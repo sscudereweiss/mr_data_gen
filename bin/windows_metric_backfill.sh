@@ -1,6 +1,6 @@
 #! /bin/bash
 minutes_backfill=10080
-#minutes_backfill=1440
+minutes_backfill=1440
 file="/opt/splunk/etc/apps/mr_data_gen/bin/windows_entity_list.txt"
 backfill_start=$(date -u)
 
