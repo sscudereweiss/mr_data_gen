@@ -1,60 +1,71 @@
-{
-  "kpis": [
-    {
-      "_key": "4461d668-286b-437c-b35c-807ab164da1a",
-      "title": "CPU Utilization %",
-      "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
-      "threshold_field": "avgcpu",
-      "backfill_enabled": false
-    },
-    {
-      "_key": "f242fc6f66269c8c02c2f64c",
-      "title": "Database Errors",
-      "base_search": "index=mysql sourcetype=mysqld  CRITICAL",
-      "threshold_field": "host",
-      "backfill_enabled": false
-    },
-    {
-      "_key": "c57ae8d7-32ae-49a4-b454-35b51191fd1d",
-      "title": "Disk I/O - Read Ops",
-      "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
-      "threshold_field": "avgdiskread",
-      "backfill_enabled": false
-    },
-    {
-      "_key": "1d9296d9-89be-48ac-85d3-3ef5050ed337",
-      "title": "Disk I/O - Write Ops",
-      "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
-      "threshold_field": "avgdiskwrite",
-      "backfill_enabled": false
-    },
-    {
-      "_key": "97265578-a7e6-4dcf-ba1a-ce9cb75fa6bc",
-      "title": "Disk Utilization %",
-      "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
-      "threshold_field": "maxdiskused",
-      "backfill_enabled": false
-    },
-    {
-      "_key": "5fdd9566-e8a5-4070-8c43-745a400bf982",
-      "title": "Memory Utilization %",
-      "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
-      "threshold_field": "maxmemused",
-      "backfill_enabled": false
-    },
-    {
-      "_key": "07371899-f184-4c2c-aecc-9dfd29ce6828",
-      "title": "Network Throughput - Bytes In",
-      "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
-      "threshold_field": "avgnetworkbytesin",
-      "backfill_enabled": false
-    },
-    {
-      "_key": "1948e7f0-f6a4-4b2e-be73-8e9ac469109b",
-      "title": "Network Throughput - Bytes Out",
-      "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
-      "threshold_field": "avgnetworkbytesout",
-      "backfill_enabled": false
-    }
-  ]
-}
+[
+  {
+    "_key": "9eaef7b8-8d05-4a41-9868-df2ac7ef4c73",
+    "kpis": [
+      {
+        "_key": "394ddbe3-7aff-4383-a696-43c9bc85c785",
+        "title": "CPU Utilization %",
+        "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
+        "threshold_field": "avgcpu",
+        "aggregate_statop": "avg",
+        "backfill_enabled": false
+      },
+      {
+        "_key": "c337992a-c67c-4aee-ad6b-c197b7cfd690",
+        "title": "Database Errors",
+        "base_search": "index=mysql sourcetype=mysqld  CRITICAL",
+        "threshold_field": "host",
+        "aggregate_statop": "avg",
+        "backfill_enabled": false
+      },
+      {
+        "_key": "cf74b237-b5af-4ce2-b904-6f05c3acfbc1",
+        "title": "Disk I/O - Read Ops",
+        "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
+        "threshold_field": "avgdiskread",
+        "aggregate_statop": "avg",
+        "backfill_enabled": false
+      },
+      {
+        "_key": "57f35cfa-e3e0-42ab-bd06-d4974b1b09d1",
+        "title": "Disk I/O - Write Ops",
+        "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
+        "threshold_field": "avgdiskwrite",
+        "aggregate_statop": "avg",
+        "backfill_enabled": false
+      },
+      {
+        "_key": "da2fd126-8508-4871-b0d4-9a89b07f4d16",
+        "title": "Disk Utilization %",
+        "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
+        "threshold_field": "maxdiskused",
+        "aggregate_statop": "avg",
+        "backfill_enabled": false
+      },
+      {
+        "_key": "ec0f1b43-8d87-40a2-8e17-5cfcd8ed192c",
+        "title": "Memory Utilization %",
+        "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
+        "threshold_field": "maxmemused",
+        "aggregate_statop": "avg",
+        "backfill_enabled": false
+      },
+      {
+        "_key": "c2fca191-2cc2-46d9-b2ab-caa5a536384d",
+        "title": "Network Throughput - Bytes In",
+        "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
+        "threshold_field": "avgnetworkbytesin",
+        "aggregate_statop": "avg",
+        "backfill_enabled": false
+      },
+      {
+        "_key": "dd85836a-aff7-40d3-82ac-2fce29a5edee",
+        "title": "Network Throughput - Bytes Out",
+        "base_search": "| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused avg(disk.ops.read) AS avgdiskread avg(disk.ops.write) AS avgdiskwrite avg(interface.octets.rx) AS avgnetworkbytesin avg(interface.octets.tx) AS avgnetworkbytesout where index=itsi_im_metrics by host \n| eval avgcpu=100-avgcpuidle",
+        "threshold_field": "avgnetworkbytesout",
+        "aggregate_statop": "avg",
+        "backfill_enabled": false
+      }
+    ]
+  }
+]
