@@ -1,6 +1,6 @@
 #! /bin/bash
-minutes_backfill=10080
-#minutes_backfill=1440
+#minutes_backfill=10080
+minutes_backfill=1440
 #minutes_backfill=10
 hec_token="REDACTED_HEC_TOKEN"
 file="/opt/splunk/etc/apps/mr_data_gen/bin/db_entity_list.txt"
