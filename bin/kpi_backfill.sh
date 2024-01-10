@@ -21,21 +21,7 @@ function service_kpi_backfill(){
     curl -k -u "${USERNAME}:${PASSWORD}" https://${SPLUNK_HOST}:8089/servicesNS/nobody/SA-ITOA/itoa_interface/service/bulk_update/?is_partial_data=1 -H "Content-Type: application/json" -X POST -d "$kpi_keys" 
 }
 
-# function delete_kpi(){
-#     KEY="$1"
-#     #SPLUNK_HOST="localhost"
-#     SPLUNK_HOST="ec2-34-235-75-149.compute-1.amazonaws.com"
-#     USERNAME="admin"
-#     PASSWORD="wordpass123"
-#     # ITSI API endpoint to retrieve service keys
-#     ITSI_API_URL="https://${SPLUNK_HOST}:8089/servicesNS/nobody/SA-ITOA/itoa_interface/service/$KEY/"
-#     curl -k -u "${USERNAME}:${PASSWORD}" "$ITSI_API_URL" -X DELETE
-# }
 
-
-(service_kpi_backfill "70d25526-df44-4e35-9378-48b86ff46c20") &
+(service_kpi_backfill "f799f86e-3128-443f-aba2-22f0cddab0e5") &
 (service_kpi_backfill "34896a2a-b4fa-463d-a016-cf76cde9841a") &
 wait
-
-# delete_kpi "70d25526-df44-4e35-9378-48b86ff46c20"
-# delete_kpi "34896a2a-b4fa-463d-a016-cf76cde9841a"
