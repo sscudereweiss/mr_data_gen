@@ -12,7 +12,7 @@ if [ -r "$file" ]; then
         (for ((i=1; i<=$minutes_backfill; i++)); do
             back_time=$(date -d "$backfill_start -"$i" minutes" +%s)
             minute=$(date -d "$backfill_start -"$i" minutes" +"%M")
-            if [[ $minute < 60 ]]; 
+            if [[ $minute < 37 ]]; 
             then
                 CPU_Idle=$(shuf -i 50-60 -n 1) # Random CPU usage between 50% and 60%
                 Memory_Usage=$(shuf -i 10-20 -n 1) # Random Memory usage between 10% and 20%
