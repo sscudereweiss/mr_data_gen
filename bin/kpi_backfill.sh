@@ -22,6 +22,6 @@ function service_kpi_backfill(){
 }
 
 
-(service_kpi_backfill "f799f86e-3128-443f-aba2-22f0cddab0e5") &
-(service_kpi_backfill "34896a2a-b4fa-463d-a016-cf76cde9841a") &
+(service_kpi_backfill "e6a438e2-3793-4c0d-ab57-0e09d83ff431") &
+(service_kpi_backfill "a1c729e5-5bf9-4fc9-9176-65870c0fe297") &
 wait
