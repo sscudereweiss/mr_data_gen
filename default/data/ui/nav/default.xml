@@ -1,6 +1,7 @@
 <nav search_view="search">
   <view name="datagen_status"/>
   <view name="entity_management_reporting_and_analytics" />
+  <view name="mysql_backfill_status"/>
   <view name="search" />
   <view name="analytics_workspace" />
   <view name="datasets" />
