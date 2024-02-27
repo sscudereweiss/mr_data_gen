@@ -170,7 +170,7 @@
   </row>
   <row>
     <panel>
-      <title>EDU 01</title>
+      <title>EDU 03</title>
       <chart>
         <title>Metrics</title>
         <search>
@@ -253,7 +253,7 @@
       </chart>
     </panel>
     <panel>
-      <title>EDU 02</title>
+      <title>EDU 04</title>
       <chart>
         <title>Metrics</title>
         <search>
@@ -506,7 +506,7 @@
   </row>
   <row>
     <panel>
-      <title>SLG 01</title>
+      <title>SLG 03</title>
       <chart>
         <title>Metrics</title>
         <search>
@@ -589,7 +589,7 @@
       </chart>
     </panel>
     <panel>
-      <title>SLG 02</title>
+      <title>SLG 04</title>
       <chart>
         <title>Metrics</title>
         <search>
