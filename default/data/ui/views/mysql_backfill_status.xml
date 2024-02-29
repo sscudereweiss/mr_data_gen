@@ -6,7 +6,7 @@
       <chart>
         <title>Metrics</title>
         <search>
-          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) avg(disk.ops.*) as disk.ops.* avg(interface.octets.*) as interface.octets.* where index=itsi_im_metrics AND host=EDU_DC_1_MySQL_01 by host span=1h</query>
+          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) where index=itsi_im_metrics AND host=EDU_DC_1_MySQL_01 span=1h</query>
           <earliest>-7d@h</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
@@ -89,7 +89,7 @@
       <chart>
         <title>Metrics</title>
         <search>
-          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) avg(disk.ops.*) as disk.ops.* avg(interface.octets.*) as interface.octets.* where index=itsi_im_metrics AND host=EDU_DC_1_MySQL_02 by host span=1h</query>
+          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) where index=itsi_im_metrics AND host=EDU_DC_1_MySQL_02 span=1h</query>
           <earliest>-7d@h</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
@@ -174,7 +174,7 @@
       <chart>
         <title>Metrics</title>
         <search>
-          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) avg(disk.ops.*) as disk.ops.* avg(interface.octets.*) as interface.octets.* where index=itsi_im_metrics AND host=EDU_DC_1_MySQL_03 by host span=1h</query>
+          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) where index=itsi_im_metrics AND host=EDU_DC_1_MySQL_03 span=1h</query>
           <earliest>-7d@h</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
@@ -257,7 +257,7 @@
       <chart>
         <title>Metrics</title>
         <search>
-          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) avg(disk.ops.*) as disk.ops.* avg(interface.octets.*) as interface.octets.* where index=itsi_im_metrics AND host=EDU_DC_1_MySQL_04 by host span=1h</query>
+          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) where index=itsi_im_metrics AND host=EDU_DC_1_MySQL_04 span=1h</query>
           <earliest>-7d@h</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
@@ -342,7 +342,7 @@
       <chart>
         <title>Metrics</title>
         <search>
-          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) avg(disk.ops.*) as disk.ops.* avg(interface.octets.*) as interface.octets.* where index=itsi_im_metrics AND host=SLG_DC_1_MySQL_01 by host span=1h</query>
+          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) where index=itsi_im_metrics AND host=SLG_DC_1_MySQL_01 span=1h</query>
           <earliest>-7d@h</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
@@ -425,7 +425,7 @@
       <chart>
         <title>Metrics</title>
         <search>
-          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) avg(disk.ops.*) as disk.ops.* avg(interface.octets.*) as interface.octets.* where index=itsi_im_metrics AND host=SLG_DC_1_MySQL_02 by host span=1h</query>
+          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) where index=itsi_im_metrics AND host=SLG_DC_1_MySQL_02 span=1h</query>
           <earliest>-7d@h</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
@@ -510,7 +510,7 @@
       <chart>
         <title>Metrics</title>
         <search>
-          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) avg(disk.ops.*) as disk.ops.* avg(interface.octets.*) as interface.octets.* where index=itsi_im_metrics AND host=SLG_DC_1_MySQL_03 by host span=1h</query>
+          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) where index=itsi_im_metrics AND host=SLG_DC_1_MySQL_03 span=1h</query>
           <earliest>-7d@h</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
@@ -593,7 +593,7 @@
       <chart>
         <title>Metrics</title>
         <search>
-          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) avg(disk.ops.*) as disk.ops.* avg(interface.octets.*) as interface.octets.* where index=itsi_im_metrics AND host=SLG_DC_1_MySQL_04 by host span=1h</query>
+          <query>| mstats avg(cpu.idle) avg(memory.used) avg(df.used) where index=itsi_im_metrics AND host=SLG_DC_1_MySQL_04 span=1h</query>
           <earliest>-7d@h</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
