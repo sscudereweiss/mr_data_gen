@@ -1,5 +1,6 @@
 #! /bin/bash
-minutes_backfill=1440
+minutes_backfill=10080
+# minutes_backfill=1440
 hec_token=f17239e6-0ab5-47aa-8e01-7d265bbc573c
 # service_id=adfd2fc7-1cb1-45ee-a7e2-888e483789c8
 service_id=$1
