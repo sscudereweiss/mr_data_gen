@@ -1,18 +1,29 @@
 {
     "time": "'${back_time}'",
     "event": "metric",
+    "index": "itsi_summary_metrics",
     "source": "service_health_metrics_monitor",
-    "sourcetype": "stash",
+    "sourcetype": "itsi_summary:metrics",
     "fields":
     {
-        "info_max_time": "'${back_time}'",
-        "info_min_time": "'${info_min_time}'",
-        "info_search_time": "'${back_time}'",
+        "alert_period": "1",
+        "entity_key": "service_aggregate",
+        "entity_title": "service_aggregate",
+        "is_custom_threshold_event": "0",
+        "is_entity_defined": "0",
+        "is_entity_in_maintenance": "0",
+        "is_filled_gap_event": "0",
         "is_null_alert_value": "0",
-        "itsi_kpi_id": "SHKPI-d4f9c75e-da3b-4493-8377-2e54ee01da7e",
-        "itsi_service_id": "d4f9c75e-da3b-4493-8377-2e54ee01da7e",
+        "is_service_aggregate": "1",
+        "is_service_disabled": "0",
+        "is_service_in_maintenance": "0",
+        "is_service_max_severity_event": "0",
+        "itsi_kpi_id": "'${cpu_kpi_id}'",
+        "itsi_service_id": "'${service_id}'",
         "itsi_team_id": "default_itsi_security_group",
-        "scoretype": "service_health",
-        "metric_name:service_health_score": "100"
+        "kpi": "CPU Utilization %",
+        "kpi_base_search": "63bc474ac3f59b47c44aef83",
+        "kpi_importance": "5",
+        "metric_name:alert_level": "'${alert_level}'"
     }
 }
