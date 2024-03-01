@@ -1,10 +1,10 @@
 #! /bin/bash
 minutes_backfill=1440
 hec_token=REDACTED_HEC_TOKEN
-service_id=adfd2fc7-1cb1-45ee-a7e2-888e483789c8
-# service_id=$1
-kpi_id=SHKPI-adfd2fc7-1cb1-45ee-a7e2-888e483789c8
-# kpi_id=$2
+# service_id=adfd2fc7-1cb1-45ee-a7e2-888e483789c8
+service_id=$1
+# kpi_id=SHKPI-adfd2fc7-1cb1-45ee-a7e2-888e483789c8
+kpi_id=$2
 
 backfill_start=$(date -u)
 service_health_score=100
