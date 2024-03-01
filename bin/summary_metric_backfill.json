@@ -1,0 +1,18 @@
+{
+    "time": "'${back_time}'",
+    "event": "metric",
+    "source": "service_health_metrics_monitor",
+    "sourcetype": "stash",
+    "fields":
+    {
+        "info_max_time": "'${back_time}'",
+        "info_min_time": "'${info_min_time}'",
+        "info_search_time": "'${back_time}'",
+        "is_null_alert_value": "0",
+        "itsi_kpi_id": "SHKPI-d4f9c75e-da3b-4493-8377-2e54ee01da7e",
+        "itsi_service_id": "d4f9c75e-da3b-4493-8377-2e54ee01da7e",
+        "itsi_team_id": "default_itsi_security_group",
+        "scoretype": "service_health",
+        "metric_name:service_health_score": "100"
+    }
+}
