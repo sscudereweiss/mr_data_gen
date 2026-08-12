@@ -2,7 +2,7 @@
 minutes_backfill=10080
 #minutes_backfill=1440
 #minutes_backfill=10
-hec_token="REDACTED_HEC_TOKEN"
+: "${SPLUNK_HEC_TOKEN:?Set SPLUNK_HEC_TOKEN before running this script}"
 file="/opt/splunk/etc/apps/mr_data_gen/bin/db_entity_list.txt"
 #file="db_entity_list.txt"
 backfill_start=$(date -u)
@@ -18,7 +18,7 @@ if [ -r "$file" ]; then
                modhour=$(($hour % 6))
                if [[ $minute > 37 ]] && [[ $modhour == 0 ]]; then 
                     back_time=$(date -d "$backfill_start -"$i" minutes" +%s)
-                    curl -k -s -o /dev/null https://localhost:8088/services/collector -H "Authorization: Splunk ${hec_token}" -d '{"time": "'${back_time}'", "index": "mysql", "sourcetype": "mysqld", "host": "'${line}'", "event": "[CRITICAL] /opt/mysql/bin/mysqld: Disk is full writing '/mysqllog/binlog/localhost-3306-bin.000020' (Errcode: 28). Waiting for someone to free space... Retry in 60 secs"}'
+                    curl -k -s -o /dev/null https://localhost:8088/services/collector -H "Authorization: Splunk ${SPLUNK_HEC_TOKEN}" -d '{"time": "'${back_time}'", "index": "mysql", "sourcetype": "mysqld", "host": "'${line}'", "event": "[CRITICAL] /opt/mysql/bin/mysqld: Disk is full writing '/mysqllog/binlog/localhost-3306-bin.000020' (Errcode: 28). Waiting for someone to free space... Retry in 60 secs"}'
                fi
           done 
           echo "Backfill Complete for : ${line}") &

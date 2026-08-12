@@ -1,6 +1,6 @@
 #! /bin/bash
 
-SPLUNK_PASSWORD=REDACTED
+: "${SPLUNK_PASSWORD:?Set SPLUNK_PASSWORD before running this script}"
 
 curl -k -u admin:$SPLUNK_PASSWORD https://localhost:8089/servicesNS/nobody/SA-ITOA/itoa_interface/content_pack/DA-ITSI-CP-nix/1.2.0/install -H "Content-Type: application/json" -X POST -d '{"resolution":"skip","content":{"kpi_base_searches":["da-itsi-cp-nix-nix-os-performance-nix-bandwidth","da-itsi-cp-nix-nix-os-performance-nix-cpu","da-itsi-cp-nix-nix-os-performance-nix-df","da-itsi-cp-nix-nix-os-performance-nix-iostat","da-itsi-cp-nix-nix-os-performance-nix-vmstat"],"service_templates":["da-itsi-cp-nix-unix-and-linux-server-health"]},"enabled":"1","saved_search_action":"enable"}'
 

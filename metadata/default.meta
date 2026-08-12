@@ -81,12 +81,6 @@ modtime = 1673450439.181941000
 version = 9.0.0
 modtime = 1673535377.703666000
 
-[savedsearches/Test%20Entity%20Generator%20Linux%2FUnix]
-access = read : [ * ], write : [ admin, itoa_admin ]
-export = system
-version = 9.0.0
-modtime = 1673469156.168020000
-
 [macros/linux_metrics_gen_memory_unstable]
 access = read : [ * ], write : [ admin, itoa_admin ]
 export = system
@@ -98,12 +92,6 @@ access = read : [ * ], write : [ admin, itoa_admin ]
 export = system
 version = 9.0.0
 modtime = 1673469152.494534000
-
-[savedsearches/Test%20Entity%20Generator%20Windows]
-access = read : [ * ], write : [ admin, itoa_admin ]
-export = system
-version = 9.0.0
-modtime = 1673473984.638347000
 
 [macros/windows_metrics_stable]
 access = read : [ * ], write : [ admin, itoa_admin ]
