@@ -36,7 +36,7 @@ mr_data_gen/
 
 `default/savedsearches.conf` contains 15 scheduled searches (mostly every minute) for EDU/SLG Nagios alerts, datacenter generators, RUM/APM, Synthetics, and MySQL errors. Review and disable searches you do not need in demo environments.
 
-`local/savedsearches.conf` contains ITSI import-object searches (KPI attributes, episode contact map, APM/RUM/SSM entity import).
+`local/savedsearches.conf` contains ITSI import-object searches and **SA Lab prod schedule overrides** (generators throttled to Mon–Fri 08:00–18:00 at a 5-minute cadence; Hi ED RUM/APM disabled).
 
 ## Dashboards
 
