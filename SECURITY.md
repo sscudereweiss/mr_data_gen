@@ -8,12 +8,15 @@ The public git history previously contained demo credentials. If those endpoints
 
 1. **Splunk admin password** — change on every affected instance.
 2. **HEC tokens** — revoke and recreate in *Settings → Data Inputs → HTTP Event Collector*.
-3. **Review access logs** — check for unauthorized use of rotated credentials.
+3. **Splunk Observability ingest tokens** — revoke and recreate in Observability Cloud *Settings → Access Tokens* (Ingest scope). Update `/etc/otel/collector/env` on the host; never commit tokens to git.
+4. **Review access logs** — check for unauthorized use of rotated credentials.
 
 ## Safe configuration
 
-- Never commit real passwords, HEC tokens, or API keys.
+- Never commit real passwords, HEC tokens, Observability ingest tokens, or API keys.
 - Keep instance-specific values in `local/` on the Splunk server only; use placeholders in git.
+- **Observability tokens** belong only in the Splunk OTel Collector env file on the host (e.g. `/etc/otel/collector/env`, mode `600`). Do not add `SPLUNK_ACCESS_TOKEN` to `inputs.conf`, `edu_dc1_datagen.conf`, or Python source.
+- The EDU DC1 scripted input exports OTLP to `127.0.0.1:4317` without credentials when `[observability] enabled = true`.
 - Set environment variables before running `bin/` scripts:
   - `SPLUNK_PASSWORD`
   - `SPLUNK_HEC_TOKEN`

@@ -137,6 +137,34 @@ Reload: `bin/reload-mr-data-gen-conf.sh` (inputs + props + transforms). Splunkd 
 
 Expect **16** EDU_DC_1 hosts with fresh metrics during demo window; MySQL KPI base search returns **4** hosts.
 
+### Splunk Observability instrumentation (optional)
+
+Python scripted input can export traces/metrics to a **local Splunk OTel Collector** (`127.0.0.1:4317`). Token stays on the host in `/etc/otel/collector/env` — not in git.
+
+**Collector on SA Lab:**
+
+1. Install [Splunk OTel Collector](https://github.com/signalfx/splunk-otel-collector) (Linux installer).
+2. Create `/etc/otel/collector/env` (mode `600`):
+
+   ```bash
+   SPLUNK_ACCESS_TOKEN=<ingest-capable token>
+   SPLUNK_REALM=us1
+   ```
+
+3. Configure OTLP gRPC receiver on `127.0.0.1:4317` only; exporter to Splunk Observability Cloud.
+4. Enable instrumentation:
+
+   ```ini
+   # local/edu_dc1_datagen.conf
+   [observability]
+   enabled = true
+   interval = 60
+   ```
+
+5. `./bin/install-otel-deps.sh` then restart the scripted input.
+
+Validate in Observability Cloud: service `mr_data_gen_edu_dc1`, span `edu_dc1_metrics_gen.run`, metrics `edu_dc1.run.*`. Confirm `mstats` datagen still passes above.
+
 ## Deploy command
 
 Uses SSH host **`SA-SPLUNK-LAB`** (`~/.ssh/config` → `34.235.75.149`).

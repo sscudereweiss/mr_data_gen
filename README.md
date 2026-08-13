@@ -87,6 +87,34 @@ Validate with `mstats`:
   WHERE index=itsi_im_metrics host=EDU_DC_1_MySQL_* earliest=-15m BY host
 ```
 
+### Splunk Observability instrumentation (optional)
+
+The scripted input can emit **APM traces and custom metrics** to a **local Splunk OTel Collector** on the Splunk host. The Python app sends OTLP to `127.0.0.1:4317` with **no Observability token**; the collector holds the ingest token in host-only config (never in git).
+
+| File | Purpose |
+|------|---------|
+| `bin/edu_dc1_otel.py` | Fail-open `RunTelemetry` span + metrics per run |
+| `requirements-otel.txt` | Pinned OpenTelemetry SDK packages |
+| `bin/install-otel-deps.sh` | Installs deps into `lib/` (gitignored) |
+| `default/edu_dc1_datagen.conf` `[observability]` | `enabled=false` by default |
+
+**Enable on an instance** (after collector is running):
+
+```ini
+# local/edu_dc1_datagen.conf
+[observability]
+enabled = true
+interval = 60
+```
+
+```bash
+./bin/install-otel-deps.sh
+splunk _internal call /services/data/inputs/script/restart -method POST \
+  -post:script '$SPLUNK_HOME/etc/apps/mr_data_gen/bin/edu_dc1_metrics_gen.py'
+```
+
+Collector setup (host ops, not in this repo): install [Splunk OTel Collector](https://github.com/signalfx/splunk-otel-collector), bind OTLP gRPC to `127.0.0.1:4317`, and place `SPLUNK_ACCESS_TOKEN` + `SPLUNK_REALM` in `/etc/otel/collector/env` (mode `600`). See `docs/sa-lab-reliability-validation-baseline.md`.
+
 ## Dashboards
 
 From the app nav:

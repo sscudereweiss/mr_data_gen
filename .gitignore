@@ -2,6 +2,8 @@
 **/.DS_Store
 __pycache__/
 **/__pycache__/
+lib/
+requirements-otel.txt.lock
 bin/terraform.tfstate
 bin/terraform.tfstate.*
 *.tfstate
