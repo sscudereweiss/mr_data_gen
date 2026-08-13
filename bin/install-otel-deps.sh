@@ -14,20 +14,33 @@ if [[ ! -f "${REQ}" ]]; then
 fi
 
 PYTHON=""
+PIP=""
 for candidate in "${SPLUNK_HOME}/bin/python3.9" "${SPLUNK_HOME}/bin/python3"; do
-  if [[ -x "${candidate}" ]]; then
+  if [[ -x "${candidate}" ]] && "${candidate}" -c "import ssl" >/dev/null 2>&1; then
     PYTHON="${candidate}"
+    PIP="${candidate} -m pip"
     break
   fi
 done
 
 if [[ -z "${PYTHON}" ]]; then
-  echo "No Splunk Python interpreter found under ${SPLUNK_HOME}/bin" >&2
+  for candidate in /usr/bin/python3.9 /usr/bin/python3; do
+    if [[ -x "${candidate}" ]] && "${candidate}" -c "import ssl" >/dev/null 2>&1; then
+      PYTHON="${candidate}"
+      PIP="${candidate} -m pip"
+      echo "Splunk Python lacks SSL; installing with ${candidate} into ${TARGET}"
+      break
+    fi
+  done
+fi
+
+if [[ -z "${PYTHON}" ]]; then
+  echo "No Python with SSL found for pip install" >&2
   exit 1
 fi
 
 mkdir -p "${TARGET}"
-"${PYTHON}" -m pip install --upgrade pip
-"${PYTHON}" -m pip install --target "${TARGET}" -r "${REQ}"
+${PIP} install --upgrade pip
+${PIP} install --target "${TARGET}" -r "${REQ}"
 
 echo "Installed OpenTelemetry deps into ${TARGET}"
