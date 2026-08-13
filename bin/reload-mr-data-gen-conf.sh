@@ -17,4 +17,8 @@ AUTH="admin:${SPLUNK_PASSWORD}"
   /servicesNS/nobody/mr_data_gen/configs/conf-macros/_reload \
   -method POST -auth "${AUTH}"
 
-echo "Reloaded savedsearches.conf and macros.conf for mr_data_gen."
+"${SPLUNK}" _internal call \
+  /servicesNS/nobody/mr_data_gen/configs/conf-indexes/_reload \
+  -method POST -auth "${AUTH}"
+
+echo "Reloaded savedsearches.conf, macros.conf, and indexes.conf for mr_data_gen."

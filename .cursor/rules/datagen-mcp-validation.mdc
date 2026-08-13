@@ -1,0 +1,45 @@
+---
+description: After datagen SPL/macros/lookup changes, validate metrics via Splunk MCP before finishing
+globs: local/savedsearches.conf,local/macros.conf,default/macros.conf,local/indexes.conf,lookups/**,default/transforms.conf
+alwaysApply: false
+---
+
+# Datagen — Validate with Splunk MCP
+
+After changing saved searches, macros, or host lookups that feed datagen, **run Splunk MCP queries on SA Lab** before treating the work as done. Config edits alone are not proof data is flowing.
+
+## Workflow
+
+1. **Deploy + reload** if the host does not have your changes (`git pull`, `bin/reload-mr-data-gen-conf.sh`, app reload for new lookups).
+2. **Discover** `splunk_run_query` via `GetMcpTools` on server `user-SA_LAB_ITSI`.
+3. **Index enabled** — datagen write targets must not be disabled (`| rest splunk_server=local /services/data/indexes/itsi_im_metrics | table title disabled`). If `disabled=1`, enable via `local/indexes.conf` (`disabled=0`) + reload; splunkd restart may be required on the host.
+4. **Parse-check** the changed pipeline (no `mcollect` if you only need syntax):
+   ```spl
+| inputlookup edu_dc1_hosts where enabled=1
+| eval _time=now()
+| eval minute=strftime(_time, "%M"), process_name=system, os_version="2.6.32-573.8.1.el6.x86_64", entity_type="nix_host" `edu_dc1_apply_metrics`
+   | stats count by profile
+   ```
+   Use app `mr_data_gen` when the search uses app macros/lookups.
+5. **Run the saved search** ad-hoc if the schedule window has not fired: `| savedsearch "Hi_ED DC 1 Generator"`.
+6. **Confirm index writes** with `mstats` (not raw `index=` alone for metric data).
+
+## Required checks (Hi_ED DC 1 → `itsi_im_metrics`)
+
+| Check | SPL | Pass |
+|-------|-----|------|
+| Host count | `\| mstats count WHERE index=itsi_im_metrics metric_name=* host=EDU_DC_1_* earliest=-15m BY host \| stats count AS hosts` | **16** (all `enabled=1` lookup rows) |
+| MySQL KPI fields | `\| mstats avg(cpu.idle) max(df.used) max(memory.used) WHERE index=itsi_im_metrics host=EDU_DC_1_MySQL_* earliest=-15m BY host` | **4 hosts**, non-null |
+| Freshness | `\| mstats latest(_time) AS last_seen WHERE index=itsi_im_metrics host=EDU_DC_1_* earliest=-15m BY host \| eval age_sec=now()-last_seen` | `age_sec` ≲ 600 during demo hours (`*/5 8-18 * * 1-5`) |
+
+Adapt host prefix / index for other generators (SLG, DC2, `sim_metrics`, etc.).
+
+## Do not
+
+- Mark datagen fixed without MCP or equivalent Splunk search results.
+- Rely on `_audit` inline counts alone — zero metrics means the SPL still failed.
+- Chain metric macros on a new `\|` line after `\` continuation (causes `\| \| eval` SearchParser errors); inline backtick macros on the same eval line when needed.
+
+## On failure
+
+Report the SearchParser/mcollect error, fix SPL locally, redeploy, and re-run the same MCP checks until host count and KPI fields pass.
