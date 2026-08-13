@@ -97,6 +97,46 @@ Expect: parent `Hi_ED DC 1 Generator` count unchanged (~12/h in demo window); **
 
 Host coverage is controlled by [`lookups/edu_dc1_hosts.csv`](../lookups/edu_dc1_hosts.csv) (`enabled=0` to disable a row without deleting it).
 
+## Hi_ED DC 1 scripted input (2026-08-13)
+
+Replaces scheduled SPL `map` + `mcollect` with a **classic scripted input** (`bin/edu_dc1_metrics_gen.py` → stdout → log-to-metrics → `itsi_im_metrics`). See [Setting up a scripted input](https://help.splunk.com/en/splunk-enterprise/developing-views-and-apps-for-splunk-web/9.4/build-scripted-inputs/setting-up-a-scripted-input).
+
+| Dimension | SPL + map (prior) | Scripted input |
+|-----------|-------------------|----------------|
+| Parent scheduled SPL jobs (DC1) | 1 per 5 min | **0** (search disabled) |
+| Inline `map` jobs per tick | 16 | **0** |
+| Processes per tick | 1 heavy search | 1 Python script, ≤16 stdout lines |
+| Host identity | `host=$host$` in map | `_MetaData:Host::` per stdout line |
+
+### Enable on SA Lab
+
+```ini
+# local/inputs.conf
+[script://$SPLUNK_HOME/etc/apps/mr_data_gen/bin/edu_dc1_metrics_gen.py]
+disabled = 0
+
+# local/savedsearches.conf
+[Hi_ED DC 1 Generator]
+disabled = 1
+```
+
+Reload: `bin/reload-mr-data-gen-conf.sh` (inputs + props + transforms). Splunkd restart may be required for scripted input enable — ask before restart.
+
+### Validation
+
+```spl
+| mstats count WHERE index=itsi_im_metrics metric_name=* earliest=-15m BY host
+| search host=EDU_DC_1_*
+| stats count as hosts
+
+| mstats avg(cpu.idle) AS avgcpuidle max(df.used) AS maxdiskused max(memory.used) AS maxmemused
+  WHERE index=itsi_im_metrics
+  (host=EDU_DC_1_MySQL_01 OR host=EDU_DC_1_MySQL_02 OR host=EDU_DC_1_MySQL_03 OR host=EDU_DC_1_MySQL_04)
+  earliest=-15m BY host
+```
+
+Expect **16** EDU_DC_1 hosts with fresh metrics during demo window; MySQL KPI base search returns **4** hosts.
+
 ## Deploy command
 
 Uses SSH host **`SA-SPLUNK-LAB`** (`~/.ssh/config` → `34.235.75.149`).
