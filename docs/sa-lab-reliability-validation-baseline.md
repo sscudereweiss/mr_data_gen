@@ -39,6 +39,22 @@ index=_internal source=*scheduler.log* "Skipping execution" earliest=-4h
 | stats count by reason
 ```
 
+## Post-deploy snapshot (-4h window, 2026-08-13 after reload)
+
+Config on branch `feature/sa-lab-savedsearches-throttle` at commit `d4e0001`. Deploy: `git push` locally → `git pull` on host → `bin/reload-mr-data-gen-conf.sh` (HTTP 200 reload at 10:25 ET).
+
+| Metric | Pre-deploy baseline | Post-deploy (-4h) | Notes |
+|--------|---------------------|-------------------|-------|
+| mr_data_gen inline runs | 47,087 | **10,128** | ~78% reduction (throttle + partial flat macro on Hi_ED DC 1) |
+| mr_data_gen inline run-seconds | 8,555 | **1,031** | ~88% reduction |
+| mr_data_gen named runs | — | **2,232** | Throttled cadence active |
+| Hi_ED DC 1 Generator runs | 236 (~59/h) | **48 (~12/h)** | Matches `*/5 8-18 * * 1-5` |
+| ITSI Import (SSM API) | ~60/h | **26 in 10:00 hour** | `*/15` reload applied; full hour should settle ~4/h |
+| Scheduler skips (-4h) | 0 | **0** | No skip events |
+| EDU_DC_1_* metrics (15m) | — | **12 hosts × 6 points** | Flat macro spike validated via `mstats` |
+
+Hi_ED DC 1 uses `generate_*_flat` macros (no `map`); SLG APM collapsed to single 7-row pipeline; Synthetics disabled; ITSI imports at `*/15`; DC `schedule_priority=default`.
+
 ## Deploy command
 
 Uses SSH host **`SA-SPLUNK-LAB`** (`~/.ssh/config` → `34.235.75.149`).
