@@ -43,13 +43,33 @@ index=_internal source=*scheduler.log* "Skipping execution" earliest=-4h
 
 Uses SSH host **`SA-SPLUNK-LAB`** (`~/.ssh/config` → `34.235.75.149`).
 
-```bash
-# Quick SSH test
-ssh SA-SPLUNK-LAB 'hostname'
+Deploy by pushing the branch locally, then pulling on the host (app is a git checkout):
 
-scp local/savedsearches.conf SA-SPLUNK-LAB:/tmp/
-ssh SA-SPLUNK-LAB 'sudo cp /tmp/savedsearches.conf /opt/splunk/etc/apps/mr_data_gen/local/ && \
-  sudo chown splunk:splunk /opt/splunk/etc/apps/mr_data_gen/local/savedsearches.conf && \
-  sudo /opt/splunk/bin/splunk validate files --type=conf --name=savedsearches --path=/opt/splunk/etc/apps/mr_data_gen && \
-  sudo /opt/splunk/bin/splunk reload saved-searches'
+```bash
+# Local: push branch
+git push origin feature/sa-lab-savedsearches-throttle
+
+# Host: pull branch (as splunk user)
+ssh SA-SPLUNK-LAB 'sudo -u splunk bash -s' <<'EOF'
+set -e
+cd /opt/splunk/etc/apps/mr_data_gen
+git fetch origin feature/sa-lab-savedsearches-throttle
+git checkout origin/feature/sa-lab-savedsearches-throttle -- local/savedsearches.conf local/macros.conf
+git pull --ff-only origin feature/sa-lab-savedsearches-throttle
+git log -1 --oneline
+EOF
+
+# Host: reload scheduler (requires admin password)
+ssh SA-SPLUNK-LAB 'sudo -u splunk env SPLUNK_PASSWORD="$SPLUNK_PASSWORD" /opt/splunk/etc/apps/mr_data_gen/bin/reload-mr-data-gen-conf.sh'
+```
+
+Or interactively on the host:
+
+```bash
+ssh SA-SPLUNK-LAB
+sudo -u splunk /opt/splunk/bin/splunk login
+sudo -u splunk /opt/splunk/bin/splunk _internal call \
+  /servicesNS/nobody/mr_data_gen/configs/conf-savedsearches/_reload -method POST
+sudo -u splunk /opt/splunk/bin/splunk _internal call \
+  /servicesNS/nobody/mr_data_gen/configs/conf-macros/_reload -method POST
 ```
