@@ -144,7 +144,7 @@ Python scripted input can export traces/metrics to a **local Splunk OTel Collect
 **Collector on SA Lab:**
 
 1. Install [Splunk OTel Collector](https://github.com/signalfx/splunk-otel-collector) (Linux installer).
-2. Create `/etc/otel/collector/env` (mode `600`):
+2. Create a host-only env file (mode `600`). On SA Lab this is `/etc/otel/collector/splunk-otel-collector.conf`:
 
    ```bash
    SPLUNK_ACCESS_TOKEN=<ingest-capable token>

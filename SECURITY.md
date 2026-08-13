@@ -15,7 +15,7 @@ The public git history previously contained demo credentials. If those endpoints
 
 - Never commit real passwords, HEC tokens, Observability ingest tokens, or API keys.
 - Keep instance-specific values in `local/` on the Splunk server only; use placeholders in git.
-- **Observability tokens** belong only in the Splunk OTel Collector env file on the host (e.g. `/etc/otel/collector/env`, mode `600`). Do not add `SPLUNK_ACCESS_TOKEN` to `inputs.conf`, `edu_dc1_datagen.conf`, or Python source.
+- **Observability tokens** belong only in the Splunk OTel Collector env file on the host (e.g. `/etc/otel/collector/env` or `/etc/otel/collector/splunk-otel-collector.conf` on SA Lab, mode `600`). Do not add `SPLUNK_ACCESS_TOKEN` to `inputs.conf`, `edu_dc1_datagen.conf`, or Python source.
 - The EDU DC1 scripted input exports OTLP to `127.0.0.1:4317` without credentials when `[observability] enabled = true`.
 - Set environment variables before running `bin/` scripts:
   - `SPLUNK_PASSWORD`

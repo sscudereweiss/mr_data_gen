@@ -113,7 +113,7 @@ splunk _internal call /services/data/inputs/script/restart -method POST \
   -post:script '$SPLUNK_HOME/etc/apps/mr_data_gen/bin/edu_dc1_metrics_gen.py'
 ```
 
-Collector setup (host ops, not in this repo): install [Splunk OTel Collector](https://github.com/signalfx/splunk-otel-collector), bind OTLP gRPC to `127.0.0.1:4317`, and place `SPLUNK_ACCESS_TOKEN` + `SPLUNK_REALM` in `/etc/otel/collector/env` (mode `600`). See `docs/sa-lab-reliability-validation-baseline.md`.
+Collector setup (host ops, not in this repo): install [Splunk OTel Collector](https://github.com/signalfx/splunk-otel-collector), bind OTLP gRPC to `127.0.0.1:4317`, and place `SPLUNK_ACCESS_TOKEN` + `SPLUNK_REALM` in a host-only env file (mode `600`). On SA Lab the collector uses `/etc/otel/collector/splunk-otel-collector.conf`. See `docs/sa-lab-reliability-validation-baseline.md`.
 
 ## Dashboards
 
