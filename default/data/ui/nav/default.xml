@@ -1,5 +1,6 @@
 <nav search_view="search">
   <view name="datagen_status"/>
+  <view name="search_performance_validation"/>
   <view name="entity_management_reporting_and_analytics" />
   <view name="mysql_backfill_status"/>
   <view name="search" />

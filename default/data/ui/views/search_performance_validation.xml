@@ -1,0 +1,148 @@
+<form version="1.1" theme="dark">
+  <label>Search Performance Validation</label>
+  <description>Validate Hi_ED DC1 flat macros vs DC2 map macros (metric parity) and mr_data_gen scheduler load. Default -4h window. PASS = 16 hosts per DC, equal host counts, and data present. MySQL: compare presence only (DC1 uses unstable flat; DC2 uses stable).</description>
+  <fieldset submitButton="true" autoRun="true">
+    <input type="time" token="timefield">
+      <label>Time</label>
+      <default>
+        <earliest>-4h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <html>
+        <h3>Section A: EDU DC flat vs map</h3>
+        <p>Compare <b>Hi_ED DC 1 Generator</b> (flat macros, no map) to <b>Hi_ED DC 2 Generator</b> (legacy map macros). Both should expose the same 16 entity hosts and similar ingestion volume.</p>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>DC Pass/Fail Summary</title>
+      <table>
+        <search>
+          <query>| mstats count as pts WHERE index=itsi_im_metrics metric_name=* (host=EDU_DC_1_* OR host=EDU_DC_2_*) BY host
+| rex field=host "EDU_DC_(?&lt;dc&gt;[12])_"
+| stats dc(host) as host_count sum(pts) as total_pts BY dc
+| eval dc_label=if(dc=1, "DC1_flat", "DC2_map")
+| eventstats max(host_count) as max_hosts min(host_count) as min_hosts
+| eval status=if(host_count&gt;=16 AND total_pts&gt;0 AND max_hosts=min_hosts, "PASS", "CHECK")
+| table dc_label host_count total_pts status</query>
+          <earliest>$timefield.earliest$</earliest>
+          <latest>$timefield.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Missing Entity Keys (empty = pass)</title>
+      <table>
+        <search>
+          <query>| mstats count WHERE index=itsi_im_metrics metric_name=* (host=EDU_DC_1_* OR host=EDU_DC_2_*) BY host
+| rex field=host "EDU_DC_(?&lt;dc&gt;[12])_(?&lt;role&gt;.+?)_(?&lt;num&gt;\d+)$"
+| eval key=role."_".num
+| stats dc(dc) as dcs values(dc) as which_dc BY key
+| where dcs&lt;2
+| sort key</query>
+          <earliest>$timefield.earliest$</earliest>
+          <latest>$timefield.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Host and Datapoint Counts by Role</title>
+      <table>
+        <search>
+          <query>| mstats count as datapoints WHERE index=itsi_im_metrics metric_name=* (host=EDU_DC_1_* OR host=EDU_DC_2_*) BY host
+| rex field=host "EDU_DC_(?&lt;dc&gt;[12])_(?&lt;role&gt;.+?)_(?&lt;num&gt;\d+)$"
+| eval dc_label=if(dc=1, "DC1_flat", "DC2_map")
+| stats dc(host) as hosts sum(datapoints) as total_pts BY dc_label role
+| sort role dc_label</query>
+          <earliest>$timefield.earliest$</earliest>
+          <latest>$timefield.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Ingestion Cadence: Authorization_01 (5m)</title>
+      <chart>
+        <search>
+          <query>| mstats count as samples WHERE index=itsi_im_metrics metric_name=processmon.cpu.percent (host=EDU_DC_1_Authorization_01 OR host=EDU_DC_2_Authorization_01) BY host span=5m
+| eval dc=case(host="EDU_DC_1_Authorization_01", "DC1_flat", host="EDU_DC_2_Authorization_01", "DC2_map", 1=1, "other")
+| timechart span=5m sum(samples) by dc</query>
+          <earliest>$timefield.earliest$</earliest>
+          <latest>$timefield.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+        <h3>Section B: Scheduler and search performance</h3>
+        <p>Pre-optimize baseline (~4h): inline runs ~47k, inline run-seconds ~8.5k. Post-optimize target: well below baseline. Hi_ED DC generators ~12 runs/hour in demo window (*/5 8-18 Mon-Fri).</p>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>mr_data_gen Named Search Runs</title>
+      <table>
+        <search>
+          <query>index=_audit action=search info=completed app=mr_data_gen
+| stats count avg(total_run_time) as avg_s sum(total_run_time) as total_s by savedsearch_name
+| sort - count</query>
+          <earliest>$timefield.earliest$</earliest>
+          <latest>$timefield.latest$</latest>
+        </search>
+        <option name="count">50</option>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Inline Ad-hoc Search Fan-out (15m)</title>
+      <chart>
+        <search>
+          <query>index=_audit action=search info=completed app=mr_data_gen savedsearch_name=""
+| timechart span=15m count</query>
+          <earliest>$timefield.earliest$</earliest>
+          <latest>$timefield.latest$</latest>
+        </search>
+        <option name="charting.chart">column</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Scheduler Skips (empty = good)</title>
+      <table>
+        <search>
+          <query>index=_internal source=*scheduler.log* "Skipping execution"
+| rex field=_raw "reason=(?&lt;reason&gt;[^,]+)"
+| stats count by reason</query>
+          <earliest>$timefield.earliest$</earliest>
+          <latest>$timefield.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>
