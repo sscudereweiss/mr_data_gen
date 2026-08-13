@@ -7,6 +7,7 @@ import csv
 import os
 from datetime import datetime
 from typing import Any, Dict, Iterable, List, Optional, Set
+from zoneinfo import ZoneInfo
 
 DAY_MAP = {
     "mon": 0,
@@ -87,7 +88,8 @@ def in_demo_window(settings: configparser.ConfigParser, now: Optional[datetime] 
     if not _get_bool(settings, "settings", "demo_hours_only", True):
         return True
 
-    now = now or datetime.now()
+    tz_name = settings.get("settings", "demo_timezone", fallback="America/New_York")
+    now = now or datetime.now(ZoneInfo(tz_name))
     start_hour = int(settings.get("settings", "demo_start_hour", fallback="8"))
     end_hour = int(settings.get("settings", "demo_end_hour", fallback="18"))
     if now.hour < start_hour or now.hour > end_hour:
@@ -221,7 +223,9 @@ def iter_host_lines(
     import json
 
     settings = settings or load_settings()
-    now = now or datetime.now()
+    if now is None:
+        tz_name = settings.get("settings", "demo_timezone", fallback="America/New_York")
+        now = datetime.now(ZoneInfo(tz_name))
 
     if not in_demo_window(settings, now):
         return
