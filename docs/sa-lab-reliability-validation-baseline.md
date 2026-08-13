@@ -159,7 +159,7 @@ Python scripted input can export traces/metrics to a **local Splunk OTel Collect
    [observability]
    enabled = true
    interval = 60
-   environment = social-services
+   environment = itsi_demo
    ```
 
 5. `./bin/install-otel-deps.sh` then restart the scripted input.
