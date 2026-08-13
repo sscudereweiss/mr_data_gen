@@ -212,6 +212,7 @@ def build_host_payload(
 ) -> Dict[str, Any]:
     payload = apply_metrics(row, minute, metric_filter=metric_filter)
     payload.update(build_dimensions(row, os_version))
+    payload["index_host"] = row["host"]
     return payload
 
 
@@ -248,7 +249,4 @@ def iter_host_lines(
 
     for row in hosts:
         payload = build_host_payload(row, os_version, minute, metric_filter or None)
-        host = row["host"]
-        # Two-line scripted-input format: metadata line sets host for the following JSON event.
-        yield f"_MetaData:Host::{host}"
         yield json.dumps(payload, separators=(",", ":"), sort_keys=True)
