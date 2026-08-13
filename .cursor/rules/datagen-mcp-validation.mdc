@@ -1,6 +1,6 @@
 ---
 description: After datagen SPL/macros/lookup/scripted-input changes, validate metrics via Splunk MCP before finishing
-globs: local/savedsearches.conf,local/macros.conf,default/macros.conf,local/indexes.conf,lookups/**,default/transforms.conf,default/inputs.conf,bin/edu_dc1_metrics*.py
+globs: local/savedsearches.conf,local/macros.conf,default/macros.conf,local/indexes.conf,lookups/**,default/transforms.conf,default/inputs.conf,bin/*_metrics*.py,bin/dc_*.py
 alwaysApply: false
 ---
 
