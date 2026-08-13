@@ -41,6 +41,11 @@ fi
 
 mkdir -p "${TARGET}"
 ${PIP} install --upgrade pip
-${PIP} install --target "${TARGET}" -r "${REQ}"
+
+# Clean install avoids google namespace conflicts (googleapis vs protobuf).
+rm -rf "${TARGET}"
+mkdir -p "${TARGET}"
+${PIP} install --target "${TARGET}" "protobuf>=4.25,<5"
+${PIP} install --upgrade --target "${TARGET}" -r "${REQ}"
 
 echo "Installed OpenTelemetry deps into ${TARGET}"

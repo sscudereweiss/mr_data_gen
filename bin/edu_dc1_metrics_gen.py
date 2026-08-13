@@ -3,7 +3,14 @@
 
 from __future__ import annotations
 
+import os
 import sys
+
+# Bootstrap vendored OTel deps before any opentelemetry/google imports.
+_script_dir = os.path.dirname(os.path.abspath(__file__))
+_lib_dir = os.path.join(os.path.dirname(_script_dir), "lib")
+if os.path.isdir(_lib_dir) and _lib_dir not in sys.path:
+    sys.path.insert(0, _lib_dir)
 
 from edu_dc1_metrics_lib import iter_host_lines, load_settings
 from edu_dc1_otel import RunTelemetry
