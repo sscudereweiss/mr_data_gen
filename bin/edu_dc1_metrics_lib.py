@@ -249,5 +249,6 @@ def iter_host_lines(
     for row in hosts:
         payload = build_host_payload(row, os_version, minute, metric_filter or None)
         host = row["host"]
-        line = f"_MetaData:Host::{host} {json.dumps(payload, separators=(',', ':'), sort_keys=True)}"
-        yield line
+        # Two-line scripted-input format: metadata line sets host for the following JSON event.
+        yield f"_MetaData:Host::{host}"
+        yield json.dumps(payload, separators=(",", ":"), sort_keys=True)
