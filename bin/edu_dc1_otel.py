@@ -65,6 +65,9 @@ class RunTelemetry:
             interval = self._settings.get("observability", "interval", fallback="").strip()
             if interval:
                 self._span.set_attribute("interval", int(interval))
+            environment = self._settings.get("observability", "environment", fallback="").strip()
+            if environment:
+                self._span.set_attribute("deployment.environment", environment)
         except Exception as exc:  # noqa: BLE001 — fail open
             sys.stderr.write(f"edu_dc1_otel: disabled ({exc})\n")
             self._active = False
@@ -117,7 +120,13 @@ class RunTelemetry:
         endpoint = self._settings.get(
             "observability", "otlp_endpoint", fallback="http://127.0.0.1:4317"
         )
-        resource = Resource.create({"service.name": service_name})
+        environment = self._settings.get("observability", "environment", fallback="").strip()
+
+        resource_attrs: dict[str, str] = {"service.name": service_name}
+        if environment:
+            resource_attrs["deployment.environment"] = environment
+
+        resource = Resource.create(resource_attrs)
 
         span_exporter = OTLPSpanExporter(endpoint=endpoint, insecure=True)
         self._tracer_provider = TracerProvider(resource=resource)

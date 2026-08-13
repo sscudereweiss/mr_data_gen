@@ -105,6 +105,7 @@ The scripted input can emit **APM traces and custom metrics** to a **local Splun
 [observability]
 enabled = true
 interval = 60
+environment = social-services
 ```
 
 ```bash
