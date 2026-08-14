@@ -27,24 +27,33 @@ def _get_bool(parser: configparser.ConfigParser, section: str, option: str, defa
 class RunTelemetry:
     """Context manager: one trace span and custom metrics per scripted-input run."""
 
-    def __init__(self, config_name: str, settings: configparser.ConfigParser) -> None:
+    def __init__(
+        self,
+        config_name: str,
+        settings: configparser.ConfigParser,
+        gen_name: Optional[str] = None,
+        count_label: str = "events",
+    ) -> None:
         self._config_name = config_name
         self._settings = settings
+        self._gen_name = gen_name or f"{config_name}_metrics_gen"
+        self._count_label = count_label
         self._enabled = _get_bool(settings, "observability", "enabled", False)
         self._active = False
         self._start = 0.0
-        self._host_count = 0
+        self._output_count = 0
         self._error: Optional[str] = None
         self._span: Any = None
         self._span_ctx: Any = None
         self._duration_hist: Any = None
-        self._hosts_counter: Any = None
+        self._output_counter: Any = None
         self._errors_counter: Any = None
         self._tracer_provider: Any = None
         self._meter_provider: Any = None
 
     def set_host_count(self, count: int) -> None:
-        self._host_count = count
+        """Record stdout line count (hosts, events, or metric documents)."""
+        self._output_count = count
 
     def set_error(self, message: str) -> None:
         self._error = message
@@ -58,11 +67,13 @@ class RunTelemetry:
             self._init_providers()
             self._active = True
             self._start = time.perf_counter()
-            span_name = f"{self._config_name}_metrics_gen.run"
-            tracer = self._tracer_provider.get_tracer(f"{self._config_name}_metrics_gen")
+            span_name = f"{self._gen_name}.run"
+            tracer = self._tracer_provider.get_tracer(self._gen_name)
             self._span_ctx = tracer.start_as_current_span(span_name)
             self._span = self._span_ctx.__enter__()
             self._span.set_attribute("demo_window_active", in_demo_window(self._settings))
+            self._span.set_attribute("gen_name", self._gen_name)
+            self._span.set_attribute("config_name", self._config_name)
             interval = self._settings.get("observability", "interval", fallback="").strip()
             if interval:
                 self._span.set_attribute("interval", int(interval))
@@ -70,7 +81,7 @@ class RunTelemetry:
             if environment:
                 self._span.set_attribute("deployment.environment", environment)
         except Exception as exc:  # noqa: BLE001 — fail open
-            sys.stderr.write(f"{self._config_name}_otel: disabled ({exc})\n")
+            sys.stderr.write(f"{self._gen_name}_otel: disabled ({exc})\n")
             self._active = False
         return self
 
@@ -86,15 +97,17 @@ class RunTelemetry:
             from opentelemetry.trace import Status, StatusCode
 
             if self._span is not None:
-                self._span.set_attribute("host_count", self._host_count)
+                self._span.set_attribute("output_count", self._output_count)
+                if self._count_label == "hosts":
+                    self._span.set_attribute("host_count", self._output_count)
                 if self._error:
                     self._span.set_attribute("error", self._error)
                     self._span.set_status(Status(StatusCode.ERROR, self._error))
 
             if self._duration_hist is not None:
                 self._duration_hist.record(duration_ms)
-            if self._hosts_counter is not None:
-                self._hosts_counter.add(self._host_count)
+            if self._output_counter is not None:
+                self._output_counter.add(self._output_count)
             if self._errors_counter is not None and self._error:
                 self._errors_counter.add(1)
 
@@ -103,8 +116,17 @@ class RunTelemetry:
 
             self._flush()
         except Exception as exc:  # noqa: BLE001 — fail open
-            sys.stderr.write(f"{self._config_name}_otel: export failed ({exc})\n")
+            sys.stderr.write(f"{self._gen_name}_otel: export failed ({exc})\n")
         return None
+
+    def _output_count_metric_name(self, metric_prefix: str) -> str:
+        if self._settings.has_option("observability", "output_count_metric"):
+            suffix = self._settings.get("observability", "output_count_metric").strip()
+        elif self._count_label == "hosts":
+            suffix = "hosts_emitted"
+        else:
+            suffix = "events_emitted"
+        return f"{metric_prefix}.run.{suffix}"
 
     def _init_providers(self) -> None:
         from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
@@ -144,15 +166,15 @@ class RunTelemetry:
         trace.set_tracer_provider(self._tracer_provider)
         metrics.set_meter_provider(self._meter_provider)
 
-        meter = metrics.get_meter(f"{self._config_name}_metrics_gen")
+        meter = metrics.get_meter(self._gen_name)
         self._duration_hist = meter.create_histogram(
             f"{metric_prefix}.run.duration_ms",
             unit="ms",
             description="Scripted input run duration",
         )
-        self._hosts_counter = meter.create_counter(
-            f"{metric_prefix}.run.hosts_emitted",
-            description="Hosts written to stdout per run",
+        self._output_counter = meter.create_counter(
+            self._output_count_metric_name(metric_prefix),
+            description="Stdout lines written per scripted-input run",
         )
         self._errors_counter = meter.create_counter(
             f"{metric_prefix}.run.errors",

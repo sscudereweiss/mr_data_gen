@@ -149,15 +149,16 @@ Scripted inputs can emit **APM traces and custom metrics** to a **local Splunk O
 
 | File | Purpose |
 |------|---------|
-| `bin/dc_otel.py` | Fail-open `RunTelemetry` span + metrics per run |
+| `bin/dc_otel.py` | Fail-open `RunTelemetry` span + metrics per run (all generators via `datagen_runner`) |
 | `requirements-otel.txt` | Pinned OpenTelemetry SDK packages |
 | `bin/install-otel-deps.sh` | Installs deps into `lib/` (gitignored) |
-| `default/<dc>_datagen.conf` `[observability]` | `enabled=false` by default |
+| `default/<name>_datagen.conf` `[observability]` | Shipped disabled; `environment=itsi_demo` preset |
+| `default/observability_enable.example` | Copy-paste template for `local/*_datagen.conf` |
 
-**Enable on an instance** (after collector is running):
+**Enable on an instance** (after collector is running; set `enabled = true` in `local/<config>_datagen.conf` for **each** scripted input you run):
 
 ```ini
-# local/edu_dc1_datagen.conf (repeat per DC with matching service_name)
+# local/edu_dc1_datagen.conf (repeat per generator — see default/observability_enable.example)
 [observability]
 enabled = true
 interval = 60

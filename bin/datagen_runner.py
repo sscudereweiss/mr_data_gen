@@ -27,7 +27,7 @@ def run(
     gen_name = gen_name or f"{config_name}_gen"
     count = 0
     exit_code = 0
-    with RunTelemetry(config_name, settings) as tel:
+    with RunTelemetry(config_name, settings, gen_name=gen_name, count_label=count_label) as tel:
         try:
             for line in iter_fn(config_name, settings=settings):
                 sys.stdout.write(line + "\n")
