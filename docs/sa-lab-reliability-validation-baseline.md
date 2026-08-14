@@ -225,3 +225,25 @@ Or after `sudo su - splunk` and `splunk login`:
 
 Dashboard URL (Classic XML, not Dashboard Studio listing):  
 `/app/mr_data_gen/search_performance_validation`
+
+## Remaining makeresults migration (2026-08-14, repo only — SA Lab deploy on hold)
+
+Implemented on branch `feature/sa-lab-savedsearches-throttle`. Local smoke tests passed; **not** pulled to SA Lab yet.
+
+| Generator | Scripted input | SPL disabled | Local smoke |
+|-----------|----------------|--------------|-------------|
+| Hi-ED MySQL | `hi_ed_mysql_errors_gen.py` | `hi_ed_mysql_error_generator` | `events=32` @ min 42 |
+| SLG MySQL | `slg_mysql_errors_gen.py` | `slg_mysql_error_generator` | `events=32` |
+| EDU Nagios | `edu_nagios_unstable_gen.py` | `EDU Nagios Unstable Alerts` | `events=5` |
+| SLG Nagios | `slg_nagios_unstable_gen.py` | `SLG Nagios Unstable Alerts` | `events=5` |
+| SLG RUM | `slg_rum_metrics_gen.py` | `SLG RUM Generator` | `events=1` |
+| SLG APM | `slg_apm_metrics_gen.py` | `SLG APM Generator` | `events=7` |
+
+Post-deploy validation SPL (run on SA Lab after pull + enable):
+
+```spl
+index=mysql host=EDU_DC_1_MySQL_* sourcetype=mysqld earliest=-15m | stats count by host
+index=nagios host=EDU_DC_MySQL_* sourcetype=nagios:core:serviceperf earliest=-15m | stats count by host
+| mstats sum(rum.page_view.count) WHERE index=sim_metrics sf_environment=license_renewal_rum earliest=-15m
+| mstats sum(service.request.count) WHERE index=sim_metrics sf_service=license_renewal earliest=-15m BY sf_streamLabel,sf_error
+```

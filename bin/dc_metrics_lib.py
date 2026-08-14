@@ -3,68 +3,20 @@
 from __future__ import annotations
 
 import configparser
-import csv
-import os
+import json
 from datetime import datetime
-from typing import Any, Dict, Iterable, List, Optional, Set
-from zoneinfo import ZoneInfo
+from typing import Any, Dict, Iterable, Optional, Set
 
-DAY_MAP = {
-    "mon": 0,
-    "tue": 1,
-    "wed": 2,
-    "thu": 3,
-    "fri": 4,
-    "sat": 5,
-    "sun": 6,
-}
-
-
-def spl_random() -> int:
-    """Match Splunk random() range used in edu_dc1_apply_metrics."""
-    import random
-
-    return random.randint(0, 2147483647)
-
-
-def get_app_dir() -> str:
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    repo_candidate = os.path.dirname(script_dir)
-    if os.path.isdir(os.path.join(repo_candidate, "lookups")):
-        return repo_candidate
-
-    splunk_home = os.environ.get("SPLUNK_HOME", "/opt/splunk")
-    return os.path.join(splunk_home, "etc", "apps", "mr_data_gen")
-
-
-def load_settings(
-    config_name: str,
-    app_dir: Optional[str] = None,
-) -> configparser.ConfigParser:
-    app_dir = app_dir or get_app_dir()
-    parser = configparser.ConfigParser()
-    for path in (
-        os.path.join(app_dir, "default", f"{config_name}_datagen.conf"),
-        os.path.join(app_dir, "local", f"{config_name}_datagen.conf"),
-    ):
-        if os.path.isfile(path):
-            parser.read(path)
-    return parser
-
-
-def _get_bool(parser: configparser.ConfigParser, section: str, option: str, default: bool) -> bool:
-    if not parser.has_option(section, option):
-        return default
-    return parser.get(section, option).strip().lower() in ("1", "true", "yes", "on")
-
-
-def _get_csv_set(parser: configparser.ConfigParser, section: str, option: str) -> Set[str]:
-    if not parser.has_option(section, option):
-        return set()
-    raw = parser.get(section, option).strip()
-    if not raw:
-        return set()
-    return {item.strip() for item in raw.split(",") if item.strip()}
+from datagen_common import (
+    get_app_dir,
+    get_bool,
+    get_csv_set,
+    in_demo_window,
+    load_csv_lookup,
+    load_settings,
+    now_in_tz,
+    spl_random,
+)
 
 
 def load_hosts(
@@ -72,35 +24,13 @@ def load_hosts(
     app_dir: Optional[str] = None,
     enabled_only: bool = True,
     host_filter: Optional[Set[str]] = None,
-) -> List[Dict[str, str]]:
-    app_dir = app_dir or get_app_dir()
-    lookup_path = os.path.join(app_dir, "lookups", lookup_name)
-    rows: List[Dict[str, str]] = []
-    with open(lookup_path, newline="", encoding="utf-8") as handle:
-        reader = csv.DictReader(handle)
-        for row in reader:
-            if enabled_only and row.get("enabled", "1") != "1":
-                continue
-            if host_filter and row.get("host") not in host_filter:
-                continue
-            rows.append(row)
-    return rows
-
-
-def in_demo_window(settings: configparser.ConfigParser, now: Optional[datetime] = None) -> bool:
-    if not _get_bool(settings, "settings", "demo_hours_only", True):
-        return True
-
-    tz_name = settings.get("settings", "demo_timezone", fallback="America/New_York")
-    now = now or datetime.now(ZoneInfo(tz_name))
-    start_hour = int(settings.get("settings", "demo_start_hour", fallback="8"))
-    end_hour = int(settings.get("settings", "demo_end_hour", fallback="18"))
-    if now.hour < start_hour or now.hour > end_hour:
-        return False
-
-    demo_days = settings.get("settings", "demo_days", fallback="mon,tue,wed,thu,fri")
-    allowed = {DAY_MAP[day.strip().lower()] for day in demo_days.split(",") if day.strip()}
-    return now.weekday() in allowed
+):
+    return load_csv_lookup(
+        lookup_name=lookup_name,
+        app_dir=app_dir,
+        enabled_only=enabled_only,
+        host_filter=host_filter,
+    )
 
 
 def build_dimensions(row: Dict[str, str], os_version: str) -> Dict[str, str]:
@@ -125,10 +55,9 @@ def apply_metrics(row: Dict[str, str], minute: int, metric_filter: Optional[Set[
     def add(name: str, value: Any) -> None:
         if value is None:
             return
-        metric_key = f"metric_name:{name}"
         if metric_filter and name not in metric_filter:
             return
-        metrics[metric_key] = value
+        metrics[f"metric_name:{name}"] = value
 
     if profile != "windows":
         if profile == "unstable" and minute > 39 and minute < 60:
@@ -225,12 +154,8 @@ def iter_host_lines(
     now: Optional[datetime] = None,
 ) -> Iterable[str]:
     """Yield indexing-optimized stdout lines for the scripted input."""
-    import json
-
     settings = settings or load_settings(config_name)
-    if now is None:
-        tz_name = settings.get("settings", "demo_timezone", fallback="America/New_York")
-        now = datetime.now(ZoneInfo(tz_name))
+    now = now_in_tz(settings, now)
 
     if not in_demo_window(settings, now):
         return
@@ -240,9 +165,9 @@ def iter_host_lines(
     os_version = settings.get("settings", "os_version", fallback="2.6.32-573.8.1.el6.x86_64")
     minute = int(now.strftime("%M"))
 
-    spike_enabled = _get_bool(settings, "spike", "enabled", False)
-    host_filter = _get_csv_set(settings, "spike", "hosts") if spike_enabled else set()
-    metric_filter = _get_csv_set(settings, "spike", "metrics") if spike_enabled else set()
+    spike_enabled = get_bool(settings, "spike", "enabled", False)
+    host_filter = get_csv_set(settings, "spike", "hosts") if spike_enabled else set()
+    metric_filter = get_csv_set(settings, "spike", "metrics") if spike_enabled else set()
 
     hosts = load_hosts(
         lookup_name=lookup_name,

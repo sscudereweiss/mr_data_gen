@@ -112,6 +112,30 @@ hosts = EDU_DC_1_Authorization_01
 metrics = cpu.idle,df.used
 ```
 
+## Scripted input datagen (MySQL, Nagios, RUM, APM)
+
+The six remaining `makeresults` generators are implemented as Python scripted inputs. Stanzas ship in `default/inputs.conf` (`disabled = 1`). Matching SPL searches are `disabled = 1` in `local/savedsearches.conf`.
+
+| Generator | Script | Index | Sourcetype |
+|-----------|--------|-------|------------|
+| Hi-ED MySQL errors | `bin/hi_ed_mysql_errors_gen.py` | `mysql` | `mysqld` |
+| SLG MySQL errors | `bin/slg_mysql_errors_gen.py` | `mysql` | `mysqld` |
+| EDU Nagios unstable | `bin/edu_nagios_unstable_gen.py` | `nagios` | `nagios:core:serviceperf` |
+| SLG Nagios unstable | `bin/slg_nagios_unstable_gen.py` | `nagios` | `nagios:core:serviceperf` |
+| SLG RUM | `bin/slg_rum_metrics_gen.py` | `sim_metrics` | `mr_datagen:rum_metrics` |
+| SLG APM | `bin/slg_apm_metrics_gen.py` | `sim_metrics` | `mr_datagen:apm_metrics` |
+
+Shared libraries: `bin/datagen_common.py`, `bin/datagen_runner.py`, `bin/raw_event_lib.py`, `bin/sim_metrics_lib.py`. Per-generator settings in `default/<name>_datagen.conf`.
+
+Local smoke test (during demo hours Mon–Fri 08:00–18:00 ET):
+
+```bash
+python3 bin/hi_ed_mysql_errors_gen.py 2>&1 | tail -1    # expect events=32 at minute 42
+python3 bin/slg_apm_metrics_gen.py 2>&1 | tail -1         # expect events=7
+```
+
+**SA Lab deploy is on hold** until approved — see [docs/incremental-makeresults-migration-plan.md](docs/incremental-makeresults-migration-plan.md).
+
 Validate with `mstats`:
 
 ```spl

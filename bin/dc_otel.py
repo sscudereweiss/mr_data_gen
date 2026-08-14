@@ -8,7 +8,7 @@ import sys
 import time
 from typing import Any, Optional
 
-from dc_metrics_lib import in_demo_window
+from datagen_common import in_demo_window
 
 
 def _bootstrap_lib_path() -> None:

@@ -2,19 +2,29 @@
 
 Saved plan (2026-08-14). Execute one phase at a time with validation and signoff between each. Migration order: **MySQL → Nagios → SLG RUM → SLG APM**.
 
-**Status:** Not started (Phase 0 pending)
+**Status:** Complete in repo (local smoke tests passed; **SA Lab deploy on hold**)
+
+### Deployment policy (2026-08-14)
+
+**Do not** `git pull`, reload, or restart scripted inputs on SA Lab until explicitly approved.
+
+| Step | Where | When |
+| --- | --- | --- |
+| Implement + local smoke test | Dev workstation / repo | Done |
+| Commit + push | GitHub (`feature/sa-lab-savedsearches-throttle`) | Done |
+| Pull + reload + MCP validation | SA Lab | **Hold** — user or ops triggers later |
 
 | Phase | ID | Status |
 |-------|-----|--------|
-| 0 | Extract `datagen_common.py` + `datagen_runner.py` | pending |
-| 1 | `hi_ed_mysql_error_generator` | pending |
-| 2 | `slg_mysql_error_generator` | pending |
-| 3 | `EDU Nagios Unstable Alerts` | pending |
-| 4 | `SLG Nagios Unstable Alerts` | pending |
-| 5 | `SLG RUM Generator` | pending |
-| 6 | `SLG APM Generator` | pending |
+| 0 | Extract `datagen_common.py` + `datagen_runner.py` | complete |
+| 1 | `hi_ed_mysql_error_generator` | complete (repo) |
+| 2 | `slg_mysql_error_generator` | complete (repo) |
+| 3 | `EDU Nagios Unstable Alerts` | complete (repo) |
+| 4 | `SLG Nagios Unstable Alerts` | complete (repo) |
+| 5 | `SLG RUM Generator` | complete (repo) |
+| 6 | `SLG APM Generator` | complete (repo) |
 
-To resume: tell the agent to execute this plan starting at Phase 0 (or the first pending phase).
+To deploy on SA Lab when approved: pull branch, enable each scripted input in `local/inputs.conf`, run `bin/reload-mr-data-gen-conf.sh`, restart scripts one at a time, then run MCP validation SPL from the phase checklist below.
 
 ---
 
@@ -137,7 +147,7 @@ Config files: `default/slg_rum_datagen.conf`, `default/slg_apm_datagen.conf`.
 
 ## Per-phase workflow (repeat for each generator)
 
-Each phase is a **separate commit + deploy + validation gate**. Do not start phase N+1 until phase N passes.
+Each phase is a **separate commit + local validation gate**. SA Lab deploy is deferred (see deployment policy above).
 
 ```mermaid
 sequenceDiagram
@@ -146,23 +156,29 @@ sequenceDiagram
   participant Lab as SA_Lab
   participant User as User_signoff
 
-  Dev->>Git: commit phase N
-  Git->>Lab: git pull
-  Lab->>Lab: reload conf + restart scripted input
-  Lab->>Lab: MCP validation SPL
+  Dev->>Dev: implement phase N + local smoke test
+  Dev->>Git: commit + push phase N
+  Note over Lab: deploy on hold until approved
+  User->>Lab: later git pull + reload + MCP
   Lab->>User: present pass/fail checklist
   User->>Dev: approve next phase
 ```
 
-### Deploy steps (each phase)
+### Local build steps (each phase — now)
 
-1. `git push` → `ssh SA-SPLUNK-LAB` → `sudo -u splunk git pull` (stash/restore [`local/inputs.conf`](../local/inputs.conf) HEC tokens if needed)
-2. `bin/reload-mr-data-gen-conf.sh` (HTTP 200 on inputs/props/transforms/savedsearches)
-3. `splunk _internal call /services/data/inputs/script/restart` for the **one** new script
-4. Set `[Saved Search] disabled = 1` in [`local/savedsearches.conf`](../local/savedsearches.conf) for that generator only
-5. Re-run savedsearches reload
+1. Add scripted input, conf, props/transforms, and `[Saved Search] disabled = 1` in repo
+2. Smoke test: `python3 bin/<script>_gen.py | head` (expect `_MetaData:Host::` or JSON lines)
+3. `git commit` + `git push` to GitHub
 
-**Never** run SPL and scripted input for the same generator simultaneously.
+### SA Lab deploy steps (hold until approved)
+
+1. `git pull` on SA Lab (stash/restore [`local/inputs.conf`](../local/inputs.conf) HEC tokens if needed)
+2. Enable new scripted input in `local/inputs.conf` (`disabled = 0`, set interval)
+3. `bin/reload-mr-data-gen-conf.sh` (HTTP 200 on inputs/props/transforms/savedsearches)
+4. `splunk _internal call /services/data/inputs/script/restart` for the **one** new script
+5. Confirm SPL search remains `disabled = 1` for that generator
+
+**Never** run SPL and scripted input for the same generator simultaneously on SA Lab.
 
 ### Validation checklist (each phase)
 
