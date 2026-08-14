@@ -155,16 +155,44 @@ Python scripted input can export traces/metrics to a **local Splunk OTel Collect
 4. Enable instrumentation:
 
    ```ini
-   # local/edu_dc1_datagen.conf
+   # local/observability_common.conf
+   [observability]
+   environment = itsi_demo
+   log_correlation = true
+   host_name =                    # set on deploy — see Infra checklist below
+
+   # local/edu_dc1_datagen.conf (repeat per generator)
    [observability]
    enabled = true
    interval = 60
-   environment = itsi_demo
    ```
 
 5. `./bin/install-otel-deps.sh` then restart the scripted input.
 
 Validate in Observability Cloud: service `mr_data_gen_edu_dc1`, span `edu_dc1_metrics_gen.run`, metrics `edu_dc1.run.*`. Confirm `mstats` datagen still passes above.
+
+**Infra ↔ APM host linking checklist** (host ops — no collector edits in this repo):
+
+1. On SA Lab, run `hostname -f` (or whatever the Splunk OTel Collector reports as `host.name` in Infrastructure).
+2. Set that exact value in `local/observability_common.conf` → `host_name`.
+3. Confirm the collector uses the same `deployment.environment` (`itsi_demo` / `SPLUNK_DEPLOYMENT_ENVIRONMENT` or equivalent).
+4. After deploy: in Observability APM, open a generator trace → **Related Content / Infrastructure** should show Splunk host CPU/memory for the same `host.name`.
+5. If Infra still does not link: verify the collector is running on the Splunk host and reporting infra metrics (not only receiving OTLP from Python).
+
+**Splunk core log correlation** (generator stderr → `_internal`):
+
+Structured stderr (when `log_correlation=true`):
+
+```
+edu_dc1_metrics_gen: hosts=16 run_id=<uuid> trace_id=<hex> skip_reason=none expected=16 service=mr_data_gen_edu_dc1
+```
+
+```spl
+index=_internal source=*splunkd* "edu_dc1_metrics_gen:" run_id=<uuid>
+index=_internal source=*splunkd* trace_id=<from APM span>
+```
+
+Troubleshooting metrics: `{prefix}.run.runs_total`, `.runs_skipped`, `.output_delta`, span attributes `skip_reason` / `expected_output_count` / `output_count`.
 
 ## Deploy command
 

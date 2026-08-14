@@ -150,19 +150,46 @@ Scripted inputs can emit **APM traces and custom metrics** to a **local Splunk O
 | File | Purpose |
 |------|---------|
 | `bin/dc_otel.py` | Fail-open `RunTelemetry` span + metrics per run (all generators via `datagen_runner`) |
+| `bin/datagen_common.py` | Shared run context: skip reason, expected output count, host name resolution |
 | `requirements-otel.txt` | Pinned OpenTelemetry SDK packages |
 | `bin/install-otel-deps.sh` | Installs deps into `lib/` (gitignored) |
+| `local/observability_common.conf` | Shared `host_name`, `environment`, `log_correlation` for all generators |
 | `default/<name>_datagen.conf` `[observability]` | Shipped disabled; `environment=itsi_demo` preset |
 | `default/observability_enable.example` | Copy-paste template for `local/*_datagen.conf` |
 
 **Enable on an instance** (after collector is running; set `enabled = true` in `local/<config>_datagen.conf` for **each** scripted input you run):
 
 ```ini
+# local/observability_common.conf — set host_name to match collector infra identity on deploy
+[observability]
+environment = itsi_demo
+log_correlation = true
+host_name =
+
 # local/edu_dc1_datagen.conf (repeat per generator — see default/observability_enable.example)
 [observability]
 enabled = true
 interval = 60
-environment = itsi_demo
+```
+
+**Troubleshooting telemetry** (every run, when OTel enabled):
+
+| Signal | Name / attribute |
+|--------|------------------|
+| Span | `<gen_name>.run` with `skip_reason`, `expected_output_count`, `output_count`, `output_delta`, `run_id` |
+| Child spans | `prepare`, `generate`, `finalize` |
+| Metrics | `{prefix}.run.runs_total`, `.runs_skipped`, `.duration_ms`, `.events_emitted` / `.hosts_emitted`, `.output_delta`, `.errors` |
+| Resource | `host.name`, `deployment.environment`, `service.namespace=mr_data_gen` (Infra ↔ APM linking) |
+
+**Stderr correlation** (indexed in Splunk `_internal` via splunkd; default on via `log_correlation=true`):
+
+```
+edu_dc1_metrics_gen: hosts=16 run_id=<uuid> trace_id=<hex|-> skip_reason=none expected=16 service=mr_data_gen_edu_dc1
+```
+
+```spl
+index=_internal source=*splunkd* "hi_ed_mysql_errors_gen:" run_id=<uuid>
+index=_internal source=*splunkd* trace_id=<from APM span>
 ```
 
 ```bash
@@ -171,7 +198,7 @@ splunk _internal call /services/data/inputs/script/restart -method POST \
   -post:script '$SPLUNK_HOME/etc/apps/mr_data_gen/bin/edu_dc1_metrics_gen.py'
 ```
 
-Collector setup (host ops, not in this repo): install [Splunk OTel Collector](https://github.com/signalfx/splunk-otel-collector), bind OTLP gRPC to `127.0.0.1:4317`, and place `SPLUNK_ACCESS_TOKEN` + `SPLUNK_REALM` in a host-only env file (mode `600`). On SA Lab the collector uses `/etc/otel/collector/splunk-otel-collector.conf`. See `docs/sa-lab-reliability-validation-baseline.md`.
+Collector setup (host ops, not in this repo): install [Splunk OTel Collector](https://github.com/signalfx/splunk-otel-collector), bind OTLP gRPC to `127.0.0.1:4317`, and place `SPLUNK_ACCESS_TOKEN` + `SPLUNK_REALM` in a host-only env file (mode `600`). On SA Lab the collector uses `/etc/otel/collector/splunk-otel-collector.conf`. Set `local/observability_common.conf` → `host_name` to the same value the collector reports for Infra. See `docs/sa-lab-reliability-validation-baseline.md`.
 
 ## Dashboards
 

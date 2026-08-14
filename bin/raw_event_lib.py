@@ -11,12 +11,9 @@ from datagen_common import (
     in_demo_window,
     in_minute_window,
     load_settings,
+    mysql_logcount,
     now_in_tz,
 )
-
-
-def mysql_logcount(minute: int) -> int:
-    return round(minute * 2 / 10)
 
 
 def build_mysql_logline(now: datetime) -> str:

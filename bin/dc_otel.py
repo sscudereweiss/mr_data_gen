@@ -6,9 +6,10 @@ import configparser
 import os
 import sys
 import time
-from typing import Any, Optional
+from contextlib import contextmanager
+from typing import Any, Iterator, Optional
 
-from datagen_common import in_demo_window
+from datagen_common import RunContext, in_demo_window, resolve_host_name
 
 
 def _bootstrap_lib_path() -> None:
@@ -33,11 +34,13 @@ class RunTelemetry:
         settings: configparser.ConfigParser,
         gen_name: Optional[str] = None,
         count_label: str = "events",
+        run_context: Optional[RunContext] = None,
     ) -> None:
         self._config_name = config_name
         self._settings = settings
         self._gen_name = gen_name or f"{config_name}_metrics_gen"
         self._count_label = count_label
+        self._run_context = run_context
         self._enabled = _get_bool(settings, "observability", "enabled", False)
         self._active = False
         self._start = 0.0
@@ -45,8 +48,12 @@ class RunTelemetry:
         self._error: Optional[str] = None
         self._span: Any = None
         self._span_ctx: Any = None
+        self._tracer: Any = None
         self._duration_hist: Any = None
         self._output_counter: Any = None
+        self._runs_total_counter: Any = None
+        self._runs_skipped_counter: Any = None
+        self._output_delta_hist: Any = None
         self._errors_counter: Any = None
         self._tracer_provider: Any = None
         self._meter_provider: Any = None
@@ -54,9 +61,42 @@ class RunTelemetry:
     def set_host_count(self, count: int) -> None:
         """Record stdout line count (hosts, events, or metric documents)."""
         self._output_count = count
+        if self._span is not None:
+            self._apply_output_attributes()
 
     def set_error(self, message: str) -> None:
         self._error = message
+
+    def get_trace_id(self) -> Optional[str]:
+        if self._span is None:
+            return None
+        try:
+            from opentelemetry.trace import format_trace_id
+
+            ctx = self._span.get_span_context()
+            if ctx is None or not ctx.is_valid:
+                return None
+            return format_trace_id(ctx.trace_id)
+        except Exception:  # noqa: BLE001 — fail open
+            return None
+
+    @contextmanager
+    def child_span(self, name: str) -> Iterator[None]:
+        if not self._active or self._tracer is None:
+            yield
+            return
+        with self._tracer.start_as_current_span(f"{self._gen_name}.{name}"):
+            yield
+
+    def _apply_output_attributes(self) -> None:
+        if self._span is None:
+            return
+        expected = self._run_context.expected_output_count if self._run_context else 0
+        self._span.set_attribute("output_count", self._output_count)
+        self._span.set_attribute("expected_output_count", expected)
+        self._span.set_attribute("output_delta", self._output_count - expected)
+        if self._count_label == "hosts":
+            self._span.set_attribute("host_count", self._output_count)
 
     def __enter__(self) -> RunTelemetry:
         if not self._enabled:
@@ -68,12 +108,31 @@ class RunTelemetry:
             self._active = True
             self._start = time.perf_counter()
             span_name = f"{self._gen_name}.run"
-            tracer = self._tracer_provider.get_tracer(self._gen_name)
-            self._span_ctx = tracer.start_as_current_span(span_name)
+            self._tracer = self._tracer_provider.get_tracer(self._gen_name)
+            self._span_ctx = self._tracer.start_as_current_span(span_name)
             self._span = self._span_ctx.__enter__()
-            self._span.set_attribute("demo_window_active", in_demo_window(self._settings))
+
+            ctx = self._run_context
+            skip_reason = ctx.skip_reason if ctx else "none"
+            self._span.set_attribute("skip_reason", skip_reason)
+            self._span.set_attribute("demo_window_active", ctx.demo_window_active if ctx else in_demo_window(self._settings))
+            self._span.set_attribute(
+                "minute_window_active", ctx.minute_window_active if ctx else True
+            )
             self._span.set_attribute("gen_name", self._gen_name)
             self._span.set_attribute("config_name", self._config_name)
+            if ctx is not None:
+                self._span.set_attribute("run_id", ctx.run_id)
+                self._span.set_attribute("minute_of_run", int(ctx.now.strftime("%M")))
+                self._span.set_attribute("expected_output_count", ctx.expected_output_count)
+
+            target_index = self._settings.get("settings", "index", fallback="").strip()
+            if target_index:
+                self._span.set_attribute("target_index", target_index)
+            target_sourcetype = self._settings.get("settings", "sourcetype", fallback="").strip()
+            if target_sourcetype:
+                self._span.set_attribute("target_sourcetype", target_sourcetype)
+
             interval = self._settings.get("observability", "interval", fallback="").strip()
             if interval:
                 self._span.set_attribute("interval", int(interval))
@@ -96,18 +155,23 @@ class RunTelemetry:
         try:
             from opentelemetry.trace import Status, StatusCode
 
+            self._apply_output_attributes()
             if self._span is not None:
-                self._span.set_attribute("output_count", self._output_count)
-                if self._count_label == "hosts":
-                    self._span.set_attribute("host_count", self._output_count)
                 if self._error:
                     self._span.set_attribute("error", self._error)
                     self._span.set_status(Status(StatusCode.ERROR, self._error))
 
             if self._duration_hist is not None:
                 self._duration_hist.record(duration_ms)
+            if self._runs_total_counter is not None:
+                self._runs_total_counter.add(1)
+            if self._runs_skipped_counter is not None and self._run_context and self._run_context.skip_reason != "none":
+                self._runs_skipped_counter.add(1)
             if self._output_counter is not None:
                 self._output_counter.add(self._output_count)
+            if self._output_delta_hist is not None:
+                expected = self._run_context.expected_output_count if self._run_context else 0
+                self._output_delta_hist.record(self._output_count - expected)
             if self._errors_counter is not None and self._error:
                 self._errors_counter.add(1)
 
@@ -147,7 +211,11 @@ class RunTelemetry:
             "observability", "metric_prefix", fallback=self._config_name
         )
 
-        resource_attrs: dict[str, str] = {"service.name": service_name}
+        resource_attrs: dict[str, str] = {
+            "service.name": service_name,
+            "service.namespace": "mr_data_gen",
+            "host.name": resolve_host_name(self._settings),
+        }
         if environment:
             resource_attrs["deployment.environment"] = environment
 
@@ -172,9 +240,21 @@ class RunTelemetry:
             unit="ms",
             description="Scripted input run duration",
         )
+        self._runs_total_counter = meter.create_counter(
+            f"{metric_prefix}.run.runs_total",
+            description="Scripted input executions",
+        )
+        self._runs_skipped_counter = meter.create_counter(
+            f"{metric_prefix}.run.runs_skipped",
+            description="Runs skipped by demo or minute gate",
+        )
         self._output_counter = meter.create_counter(
             self._output_count_metric_name(metric_prefix),
             description="Stdout lines written per scripted-input run",
+        )
+        self._output_delta_hist = meter.create_histogram(
+            f"{metric_prefix}.run.output_delta",
+            description="Actual minus expected stdout line count",
         )
         self._errors_counter = meter.create_counter(
             f"{metric_prefix}.run.errors",

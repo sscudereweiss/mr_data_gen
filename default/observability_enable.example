@@ -2,18 +2,23 @@
 # Requires local OTel Collector on 127.0.0.1:4317 and bin/install-otel-deps.sh on the host.
 # SA Lab deploy on hold — do not pull/reload until approved.
 
+# --- Shared settings (local/observability_common.conf) ---
+# [observability]
+# environment = itsi_demo
+# log_correlation = true
+# host_name =                    # set on deploy: hostname -f on SA Lab (must match collector Infra)
+
 # --- DC metrics (repeat per DC; service_name / metric_prefix match default/*_datagen.conf) ---
+# local/edu_dc1_datagen.conf
 # [observability]
 # enabled = true
 # interval = 60
-# environment = itsi_demo
 
 # --- MySQL / Nagios / RUM / APM (one block per generator) ---
 # local/hi_ed_mysql_datagen.conf
 # [observability]
 # enabled = true
 # interval = 300
-# environment = itsi_demo
 
 # Expected APM service names when enabled:
 #   mr_data_gen_edu_dc1, mr_data_gen_edu_dc2, mr_data_gen_slg_dc1, mr_data_gen_slg_dc2
@@ -22,6 +27,26 @@
 #   mr_data_gen_slg_rum, mr_data_gen_slg_apm
 #
 # Expected span names (examples):
-#   edu_dc1_metrics_gen.run, hi_ed_mysql_errors_gen.run, slg_apm_metrics_gen.run
+#   edu_dc1_metrics_gen.run (child spans: prepare, generate, finalize)
+#   hi_ed_mysql_errors_gen.run, slg_apm_metrics_gen.run
 #
-# Custom metrics: <metric_prefix>.run.duration_ms, .run.events_emitted (or .hosts_emitted for DC), .run.errors
+# Span attributes: skip_reason, expected_output_count, output_count, output_delta,
+#   run_id, minute_of_run, demo_window_active, minute_window_active, target_index, target_sourcetype
+#
+# Custom metrics (metric_prefix from default conf):
+#   <prefix>.run.runs_total          — every execution
+#   <prefix>.run.runs_skipped        — when skip_reason != none
+#   <prefix>.run.duration_ms         — histogram
+#   <prefix>.run.events_emitted      — or .hosts_emitted for DC
+#   <prefix>.run.output_delta        — actual minus expected stdout lines
+#   <prefix>.run.errors              — failures
+#
+# Stderr (splunkd → index=_internal when log_correlation=true):
+#   {gen_name}: {count_label}={n} run_id={uuid} trace_id={hex|-} skip_reason={reason} expected={n} service={name}
+#
+# Splunk core correlation SPL:
+#   index=_internal source=*splunkd* "hi_ed_mysql_errors_gen:" run_id=<uuid>
+#   index=_internal source=*splunkd* trace_id=<from APM span>
+#
+# Infra ↔ APM: set host_name in local/observability_common.conf to match collector infra host.name.
+# See docs/sa-lab-reliability-validation-baseline.md for deploy checklist.

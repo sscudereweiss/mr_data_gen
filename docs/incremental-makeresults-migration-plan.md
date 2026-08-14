@@ -262,7 +262,9 @@ service_name = mr_data_gen_hi_ed_mysql
 metric_prefix = hi_ed_mysql
 ```
 
-SA Lab overrides in `local/<name>_datagen.conf` (observability, interval) without touching tokens in git.
+SA Lab overrides in `local/<name>_datagen.conf` (observability, interval) and shared `local/observability_common.conf` (`host_name`, `log_correlation`) without touching tokens in git.
+
+**OTel troubleshooting phase (repo-only, 2026-08-14):** skip reasons, expected vs actual output, `runs_total` / `runs_skipped` / `output_delta` metrics, structured stderr with `run_id` + `trace_id` for `_internal` correlation, and `host.name` on OTel resources for Infra ↔ APM linking. Not deployed to SA Lab until approved.
 
 ---
 
